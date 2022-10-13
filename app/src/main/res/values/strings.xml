@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">whatch-moovium</string>
+    <string name="headline_surprise">Lass Dich überraschen!</string>
+    <string name="questionmark">?</string>
 </resources>
