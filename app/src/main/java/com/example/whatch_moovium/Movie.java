@@ -2,7 +2,7 @@ package com.example.whatch_moovium;
 
 public class Movie {
 
-    public Movie(String title, String description, int rating, String genre, int img, String streaming) {
+    public Movie(String title, String description, int rating, String genre, String img, String streaming) {
         this.title = title;
         this.description = description;
         this.rating = rating;
@@ -17,7 +17,7 @@ public class Movie {
     int rating;
     String genre;
     //ENUM?
-    int img;
+    String img;
     String streaming;
     //ENUM?
 
@@ -54,11 +54,11 @@ public class Movie {
         this.genre = genre;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
