@@ -8,8 +8,8 @@
     android:background="@color/black">
 
     <TextView
+        android:id="@+id/headlineSurprise"
         style="@style/HeadlineStyle"
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/headline_surprise"

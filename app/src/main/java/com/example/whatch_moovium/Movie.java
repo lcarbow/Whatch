@@ -2,23 +2,24 @@ package com.example.whatch_moovium;
 
 public class Movie {
 
-    public Movie(String title) {
+    public Movie(String title, String description, int rating, String genre, int img, String streaming) {
         this.title = title;
+        this.description = description;
+        this.rating = rating;
+        this.genre = genre;
+        this.img = img;
+        this.streaming = streaming;
     }
 
-
-
     String title;
-    /*
+
     String description;
-    float rating;
+    int rating;
     String genre;
     //ENUM?
     int img;
     String streaming;
     //ENUM?
-
-     */
 
 
     public String getTitle() {
@@ -27,5 +28,45 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
+
+    public String getStreaming() {
+        return streaming;
+    }
+
+    public void setStreaming(String streaming) {
+        this.streaming = streaming;
     }
 }
