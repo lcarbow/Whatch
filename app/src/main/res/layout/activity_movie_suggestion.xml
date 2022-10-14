@@ -8,53 +8,99 @@
     android:background="@color/black">
 
 
-    <TextView
-        style="@style/HeadlineStyle"
-        android:id="@+id/movieTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filmtitel"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/movieDesc"
-        style="@style/textStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        style="@style/textStyle"
-        android:id="@+id/movieGenre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieDesc" />
+            <ImageView
+                android:id="@+id/movieImg"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                app:srcCompat="@drawable/hangover" />
 
-    <TextView
-        style="@style/textStyle"
-        android:id="@+id/movieRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieGenre" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-    <TextView
-        style="@style/textStyle"
-        android:id="@+id/movieStreaming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieRating" />
+                <Button
+                    android:id="@+id/button_share"
+                    android:background="@drawable/share_fill0_wght400_grad0_opsz48_1_"
+                    app:backgroundTint="@null"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:scaleY="0.5"
+                    android:scaleX="0.5"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <Button
+                    android:id="@+id/button_add"
+                    android:background="@drawable/add_fill0_wght400_grad0_opsz48_1_"
+                    app:backgroundTint="@null"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:scaleY="0.5"
+                    android:scaleX="0.5"
+                    android:layout_weight="1"
+                    android:text="" />
+
+                <Button
+                    android:id="@+id/button_seen"
+                    android:background="@drawable/done_fill0_wght400_grad0_opsz48_1_"
+                    app:backgroundTint="@null"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
+                    android:scaleY="0.5"
+                    android:scaleX="0.5"
+                    android:layout_weight="1"
+                    android:text="" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/movieDesc"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:overScrollMode="ifContentScrolls"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/movieGenre"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/movieRating"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/movieStreaming"
+                style="@style/textStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:text="TextView"
+                android:paddingBottom="20dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
