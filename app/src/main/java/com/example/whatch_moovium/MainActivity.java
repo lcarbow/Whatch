@@ -14,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this,LandingPage_Surprise.class);
         //shared Prefs @Lasse
         startActivity(i);
+        //
     }
 }
