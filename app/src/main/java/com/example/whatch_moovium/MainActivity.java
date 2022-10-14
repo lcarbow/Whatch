@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent i = new Intent(MainActivity.this,LandingPage_Surprise.class);
-        //shared Prefs @Lasse
+        //TODO Lasse shared Prefs
         startActivity(i);
         //
     }
