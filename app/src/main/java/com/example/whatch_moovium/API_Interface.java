@@ -1,12 +1,15 @@
 package com.example.whatch_moovium;
 
+import android.content.Context;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +21,12 @@ import java.util.List;
 
 public class API_Interface {
 
+    public API_Interface(Context context) {
+        mQueue = Volley.newRequestQueue(context);
+    }
+
     private RequestQueue mQueue;
+
 
     //api key
     private String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
@@ -29,7 +37,7 @@ public class API_Interface {
     }
 
     //einen zufälligen film zurückgeben, ausgesucht aus den trending filmen des tages
-    public void getRandom() {
+    public void getRandom(TextView testOutput, Toast toast) {
 
         String url = "https://api.themoviedb.org/3/trending/movie/day?api_key=" + apiKey;
         List<Movie> movieList = new ArrayList<>();
@@ -43,11 +51,13 @@ public class API_Interface {
                             //get array of movies from response
                             JSONArray results = trendingList.getJSONArray("results");
 
+                            testOutput.setText("");
                             //make movie array
                             for (int i = 0; i < results.length(); i++) {
                                 JSONObject jsonMovie = results.getJSONObject(i);
                                 //Movie movie = new Movie(jsonMovie.getString("title"));
 
+                                testOutput.append(jsonMovie.getString("title") + "\n");
                             }
 
                         } catch (JSONException e) {
