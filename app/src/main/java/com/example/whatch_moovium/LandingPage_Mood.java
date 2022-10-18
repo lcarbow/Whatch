@@ -10,17 +10,17 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity {
+public class LandingPage_Mood extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_landing_page_mood);
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
-        bottomNavigationView.setSelectedItemId(R.id.surprise);
+        bottomNavigationView.setSelectedItemId(R.id.mood);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
                         return true;
                     case R.id.genres:
                         startActivity(new Intent(getApplicationContext(),LandingPage_Genres.class));
@@ -43,11 +41,5 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-        Intent i = new Intent(MainActivity.this,LandingPage_Surprise.class);
-        //TODO Lasse shared Prefs
-        startActivity(i);
-        //
     }
 }
