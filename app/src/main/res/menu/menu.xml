@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mood"
+        android:title="@string/no_text"
+        android:icon="@drawable/ic_mood" />
+    <item
+        android:id="@+id/surprise"
+        android:title="@string/no_text"
+        android:icon="@drawable/ic_surprise" />
+    <item
+        android:id="@+id/genres"
+        android:title="@string/no_text"
+        android:icon="@drawable/ic_genres" />
+</menu>

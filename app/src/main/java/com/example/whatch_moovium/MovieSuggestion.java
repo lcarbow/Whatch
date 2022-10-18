@@ -1,15 +1,20 @@
 package com.example.whatch_moovium;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +22,7 @@ import java.util.List;
 
 public class MovieSuggestion extends AppCompatActivity {
 
-
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +109,31 @@ public class MovieSuggestion extends AppCompatActivity {
             }
         });
 
+//Bottom Nav
+        bottomNavigationView = findViewById(R.id.bottom_navigator);
+        bottomNavigationView.setSelectedItemId(R.id.surprise);
 
-
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.surprise:
+                        startActivity(new Intent(getApplicationContext(),LandingPage_Surprise.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.mood:
+                        startActivity(new Intent(getApplicationContext(),LandingPage_Mood.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.genres:
+                        startActivity(new Intent(getApplicationContext(),LandingPage_Genres.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
     }
 }
