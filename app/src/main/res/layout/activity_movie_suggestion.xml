@@ -97,7 +97,7 @@
                 android:layout_marginTop="20dp"
 
                 android:text="TextView"
-                android:paddingBottom="20dp"/>
+                android:paddingBottom="80dp"/>
 
         </LinearLayout>
     </ScrollView>
