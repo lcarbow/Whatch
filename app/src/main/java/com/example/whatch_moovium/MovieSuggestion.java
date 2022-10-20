@@ -29,6 +29,8 @@ public class MovieSuggestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_suggestion);
 
+        DatabaseHandler databaseHandler = new DatabaseHandler(this);
+
         TextView descriptionView = findViewById(R.id.movieDesc);
         TextView genreView = findViewById(R.id.movieGenre);
         TextView ratingView = findViewById(R.id.movieRating);
@@ -48,7 +50,8 @@ public class MovieSuggestion extends AppCompatActivity {
             83,
             "Komödie",
             "hangover",
-            "Netflix"
+            "Netflix",
+                2222222
         );
 
         Movie godzilla = new Movie(
@@ -57,7 +60,8 @@ public class MovieSuggestion extends AppCompatActivity {
                 63,
                 "Drama",
                 "godzilla",
-                "Netflix"
+                "Netflix",
+                11111111
         );
 
         movieList.add(hangover);
@@ -81,6 +85,7 @@ public class MovieSuggestion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO Lasse Database
+                databaseHandler.addWatchlistMovie(movieList.get(0).getId());
                 Toast.makeText(MovieSuggestion.this,
                         "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
             }
@@ -90,6 +95,7 @@ public class MovieSuggestion extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO Lasse Database
+                databaseHandler.addSeenlistMovie(movieList.get(0).getId());
                 Toast.makeText(MovieSuggestion.this,
                         "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
             }

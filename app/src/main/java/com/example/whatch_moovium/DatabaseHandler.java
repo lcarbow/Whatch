@@ -1,5 +1,6 @@
 package com.example.whatch_moovium;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -33,6 +34,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_SEENLIST_NAME+" ( "+COLUMN_SEENLIST_ID+" INTEGER PRIMARY KEY)");
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_PROVIDER_NAME+" ( "+COLUMN_PROVIDER+" TEXT)");
     }
+
+
+    public void addWatchlistMovie(int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_WATCHLIST_ID, ID);
+
+        db.insert(TABLE_WATCHLIST_NAME, null, values);
+
+        db.close();
+    }
+    public void addSeenlistMovie(int ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_SEENLIST_ID, ID);
+
+        db.insert(TABLE_SEENLIST_NAME, null, values);
+
+        db.close();
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
