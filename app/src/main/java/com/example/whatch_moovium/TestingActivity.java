@@ -2,12 +2,15 @@ package com.example.whatch_moovium;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TestingActivity extends AppCompatActivity {
+import java.util.List;
+
+public class TestingActivity extends AppCompatActivity implements API_Interface.apiInterfaceCallback {
 
     private TextView testOutput;
     private TextView testOutputProviders;
@@ -32,8 +35,17 @@ public class TestingActivity extends AppCompatActivity {
         //toast.show();
 
         API_Interface myAPI_Interface = new API_Interface(this);
+        myAPI_Interface.setCallback(this);
 
         myAPI_Interface.getRandom(testOutput, testOutputProviders, testOutputFiltered);
 
+    }
+
+    @Override
+    public void displayMovie(List<Movie> filteredMovieList) {
+        testOutputFiltered.setText("");
+        for (Movie movie : filteredMovieList) {
+            testOutputFiltered.append(movie.getTitle() + "\n");
+        }
     }
 }
