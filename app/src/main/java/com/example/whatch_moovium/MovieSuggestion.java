@@ -81,7 +81,7 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
         titleView.setText(movieList.get(0).getTitle());
         descriptionView.setText(movieList.get(0).getDescription());
         genreView.setText(movieList.get(0).getGenre());
-        ratingView.setText(String.format("%.1f", (movieList.get(0).getRating()*10)) + "% Benutzerwertung");
+        ratingView.setText(String.format("%.1f", (movieList.get(0).getRating()*10)) + "% Benutzerbewertung");
         streamingView.setText("Als Stream verfügbar auf " + movieList.get(0).getStreaming());
 
         Log.i("Hilfe", "Hilf mir bitte");
