@@ -22,11 +22,13 @@ import java.util.List;
 
 public class API_Interface {
 
+    private RequestQueue mQueue;
+
+    TextView testOutputFiltered;
+
     public API_Interface(Context context) {
         mQueue = Volley.newRequestQueue(context);
     }
-
-    private RequestQueue mQueue;
 
     private int startedCalls = 0;
 
@@ -37,7 +39,9 @@ public class API_Interface {
 
 
     //einen zufälligen film zurückgeben, ausgesucht aus den trending filmen des tages
-    public void getRandom(TextView testOutput, TextView testOutputProviders) {
+    public void getRandom(TextView testOutput, TextView testOutputProviders, TextView testOutputFiltered) {
+
+        this.testOutputFiltered = testOutputFiltered;
 
         List<Movie> movieList = new ArrayList<>();
 
@@ -167,6 +171,9 @@ public class API_Interface {
 
         if (startedCalls == 0) {
             Log.i("UserLogging", "all calls done, found movies: " + filteredMovieList.size());
+            for (Movie tempMovie : filteredMovieList) {
+                testOutputFiltered.append(tempMovie.getTitle() + "\n");
+            }
         }
     }
 

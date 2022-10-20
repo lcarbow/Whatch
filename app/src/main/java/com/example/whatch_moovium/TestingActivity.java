@@ -11,6 +11,7 @@ public class TestingActivity extends AppCompatActivity {
 
     private TextView testOutput;
     private TextView testOutputProviders;
+    private TextView testOutputFiltered;
 
     static final String TAG = "UserLogging";
 
@@ -21,6 +22,7 @@ public class TestingActivity extends AppCompatActivity {
 
         testOutput = findViewById(R.id.testOutput);
         testOutputProviders = findViewById(R.id.testOutputProviders);
+        testOutputFiltered = findViewById(R.id.testOutputFiltered);
 
         Context context = getApplicationContext();
         CharSequence text = "Hello toast!";
@@ -31,7 +33,7 @@ public class TestingActivity extends AppCompatActivity {
 
         API_Interface myAPI_Interface = new API_Interface(this);
 
-        myAPI_Interface.getRandom(testOutput, testOutputProviders);
+        myAPI_Interface.getRandom(testOutput, testOutputProviders, testOutputFiltered);
 
     }
 }
