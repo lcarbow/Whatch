@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
 
     DatabaseHandler databaseHandler;
 
+    TextView titleView;
     TextView descriptionView;
     TextView genreView;
     TextView ratingView;
@@ -43,6 +45,7 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
 
         DatabaseHandler databaseHandler = new DatabaseHandler(this);
 
+        titleView = findViewById(R.id.titleView);
         descriptionView = findViewById(R.id.movieDesc);
         genreView = findViewById(R.id.movieGenre);
         ratingView = findViewById(R.id.movieRating);
@@ -75,10 +78,13 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
 
         movieImage.setImageDrawable(res);*/
 
+        titleView.setText(movieList.get(0).getTitle());
         descriptionView.setText(movieList.get(0).getDescription());
         genreView.setText(movieList.get(0).getGenre());
-        ratingView.setText(movieList.get(0).getRating() + "% Benutzerbewertung");
+        ratingView.setText(String.format("%.1f", (movieList.get(0).getRating()*10)) + "% Benutzerwertung");
         streamingView.setText("Als Stream verfügbar auf " + movieList.get(0).getStreaming());
+
+        Log.i("Hilfe", "Hilf mir bitte");
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
