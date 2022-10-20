@@ -2,17 +2,18 @@ package com.example.whatch_moovium;
 
 public class Movie {
 
-    public Movie(String title, String description, int rating, String genre, String img, String streaming) {
+    public Movie(String title, String description, int rating, String genre, String img, String streaming, int id) {
         this.title = title;
         this.description = description;
         this.rating = rating;
         this.genre = genre;
         this.img = img;
         this.streaming = streaming;
+        this.id = id;
     }
 
     String title;
-
+    int id;
     String description;
     int rating;
     String genre;
@@ -69,4 +70,8 @@ public class Movie {
     public void setStreaming(String streaming) {
         this.streaming = streaming;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }
