@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class TestingActivity extends AppCompatActivity {
 
     private TextView testOutput;
+    private TextView testOutputProviders;
+
+    static final String TAG = "UserLogging";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +20,7 @@ public class TestingActivity extends AppCompatActivity {
         setContentView(R.layout.testing);
 
         testOutput = findViewById(R.id.testOutput);
+        testOutputProviders = findViewById(R.id.testOutputProviders);
 
         Context context = getApplicationContext();
         CharSequence text = "Hello toast!";
@@ -27,8 +31,7 @@ public class TestingActivity extends AppCompatActivity {
 
         API_Interface myAPI_Interface = new API_Interface(this);
 
-        myAPI_Interface.getRandom(testOutput, toast);
-
+        myAPI_Interface.getRandom(testOutput, testOutputProviders);
 
     }
 }
