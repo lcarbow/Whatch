@@ -2,23 +2,32 @@ package com.example.whatch_moovium;
 
 public class Movie {
 
-    public Movie(String title, String description, int rating, String genre, String img, String streaming, int id) {
+    public Movie(String title, int id, String description, Double rating, String genre, String img, String streaming) {
         this.title = title;
+        this.id = id;
         this.description = description;
         this.rating = rating;
         this.genre = genre;
         this.img = img;
         this.streaming = streaming;
-        this.id = id;
     }
 
     String title;
     int id;
     String description;
-    int rating;
+    Double rating;
     String genre;
     //ENUM?
     String img;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     String streaming;
     //ENUM?
 
@@ -39,11 +48,11 @@ public class Movie {
         this.description = description;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -70,8 +79,4 @@ public class Movie {
     public void setStreaming(String streaming) {
         this.streaming = streaming;
     }
-
-    public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
 }

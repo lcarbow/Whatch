@@ -44,7 +44,7 @@ public class MovieSuggestion extends AppCompatActivity {
         //Test Movie
         List<Movie> movieList=new ArrayList<>();
 
-        Movie hangover = new Movie(
+        /*Movie hangover = new Movie(
             "hangover",
             "Sie planten eine Vegas-Junggesellen-Party, die sie nie vergessen würden. Jetzt müssen sie unbedingt herausfinden, was genau schiefgelaufen ist. Wem gehört das Baby im Schrank der Caesars-Palace-Suite? Wie kommt der Tiger ins Badezimmer? Warum fehlt einem der Jungs ein Zahn? Und vor allem, wo ist der Bräutigam? Was die Jungs beim „Draufmachen“ so erleben, ist nichts im Vergleich zu den Kapriolen, die sie nüchtern veranstalten müssen. Sie sind gezwungen, all die schlimmen Entscheidungen der letzten Nacht zu rekonstruieren – eine nach der anderen.",
             83,
@@ -65,7 +65,7 @@ public class MovieSuggestion extends AppCompatActivity {
         );
 
         movieList.add(hangover);
-        movieList.add(godzilla);
+        movieList.add(godzilla);*/
 
         Collections.shuffle(movieList);
 
