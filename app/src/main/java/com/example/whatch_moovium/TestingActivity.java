@@ -37,7 +37,7 @@ public class TestingActivity extends AppCompatActivity implements API_Interface.
         API_Interface myAPI_Interface = new API_Interface(this);
         myAPI_Interface.setCallback(this);
 
-        myAPI_Interface.getRandom(testOutput, testOutputProviders, testOutputFiltered);
+        //myAPI_Interface.getRandom(testOutput, testOutputProviders, testOutputFiltered);
 
     }
 

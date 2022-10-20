@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -39,17 +40,17 @@ public class API_Interface {
     }
 
     //einen zufälligen film zurückgeben, ausgesucht aus den trending filmen des tages
-    public void getRandom(TextView testOutput, TextView testOutputProviders, TextView testOutputFiltered) {
+    public void getRandom() {
 
         this.testOutputFiltered = testOutputFiltered;
 
         List<Movie> movieList = new ArrayList<>();
 
-        getTrending(movieList, testOutput, testOutputProviders);
+        getTrending(movieList);
 
     }
 
-    void getTrending(List<Movie> movieList, TextView testOutput, TextView testOutputProviders) {
+    void getTrending(List<Movie> movieList) {
 
         String url = "https://api.themoviedb.org/3/trending/movie/week?api_key=" + apiKey;
 
@@ -62,7 +63,6 @@ public class API_Interface {
                             //get array of movies from response
                             JSONArray results = trendingList.getJSONArray("results");
 
-                            testOutput.setText("");
                             //make movie array
                             for (int i = 0; i < results.length(); i++) {
                                 JSONObject jsonMovie = results.getJSONObject(i);
@@ -73,21 +73,15 @@ public class API_Interface {
                                 //add movie to list
                                 movieList.add(movie);
 
-                                //add movie to textview
-                                testOutput.append(jsonMovie.getString("title") + "\n");
-
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        testOutput.setText("");
-                        for (Movie movie : movieList) {
-                            testOutput.append(movie.getTitle() + " " + movie.getId() + "\n");
-                        }
 
-                        filterByProvider(movieList, testOutputProviders);
+
+                        filterByProvider(movieList);
 
                     }
                 }, new Response.ErrorListener() {
@@ -101,19 +95,18 @@ public class API_Interface {
     }
 
     //nimmt eine Liste filme entgegen und filtered die raus die nicht in den eigenen providern sind
-    private void filterByProvider(List<Movie> movieList, TextView testOutputProviders) {
+    private void filterByProvider(List<Movie> movieList) {
 
         List<Movie> filteredMovieList = new ArrayList<>();
 
         startedCalls = movieList.size();
-        testOutputProviders.setText("");
         for (Movie movie : movieList) {
-            getWatchProvider(movie.getId(), movie.getTitle(), movie, filteredMovieList, testOutputProviders);
+            getWatchProvider(movie.getId(), movie.getTitle(), movie, filteredMovieList);
         }
 
     }
 
-    public void getWatchProvider(int movieID, String title, Movie movie, List<Movie> filteredMovieList, TextView testOutputProviders) {
+    public void getWatchProvider(int movieID, String title, Movie movie, List<Movie> filteredMovieList) {
 
         String url = "https://api.themoviedb.org/3/movie/" + movieID + "/watch/providers?api_key=" + apiKey;
 
@@ -136,8 +129,6 @@ public class API_Interface {
                                 providers += provider.getString("provider_name") + " ";
                                 watchProviders.add(provider.getString("provider_name"));
                             }
-
-                            testOutputProviders.append(title + ": " + providers + "\n");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -171,10 +162,12 @@ public class API_Interface {
 
         //Movieliste ist fertig
         if (startedCalls == 0) {
-            Log.i("UserLogging", "all calls done, found movies: " + filteredMovieList.size());
+            //Log.i("UserLogging", "all calls done, found movies: " + filteredMovieList.size());
             for (Movie tempMovie : filteredMovieList) {
                 //testOutputFiltered.append(tempMovie.getTitle() + "\n");
             }
+
+            Collections.shuffle(filteredMovieList);
             myCallback.displayMovie(filteredMovieList);
         }
     }
