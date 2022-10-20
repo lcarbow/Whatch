@@ -43,7 +43,7 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_suggestion);
 
-        DatabaseHandler databaseHandler = new DatabaseHandler(this);
+        databaseHandler = new DatabaseHandler(this);
 
         titleView = findViewById(R.id.titleView);
         descriptionView = findViewById(R.id.movieDesc);
