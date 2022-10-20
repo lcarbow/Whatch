@@ -23,20 +23,20 @@ import java.util.List;
 public class API_Interface {
 
     private RequestQueue mQueue;
-
     TextView testOutputFiltered;
+    private int startedCalls = 0;
+    //api key
+    private String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
+
+    apiInterfaceCallback myCallback;
+
+    public void setCallback(apiInterfaceCallback myCallback) {
+        this.myCallback = myCallback;
+    }
 
     public API_Interface(Context context) {
         mQueue = Volley.newRequestQueue(context);
     }
-
-    private int startedCalls = 0;
-
-
-    //api key
-    private String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
-
-
 
     //einen zufälligen film zurückgeben, ausgesucht aus den trending filmen des tages
     public void getRandom(TextView testOutput, TextView testOutputProviders, TextView testOutputFiltered) {
@@ -169,12 +169,18 @@ public class API_Interface {
             }
         }
 
+        //Movieliste ist fertig
         if (startedCalls == 0) {
             Log.i("UserLogging", "all calls done, found movies: " + filteredMovieList.size());
             for (Movie tempMovie : filteredMovieList) {
-                testOutputFiltered.append(tempMovie.getTitle() + "\n");
+                //testOutputFiltered.append(tempMovie.getTitle() + "\n");
             }
+            myCallback.displayMovie(filteredMovieList);
         }
+    }
+
+    public interface apiInterfaceCallback {
+        void displayMovie(List<Movie> filteredMovieList);
     }
 
 }
