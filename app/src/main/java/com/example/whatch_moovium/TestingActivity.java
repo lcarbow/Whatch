@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestingActivity extends AppCompatActivity implements API_Interface.apiInterfaceCallback {
@@ -38,14 +39,18 @@ public class TestingActivity extends AppCompatActivity implements API_Interface.
         myAPI_Interface.setCallback(this);
 
         //myAPI_Interface.getRandom(testOutput, testOutputProviders, testOutputFiltered);
+        List<Integer> providerList = new ArrayList<>();
+        providerList.add(8);
+        providerList.add(337);
+        myAPI_Interface.getDiscover("popularity.desc", true, providerList);
 
     }
 
     @Override
-    public void displayMovie(List<Movie> filteredMovieList) {
-        testOutputFiltered.setText("");
+    public void deliverRequest(List<Movie> filteredMovieList) {
+        testOutput.setText("");
         for (Movie movie : filteredMovieList) {
-            testOutputFiltered.append(movie.getTitle() + "\n");
+            testOutput.append(movie.getTitle() + " " + movie.getGenre() + "\n");
         }
     }
 }
