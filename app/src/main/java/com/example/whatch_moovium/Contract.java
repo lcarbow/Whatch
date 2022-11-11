@@ -7,6 +7,7 @@ public interface Contract {
     interface MovieView {
         //MovieView zu MovieSuggestion setzen
         Context getContext();
+        String getTextTitle();
         void setTitle(String string);
         void setDescription(String string);
         void setGenre(String string);
@@ -45,7 +46,6 @@ public interface Contract {
 
     interface Model {
 
-
         // nested interface to be
         interface OnFinishedListener {
             // function to be called
@@ -53,9 +53,7 @@ public interface Contract {
             // completes its execution
             void onFinished(Movie movie);
         }
-
         void getNextMovie(Contract.Model.OnFinishedListener onFinishedListener);
-
 
     }
 
@@ -64,6 +62,11 @@ public interface Contract {
         // method to be called when
         // the button is clicked
         void onButtonClick();
+        void onButtonAddClick();
+        void onButtonShareClick();
+        void onButtonSeenClick();
+        void onButtonNextClick();
+        void getMovieListFromApi();
 
         // method to destroy
         // lifecycle of MainActivity
