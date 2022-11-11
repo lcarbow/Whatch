@@ -3,6 +3,7 @@ package com.example.whatch_moovium;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieSuggestion extends AppCompatActivity implements API_Interface.apiInterfaceCallback {
+public class MovieSuggestion extends AppCompatActivity implements Contract.MovieView {
 
     BottomNavigationView bottomNavigationView;
 
@@ -56,10 +57,19 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
         buttonAdd = findViewById(R.id.button_add);
         buttonSeen = findViewById(R.id.button_seen);
 
+        Contract.Presenter presenter;
+
+        presenter = new Presenter(this, new Model());
+
+        /*
+
+        AB IN PRESENTER!!
         API_Interface myAPI_Interface = new API_Interface(this);
         myAPI_Interface.setCallback(this);
 
         myAPI_Interface.getRandom();
+
+         */
 
 
 
@@ -67,7 +77,6 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
 
     }
 
-    @Override
     public void displayMovie(List<Movie> movieList) {
 /*
         String uri = "@drawable/" + "hangover";  // where myresource (without the extension) is the file
@@ -78,11 +87,6 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
 
         movieImage.setImageDrawable(res);*/
 
-        titleView.setText(movieList.get(0).getTitle());
-        descriptionView.setText(movieList.get(0).getDescription());
-        genreView.setText(movieList.get(0).getGenre());
-        ratingView.setText(String.format("%.1f", (movieList.get(0).getRating()*10)) + "% Benutzerbewertung");
-        streamingView.setText("Als Stream verfügbar auf " + movieList.get(0).getStreaming());
 
         Log.i("Hilfe", "Hilf mir bitte");
 
@@ -145,6 +149,41 @@ public class MovieSuggestion extends AppCompatActivity implements API_Interface.
                 return false;
             }
         });
+
+    }
+
+    @Override
+    public Context getContext() {
+        return MovieSuggestion.this;
+    }
+
+    @Override
+    public void setTitle(String string) {
+        titleView.setText(string);
+
+    }
+
+    @Override
+    public void setDescription(String string) {
+        descriptionView.setText(string);
+
+    }
+
+    @Override
+    public void setGenre(String string) {
+        genreView.setText(string);
+
+    }
+
+    @Override
+    public void setRating(String string) {
+        ratingView.setText(string);
+
+    }
+
+    @Override
+    public void setStreaming(String string) {
+        streamingView.setText(string);
 
     }
 }
