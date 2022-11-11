@@ -23,11 +23,12 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page_surprise);
 
+        //Views
         Button button = findViewById(R.id.button);
 
+        //Presenter
         Contract.Presenter presenter;
-
-        presenter = new Presenter(this, new Model());
+        presenter = new Presenter(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,12 +78,4 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         return LandingPage_Surprise.this;
     }
 
-
-    /*
-    @Override
-    public void setMovie(Movie movie) {
-
-    }
-
-     */
 }

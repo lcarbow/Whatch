@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,15 +17,14 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MovieSuggestion extends AppCompatActivity implements Contract.MovieView {
 
     BottomNavigationView bottomNavigationView;
 
-    DatabaseHandler databaseHandler;
+
+    //Views initialisieren
 
     TextView titleView;
     TextView descriptionView;
@@ -38,14 +36,16 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
     Button buttonShare;
     Button buttonAdd;
     Button buttonSeen;
+    Button buttonNext;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_suggestion);
 
-        databaseHandler = new DatabaseHandler(this);
-
+        //Views zuweisen
         titleView = findViewById(R.id.titleView);
         descriptionView = findViewById(R.id.movieDesc);
         genreView = findViewById(R.id.movieGenre);
@@ -56,70 +56,40 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         buttonShare = findViewById(R.id.button_share);
         buttonAdd = findViewById(R.id.button_add);
         buttonSeen = findViewById(R.id.button_seen);
+        buttonNext = findViewById(R.id.button_next);
 
+        //Presenter
         Contract.Presenter presenter;
+        presenter = new Presenter(this);
+        presenter.getMovieListFromApi();
 
-        presenter = new Presenter(this, new Model());
-
-        /*
-
-        AB IN PRESENTER!!
-        API_Interface myAPI_Interface = new API_Interface(this);
-        myAPI_Interface.setCallback(this);
-
-        myAPI_Interface.getRandom();
-
-         */
-
-
-
-
-
-    }
-
-    public void displayMovie(List<Movie> movieList) {
-/*
-        String uri = "@drawable/" + "hangover";  // where myresource (without the extension) is the file
-
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-
-        Drawable res = getResources().getDrawable(imageResource);
-
-        movieImage.setImageDrawable(res);*/
-
-
-        Log.i("Hilfe", "Hilf mir bitte");
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Lasse Database
-                databaseHandler.addWatchlistMovie(movieList.get(0).getId());
-                Toast.makeText(MovieSuggestion.this,
-                        "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+
+                presenter.onButtonAddClick();
             }
         });
 
         buttonSeen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Lasse Database
-                databaseHandler.addSeenlistMovie(movieList.get(0).getId());
-                Toast.makeText(MovieSuggestion.this,
-                        "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+                presenter.onButtonSeenClick();
             }
         });
 
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Schau, welchen coolen Film ich gefunden habe: " + movieList.get(0).getTitle());
-                sendIntent.setType("text/plain");
+                presenter.onButtonShareClick();
 
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                presenter.onButtonNextClick();
 
             }
         });
@@ -149,17 +119,38 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
                 return false;
             }
         });
+    }
+    /* Wichtig für Bildaz from Moviez
+    public void displayMovie(List<Movie> movieList) {
+
+        String uri = "@drawable/" + "hangover";  // where myresource (without the extension) is the file
+
+        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+
+        Drawable res = getResources().getDrawable(imageResource);
+
+        movieImage.setImageDrawable(res);
+
 
     }
+
+     */
 
     @Override
     public Context getContext() {
         return MovieSuggestion.this;
     }
 
+
     @Override
     public void setTitle(String string) {
         titleView.setText(string);
+
+    }
+
+    public String getTextTitle() {
+
+        return titleView.getText().toString();
 
     }
 

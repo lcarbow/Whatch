@@ -9,42 +9,36 @@ import java.util.Random;
 
 public class Model implements Contract.Model {
 
-    private List <Movie> arrayList = Arrays.asList(
-    new Movie("Godzilla",
-            0,
-            "Sie planten eine Vegas-Junggesellen-Party, die sie nie vergessen würden. Jetzt müssen sie unbedingt herausfinden, was genau schiefgelaufen ist. Wem gehört das Baby im Schrank der Caesars-Palace-Suite? Wie kommt der Tiger ins Badezimmer? Warum fehlt einem der Jungs ein Zahn? Und vor allem, wo ist der Bräutigam? Was die Jungs beim „Draufmachen“ so erleben, ist nichts im Vergleich zu den Kapriolen, die sie nüchtern veranstalten müssen. Sie sind gezwungen, all die schlimmen Entscheidungen der letzten Nacht zu rekonstruieren – eine nach der anderen.",
-            83.0,
-            "Komödie",
-            "godzilla",
-            "Netflix"),
-    new Movie("Dune",
-            0,
-            "Sie planten eine Vegas-Junggesellen-Party, die sie nie vergessen würden. Jetzt müssen sie unbedingt herausfinden, was genau schiefgelaufen ist. Wem gehört das Baby im Schrank der Caesars-Palace-Suite? Wie kommt der Tiger ins Badezimmer? Warum fehlt einem der Jungs ein Zahn? Und vor allem, wo ist der Bräutigam? Was die Jungs beim „Draufmachen“ so erleben, ist nichts im Vergleich zu den Kapriolen, die sie nüchtern veranstalten müssen. Sie sind gezwungen, all die schlimmen Entscheidungen der letzten Nacht zu rekonstruieren – eine nach der anderen.",
-            63.0,
-            "Drama",
-            "hangover",
-            "Netflix")
+    // array list of strings from which
+    // random strings will be selected
+    // to display in the activity
+    private List <Movie> arrayList;
+    int index;
 
-    );
+    public Model(List<Movie> arrayList) {
+        this.arrayList = arrayList;
+        index = 0;
+    }
 
+    public List<Movie> getArrayList() {
+        return arrayList;
+    }
 
+    public void setArrayList(List<Movie> arrayList) {
+        this.arrayList = arrayList;
+    }
+
+    @Override
+    // this method will invoke when
+    // user clicks on the button
+    // Soll auch für NEXT-Button genutzt werden
     public void getNextMovie(final OnFinishedListener listener) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.i("userdebug", "wird aufgerufen in model");
-
-                listener.onFinished(getRandomMovie());
-            }
-        }, 1200);
+        if(index >= arrayList.size()) {
+            index = 0;
+        }
+        listener.onFinished(arrayList.get(index));
+        index++;
+        Log.i("userdebug","ich werde ausgeführt in getNextCourse in Model");
     }
-    // method to select random
-    // string from the list of strings
-    private Movie getRandomMovie() {
-        Random random = new Random();
-        int index = random.nextInt(arrayList.size());
-        return arrayList.get(index);
-    }
-
 
 }
