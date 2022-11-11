@@ -38,7 +38,6 @@ public class Model implements Contract.Model {
         }
         listener.onFinished(arrayList.get(index));
         index++;
-        Log.i("userdebug","ich werde ausgeführt in getNextCourse in Model");
     }
 
 }
