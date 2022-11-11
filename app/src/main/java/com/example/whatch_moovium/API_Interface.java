@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.utils.widget.MockView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -39,49 +41,58 @@ public class API_Interface {
         mQueue = Volley.newRequestQueue(context);
     }
 
-    //einen zufälligen film zurückgeben, ausgesucht aus den trending filmen des tages
-    public void getRandom() {
 
-        this.testOutputFiltered = testOutputFiltered;
 
-        List<Movie> movieList = new ArrayList<>();
+    public void getDiscover(String sort, boolean flatrate, List<Integer> providers) {
 
-        getTrending(movieList);
+        //make discover request
 
-    }
 
-    void getTrending(List<Movie> movieList) {
-
-        String url = "https://api.themoviedb.org/3/trending/movie/week?api_key=" + apiKey;
+        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1";
+        Log.i("AlexDebugging", "user url: " + url);
+        //if only show from own streaming services
+        if (flatrate) {
+            //make provider string
+            String providersString = "";
+            for (Integer providerINT : providers) {
+                providersString += Integer.toString(providerINT);
+                providersString += "%7C";
+            }
+            url += "&with_watch_providers=" + providersString + "&watch_region=DE&with_watch_monetization_types=flatrate";
+        }
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject trendingList) {
+                    public void onResponse(JSONObject jsonMovielist) {
+
+                        //process json
+
+                        //create movie list
+                        List<Movie> movieList = new ArrayList<>();
 
                         try {
                             //get array of movies from response
-                            JSONArray results = trendingList.getJSONArray("results");
+                            JSONArray results = jsonMovielist.getJSONArray("results");
 
                             //make movie array
                             for (int i = 0; i < results.length(); i++) {
+                                //get json for single movie
                                 JSONObject jsonMovie = results.getJSONObject(i);
-
-                                //make new movie object
-                                Movie movie = new Movie(jsonMovie.getString("title"), jsonMovie.getInt("id"), jsonMovie.getString("overview"), jsonMovie.getDouble("vote_average"), "null", jsonMovie.getString("backdrop_path"), "");
-
+                                //parse movie form json
+                                Movie movie = movieParser(jsonMovie);
                                 //add movie to list
                                 movieList.add(movie);
-
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.i("AlexDebugging", "Catch error");
                         }
 
+                        //hand movies to callback
+                        getDiscoverCallback(movieList);
 
-
-                        filterByProvider(movieList);
 
                     }
                 }, new Response.ErrorListener() {
@@ -92,19 +103,46 @@ public class API_Interface {
         });
 
         mQueue.add(request);
+
     }
 
-    //nimmt eine Liste filme entgegen und filtered die raus die nicht in den eigenen providern sind
-    private void filterByProvider(List<Movie> movieList) {
+    public void getDiscover(String sort, boolean flatrate, List<Integer> provider, String genre) {
 
-        List<Movie> filteredMovieList = new ArrayList<>();
+    }
 
-        startedCalls = movieList.size();
-        for (Movie movie : movieList) {
-            getWatchProvider(movie.getId(), movie.getTitle(), movie, filteredMovieList);
+    private void getDiscoverCallback(List<Movie> movieList) {
+        //call callback function
+        myCallback.deliverRequest(movieList);
+    }
+
+    //parses Movie object from movie json
+    private Movie movieParser(JSONObject jsonMovie) throws JSONException {
+        //make new movie object
+        Movie movie = new Movie();
+        movie.setTitle(jsonMovie.getString("title"));
+        movie.setId(jsonMovie.getInt("id"));
+        movie.setDescription(jsonMovie.getString("overview"));
+        movie.setRating(jsonMovie.getDouble("vote_average"));
+        //add genre ids
+        JSONArray jsonGenres = jsonMovie.getJSONArray("genre_ids");
+        for (int j = 0; j < jsonGenres.length(); j++) {
+            movie.addGenre(jsonGenres.getInt(j));
         }
+        movie.setPoster(jsonMovie.getString("poster_path"));
+        movie.setBackdrop(jsonMovie.getString("backdrop_path"));
+        movie.setReleaseDate(jsonMovie.getString("release_date"));
+        movie.setOriginal_language(jsonMovie.getString("original_language"));
+
+        return movie;
+    }
+
+    public void getImg(String url) {
 
     }
+
+
+
+/*
 
     public void getWatchProvider(int movieID, String title, Movie movie, List<Movie> filteredMovieList) {
 
@@ -135,7 +173,7 @@ public class API_Interface {
                         }
 
                         //call callback
-                        watchProviderCallback(movie, watchProviders, filteredMovieList);
+                        //watchProviderCallback(movie, watchProviders, filteredMovieList);
 
                     }
                 }, new Response.ErrorListener() {
@@ -149,31 +187,10 @@ public class API_Interface {
 
     }
 
-    void watchProviderCallback(Movie movie, List<String> watchProviders, List<Movie> filteredMovieList) {
-
-        startedCalls--;
-
-        for (String watchProvider : watchProviders) {
-            //Log.i("UserLogging", movie.getTitle() + " " + watchProvider);
-            if (watchProvider.equalsIgnoreCase("Netflix")) {
-                filteredMovieList.add(movie);
-            }
-        }
-
-        //Movieliste ist fertig
-        if (startedCalls == 0) {
-            //Log.i("UserLogging", "all calls done, found movies: " + filteredMovieList.size());
-            for (Movie tempMovie : filteredMovieList) {
-                //testOutputFiltered.append(tempMovie.getTitle() + "\n");
-            }
-
-            Collections.shuffle(filteredMovieList);
-            myCallback.displayMovie(filteredMovieList);
-        }
-    }
+*/
 
     public interface apiInterfaceCallback {
-        void displayMovie(List<Movie> filteredMovieList);
+        void deliverRequest(List<Movie> filteredMovieList);
     }
 
 }
