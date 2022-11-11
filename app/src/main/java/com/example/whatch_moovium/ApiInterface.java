@@ -1,16 +1,13 @@
 package com.example.whatch_moovium;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.constraintlayout.utils.widget.MockView;
+import android.graphics.Bitmap;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -19,28 +16,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
-public class API_Interface {
+public class ApiInterface {
 
     private RequestQueue mQueue;
-    TextView testOutputFiltered;
-    private int startedCalls = 0;
     //api key
     private String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
+    apiDiscoverCallback myDiscoverCallback;
+    apiCallbackBackdrop myBackdropCallback;
+    apiCallbackPoster myPosterCallback;
 
-    apiInterfaceCallback myCallback;
-
-    public void setCallback(apiInterfaceCallback myCallback) {
-        this.myCallback = myCallback;
-    }
-
-    public API_Interface(Context context) {
+    //constructor
+    public ApiInterface(Context context) {
         mQueue = Volley.newRequestQueue(context);
     }
 
+    public void setCallback(Context context) {
+        //set discover callback
+        this.myDiscoverCallback = (apiDiscoverCallback) context;
+
+        //set poster callback
+        this.myPosterCallback = (apiCallbackPoster) context;
+
+        //set backdrop callback
+        this.myBackdropCallback = (apiCallbackBackdrop) context;
+    }
 
 
     public void getDiscover(String sort, boolean flatrate, List<Integer> providers) {
@@ -49,7 +51,7 @@ public class API_Interface {
 
 
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1";
-        Log.i("AlexDebugging", "user url: " + url);
+
         //if only show from own streaming services
         if (flatrate) {
             //make provider string
@@ -61,6 +63,7 @@ public class API_Interface {
             url += "&with_watch_providers=" + providersString + "&watch_region=DE&with_watch_monetization_types=flatrate";
         }
 
+        //make discover request
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -87,7 +90,6 @@ public class API_Interface {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.i("AlexDebugging", "Catch error");
                         }
 
                         //hand movies to callback
@@ -112,7 +114,7 @@ public class API_Interface {
 
     private void getDiscoverCallback(List<Movie> movieList) {
         //call callback function
-        myCallback.deliverRequest(movieList);
+        myDiscoverCallback.receiveDiscover(movieList);
     }
 
     //parses Movie object from movie json
@@ -136,9 +138,54 @@ public class API_Interface {
         return movie;
     }
 
-    public void getImg(String url) {
+    public void getPoster(String imgPath) {
 
+        String url = "https://image.tmdb.org/t/p/w780" + imgPath;
+
+        ImageRequest imageRequest = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        getPosterCallback(response);
+                    }
+                }, 10000, 10000, null, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mQueue.add(imageRequest);
     }
+
+    private void getPosterCallback(Bitmap img) {
+        myPosterCallback.receivePoster(img);
+    }
+
+    public void getBackdrop(String imgPath) {
+
+        String url = "https://image.tmdb.org/t/p/original" + imgPath;
+
+        ImageRequest imageRequest = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        getBackdropCallback(response);
+                    }
+                }, 10000, 10000, null, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mQueue.add(imageRequest);
+    }
+
+    private void getBackdropCallback(Bitmap img) {
+        myBackdropCallback.receiveBackdrop(img);
+    }
+
 
 
 
@@ -189,8 +236,17 @@ public class API_Interface {
 
 */
 
-    public interface apiInterfaceCallback {
-        void deliverRequest(List<Movie> filteredMovieList);
+
+    public interface apiDiscoverCallback {
+        void receiveDiscover(List<Movie> filteredMovieList);
+    }
+
+    public interface apiCallbackPoster {
+        void receivePoster(Bitmap img);
+    }
+
+    public interface apiCallbackBackdrop {
+        void receiveBackdrop(Bitmap img);
     }
 
 }
