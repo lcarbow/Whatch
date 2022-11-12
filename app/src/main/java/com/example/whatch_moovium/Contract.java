@@ -1,6 +1,7 @@
 package com.example.whatch_moovium;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 public interface Contract {
 
@@ -13,6 +14,7 @@ public interface Contract {
         void setGenre(String string);
         void setRating(String string);
         void setStreaming(String string);
+        void setPosterImage(Bitmap img);
 
 
     }

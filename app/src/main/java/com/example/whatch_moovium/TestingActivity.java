@@ -35,7 +35,7 @@ public class TestingActivity extends AppCompatActivity implements ApiInterface.a
         //make api interface
         myAPI_Interface = new ApiInterface(this);
         //set callback
-        myAPI_Interface.setCallback(this);
+        //myAPI_Interface.setCallback(this);
 
 
         List<Integer> providerList = new ArrayList<>();

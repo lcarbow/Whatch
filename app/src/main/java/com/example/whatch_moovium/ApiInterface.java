@@ -33,7 +33,7 @@ public class ApiInterface {
         mQueue = Volley.newRequestQueue(context);
     }
 
-    public void setCallback(Context context) {
+    public void setCallback(Presenter context) {
         //set discover callback
         this.myDiscoverCallback = (apiDiscoverCallback) context;
 

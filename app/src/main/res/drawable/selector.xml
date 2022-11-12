@@ -4,10 +4,10 @@
     <item
         android:state_selected="true"
         android:drawable="@color/purple_500"
-        android:color="@color/navIconSelected"/>
+        android:color="@color/white"/>
 
     <!--Reguläre Icon-Farbe-->
     <item
         android:state_selected="false"
-        android:color="@color/navIconDeselected"/>
+        android:color="@color/black"/>
 </selector>
