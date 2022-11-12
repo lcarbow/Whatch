@@ -10,6 +10,8 @@
 
     <Button
         android:id="@+id/button_next"
+        style="@style/buttonStyle"
+        android:textColor="@color/white"
         android:layout_width="96dp"
         android:layout_height="82dp"
         android:background="@drawable/button_next"

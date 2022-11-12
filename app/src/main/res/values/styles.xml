@@ -2,10 +2,12 @@
 <resources>
     <style name="MyTheme" parent="android:Theme">
         <item name="android:textViewStyle">@style/HeadlineStyle</item>
+
     </style>
 
     <style name="HeadlineStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/comfortaa_variablefont_wght</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginTop">100dp</item>
         <item name="android:textSize">25dp</item>
@@ -14,11 +16,15 @@
 
     <style name="textStyle" parent="android:Widget.TextView">
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/comfortaa_variablefont_wght</item>
         <item name="android:textSize">15dp</item>
         <item name="layout_constraintHorizontal_bias">0</item>
         <item name="android:paddingLeft">40dp</item>
         <item name="android:paddingRight">40dp</item>
+    </style>
 
+    <style name="buttonStyle" parent="android:Widget.Button">
+        <item name="android:fontFamily">@font/comfortaa_variablefont_wght</item>
     </style>
 
 </resources>
