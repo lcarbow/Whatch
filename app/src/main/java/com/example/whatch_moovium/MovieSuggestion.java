@@ -28,7 +28,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
     //Views initialisieren
 
     TextView titleView;
-    TextView descriptionView;//
+    TextView descriptionView;
     TextView genreView;
     TextView ratingView;
     TextView streamingView;
