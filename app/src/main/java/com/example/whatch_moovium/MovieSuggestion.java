@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -46,7 +47,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         setContentView(R.layout.activity_movie_suggestion);
 
         //Views zuweisen
-        titleView = findViewById(R.id.titleView);
+        //titleView = findViewById(R.id.titleView);
         descriptionView = findViewById(R.id.movieDesc);
         genreView = findViewById(R.id.movieGenre);
         ratingView = findViewById(R.id.movieRating);
@@ -131,7 +132,6 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
 
         movieImage.setImageDrawable(res);
 
-
     }
 
      */
@@ -144,7 +144,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
 
     @Override
     public void setTitle(String string) {
-        titleView.setText(string);
+        //titleView.setText(string);
 
     }
 
@@ -176,5 +176,10 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
     public void setStreaming(String string) {
         streamingView.setText(string);
 
+    }
+
+    @Override
+    public void setPosterImage(Bitmap img) {
+        movieImage.setImageBitmap(img);
     }
 }

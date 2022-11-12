@@ -17,12 +17,12 @@ public class Movie {
     String poster;
     String backdrop;
     String releaseDate;
-    List<Integer> streaming;
+    List<String> streaming = new ArrayList<>();
     //ENUM?
     String original_language;
 
 
-    public Movie(String title, int id, String description, Double rating, List<String> genre, String poster, String backdrop, String releaseDate, List<Integer> streaming, String original_language) {
+    public Movie(String title, int id, String description, Double rating, List<String> genre, String poster, String backdrop, String releaseDate, List<String> streaming, String original_language) {
         this.title = title;
         this.id = id;
         this.description = description;
@@ -76,7 +76,73 @@ public class Movie {
     public String getGenre() {
         String genresString = "";
         for (String genre : this.genre) {
-            genresString += genre + " ";
+            String genreToAppend;
+
+            switch(genre) {
+                //Wollen wir uns die Bezeichnungen auch dynamisch liefern lassen?
+                //https://api.themoviedb.org/3/genre/movie/list?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE
+                case "28":
+
+                    genreToAppend = "Action";
+
+                    break;
+                case "12":
+                    genreToAppend = "Abenteuer";
+                    break;
+                case "16":
+                    genreToAppend = "Animation";
+                    break;
+                case "35":
+                    genreToAppend = "Komödie";
+                    break;
+                case "99":
+                    genreToAppend = "Dokumentarfilm";
+                    break;
+                case "18":
+                    genreToAppend = "Drama";
+                    break;
+                case "10751":
+                    genreToAppend = "Familie";
+                    break;
+                case "14":
+                    genreToAppend = "Fantasy";
+                    break;
+                case "36":
+                    genreToAppend = "Historie";
+                    break;
+                case "27":
+                    genreToAppend = "Horror";
+                    break;
+                case "10402":
+                    genreToAppend = "Musik";
+                    break;
+                case "9648":
+                    genreToAppend = "Mystery";
+                    break;
+                case "10749":
+                    genreToAppend = "Liebesfilm";
+                    break;
+                case "878":
+                    genreToAppend = "Science Fiction";
+                    break;
+                case "10770":
+                    genreToAppend = "TV-Film";
+                    break;
+                case "53":
+                    genreToAppend = "Thriller";
+                    break;
+                case "10752":
+                    genreToAppend = "Kriegsfilm";
+                    break;
+                case "37":
+                    genreToAppend = "Western";
+                    break;
+                default:
+                    genreToAppend = "";
+                    break;
+            }
+
+            genresString += genreToAppend + ", ";
         }
         return genresString;
     }
@@ -113,11 +179,43 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public List<Integer> getStreaming() {
-        return streaming;
+    public String getStreaming() {
+        /*
+        //Log.i("userdebug",  this.streaming.get(0) + "ich werde ausgeführt in getStream");
+
+        String streamingString = "";
+        for (String stream : this.streaming) {
+            Log.i("userdebug",  stream + "ich werde ausgeführt in getStream");
+
+            String streamingToAppend;
+
+            switch(stream) {
+                case "8":
+                    streamingToAppend = "Netflix";
+                    Log.i("userdebug", streamingToAppend + "blaaaa");
+
+                    break;
+                case "337":
+                    streamingToAppend = "Disney";
+                    break;
+                case "119":
+                    streamingToAppend = "Prime Video";
+                    break;
+                default:
+                    streamingToAppend = "";
+                    break;
+            }
+            Log.i("userdebug", streamingString + "blaaaa");
+
+            streamingString += streamingToAppend + ", ";
+        }
+        return streamingString;
+
+         */
+        return "hat Alex noch nicht gemacht";
     }
 
-    public void setStreaming(List<Integer> streaming) {
+    public void setStreaming(List<String> streaming) {
         this.streaming = streaming;
     }
 
