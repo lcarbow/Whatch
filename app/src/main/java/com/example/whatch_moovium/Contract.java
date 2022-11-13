@@ -56,6 +56,7 @@ public interface Contract {
             void onFinished(Movie movie);
         }
         void getNextMovie(Contract.Model.OnFinishedListener onFinishedListener);
+        void getBeforeMovie(Contract.Model.OnFinishedListener onFinishedListener);
 
     }
 
@@ -68,6 +69,8 @@ public interface Contract {
         void onButtonShareClick();
         void onButtonSeenClick();
         void onButtonNextClick();
+        void onButtonBeforeClick();
+
         void getMovieListFromApi();
 
         // method to destroy
