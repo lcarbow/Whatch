@@ -125,7 +125,7 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
         this.actuallyMovie = movie;
         myAPI_Interface.getPoster(movie.getPoster());
 
-        //movieSuggestion.setTitle(movie.getTitle());
+        movieSuggestion.setTitle(movie.getTitle());
         movieSuggestion.setDescription(movie.getDescription());
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());

@@ -48,7 +48,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         setContentView(R.layout.activity_movie_suggestion);
 
         //Views zuweisen
-        //titleView = findViewById(R.id.titleView);
+        titleView = findViewById(R.id.titleView);
         descriptionView = findViewById(R.id.movieDesc);
         genreView = findViewById(R.id.movieGenre);
         ratingView = findViewById(R.id.movieRating);
@@ -153,7 +153,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
 
     @Override
     public void setTitle(String string) {
-        //titleView.setText(string);
+        titleView.setText(string);
 
     }
 
