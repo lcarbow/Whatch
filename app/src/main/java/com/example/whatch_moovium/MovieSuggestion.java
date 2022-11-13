@@ -38,6 +38,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
     Button buttonAdd;
     Button buttonSeen;
     Button buttonNext;
+    Button buttonBefore;
 
 
 
@@ -58,6 +59,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         buttonAdd = findViewById(R.id.button_add);
         buttonSeen = findViewById(R.id.button_seen);
         buttonNext = findViewById(R.id.button_next);
+        buttonBefore = findViewById(R.id.button_back);
 
         //Presenter
         Contract.Presenter presenter;
@@ -91,6 +93,13 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         buttonNext.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 presenter.onButtonNextClick();
+
+            }
+        });
+
+        buttonBefore.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                presenter.onButtonBeforeClick();
 
             }
         });

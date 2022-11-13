@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed = "false">
+        <shape android:shape = "rectangle">
+            <corners android:bottomRightRadius="24dp" android:topRightRadius="24dp" />
+            <solid android:color = "@color/white"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_baseline_navigate_before_24"></item>
+</layer-list>

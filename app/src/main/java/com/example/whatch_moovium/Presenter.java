@@ -75,6 +75,11 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
     }
 
     @Override
+    public void onButtonBeforeClick() {
+        model.getBeforeMovie(this);
+    }
+
+    @Override
     public void getMovieListFromApi() {
         //1. wird bei oncreate von movieSugg ausgeführt
         if (movieSuggestion != null) {
