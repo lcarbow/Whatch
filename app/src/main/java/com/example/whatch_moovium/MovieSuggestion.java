@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -129,6 +130,15 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
                 return false;
             }
         });
+
+
+        //Top Nav
+        ImageButton providersButton = findViewById(R.id.providers_button);
+        ImageButton watchlistButton = findViewById(R.id.watchlist_button);
+
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+
     }
     /* Wichtig für Bildaz from Moviez
     public void displayMovie(List<Movie> movieList) {

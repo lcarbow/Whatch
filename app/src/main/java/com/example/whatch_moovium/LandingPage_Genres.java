@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -42,6 +43,14 @@ public class LandingPage_Genres extends AppCompatActivity {
                 return false;
             }
         });
+
+        //Top Nav
+        ImageButton providersButton = findViewById(R.id.providers_button);
+        ImageButton watchlistButton = findViewById(R.id.watchlist_button);
+
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+
     }
 
     @Override

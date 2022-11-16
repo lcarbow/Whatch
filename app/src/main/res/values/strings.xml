@@ -20,4 +20,35 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings_page">SettingsPage</string>
+
+    <!--Providers-->
+    <string-array name="possible_providers">
+        <item>Amazon Prime Video</item>
+        <item>Apple TV Plus</item>
+        <item>Disney Plus</item>
+        <item>Google Play Movies</item>
+        <item>Horizon</item>
+        <item>HBO</item>
+        <item>Maxdome</item>
+        <item>Neon TV</item>
+        <item>Netflix</item>
+        <item>Paramount Plus</item>
+        <item>Sky</item>
+        <item>Test</item>
+        <item>Test2</item>
+        <item>Test3</item>
+        <item>Test4</item>
+        <item>Test5</item>
+        <item>Test6</item>
+        <item>Test7</item>
+        <item>Test8</item>
+        <item>Test9</item>
+        <item>Test10</item>
+        <item>Test11</item>
+        <item>Test12</item>
+    </string-array>
+
+    <!--Provider Debug-->
+    <string name="provider_status_on">Hab ich</string>
+    <string name="provider_status_off">Hab ich nicht</string>
 </resources>
