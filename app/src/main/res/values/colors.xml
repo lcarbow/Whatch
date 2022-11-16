@@ -13,4 +13,6 @@
     <color name="navColor">#798DB1</color>
     <color name="navIconDeselected">#FF000000</color>
     <color name="navIconSelected">#FFFFFFFF</color>
+
+    <color name="provider">#171B22</color>
 </resources>
