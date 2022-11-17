@@ -47,8 +47,4 @@
         <item>Test11</item>
         <item>Test12</item>
     </string-array>
-
-    <!--Provider Debug-->
-    <string name="provider_status_on">Hab ich</string>
-    <string name="provider_status_off">Hab ich nicht</string>
 </resources>
