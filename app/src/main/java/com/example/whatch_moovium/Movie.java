@@ -180,43 +180,18 @@ public class Movie {
     }
 
     public String getStreaming() {
-        /*
-        //Log.i("userdebug",  this.streaming.get(0) + "ich werde ausgeführt in getStream");
+        String streamingServices = "";
 
-        String streamingString = "";
-        for (String stream : this.streaming) {
-            Log.i("userdebug",  stream + "ich werde ausgeführt in getStream");
-
-            String streamingToAppend;
-
-            switch(stream) {
-                case "8":
-                    streamingToAppend = "Netflix";
-                    Log.i("userdebug", streamingToAppend + "blaaaa");
-
-                    break;
-                case "337":
-                    streamingToAppend = "Disney";
-                    break;
-                case "119":
-                    streamingToAppend = "Prime Video";
-                    break;
-                default:
-                    streamingToAppend = "";
-                    break;
-            }
-            Log.i("userdebug", streamingString + "blaaaa");
-
-            streamingString += streamingToAppend + ", ";
+        for (String provider : this.streaming) {
+            streamingServices += provider + ", ";
         }
-        return streamingString;
+        return streamingServices;
 
-         */
-        return "hat Alex noch nicht gemacht";
     }
 
-    public void setStreaming(List<String> streaming) {
-        this.streaming = streaming;
+    public void addStreaming(String watchProvider) {
+        Log.i("AlexDebugging", "Inside Movie: Provider: " + watchProvider);
+        this.streaming.add(watchProvider);
     }
 
     public String getOriginal_language() {

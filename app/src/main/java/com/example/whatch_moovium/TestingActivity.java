@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestingActivity extends AppCompatActivity implements ApiInterface.apiDiscoverCallback, ApiInterface.apiCallbackBackdrop, ApiInterface.apiCallbackPoster {
+public class TestingActivity extends AppCompatActivity implements Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
 
     private TextView testOutput;
     private TextView testOutputProviders;
@@ -41,7 +41,7 @@ public class TestingActivity extends AppCompatActivity implements ApiInterface.a
         List<Integer> providerList = new ArrayList<>();
         providerList.add(8);
         providerList.add(337);
-        myAPI_Interface.getDiscover("popularity.desc", true, providerList);
+        //myAPI_Interface.getDiscover("popularity.desc", true, providerList);
 
     }
 
@@ -53,9 +53,9 @@ public class TestingActivity extends AppCompatActivity implements ApiInterface.a
         }
 
         //get poster
-        myAPI_Interface.getPoster(movieList.get(2).getPoster());
+        myAPI_Interface.getPoster(movieList.get(2).getPoster(), this);
         //get Backdrop
-        myAPI_Interface.getBackdrop(movieList.get(2).getBackdrop());
+        myAPI_Interface.getBackdrop(movieList.get(2).getBackdrop(), this);
     }
 
     @Override
