@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
@@ -16,10 +18,13 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class ProviderSettings extends AppCompatActivity {
+public class ProviderSettings extends AppCompatActivity implements ProviderRecyclerViewInterface {
 
     BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
+
+
+    ArrayList<String> selectedProviders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +35,12 @@ public class ProviderSettings extends AppCompatActivity {
 
         setupProvider();
 
-        ProviderAdapter adapter = new ProviderAdapter(this, possibleProviders);
+        ProviderAdapter adapter = new ProviderAdapter(this, possibleProviders, this);
 
         //Adapter an RecyclerView ranhängen
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         //Bottom Nav
         bottomNavigationView = findViewById(R.id.bottom_navigator);
@@ -73,11 +79,34 @@ public class ProviderSettings extends AppCompatActivity {
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
+        Switch[] switches = new Switch[providerNames.length];
 
         for (int i = 0; i < providerNames.length; i++){
-            possibleProviders.add(new ProviderModel(providerNames[i], true));
+            possibleProviders.add(new ProviderModel(providerNames[i], switches[i]));
         }
     }
 
 
+    @Override
+    public void onSwitchFlipped(int position) {
+        String providerName = possibleProviders.get(position).getProviderName();
+
+        Switch currentSwitch = possibleProviders.get(position).getProviderSwitch();
+
+        if (currentSwitch != null){
+            currentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b){
+                        selectedProviders.add(providerName);
+                        currentSwitch.setText("hab ich");
+
+                    } else {
+                        selectedProviders.remove(providerName);
+                        currentSwitch.setText("Hab ich nicht");
+                    }
+                }
+            });
+        }
+    }
 }

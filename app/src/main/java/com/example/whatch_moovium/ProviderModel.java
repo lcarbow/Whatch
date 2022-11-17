@@ -4,22 +4,23 @@ import android.widget.Switch;
 
 public class ProviderModel {
     String providerName;
-    boolean switchStatus;
 
-    public ProviderModel(String providerName, boolean switchStatus) {
+    Switch providerSwitch;
+
+    public ProviderModel(String providerName, Switch providerSwitch) {
         this.providerName = providerName;
-        this.switchStatus = switchStatus;
+        this.providerSwitch = providerSwitch;
     }
 
     public String getProviderName() {
         return providerName;
     }
 
-    public boolean getSwitchStatus(){
-        return switchStatus;
+    public Switch getProviderSwitch() {
+        return providerSwitch;
     }
 
-    public void setSwitchStatus(boolean switchStatus) {
-        this.switchStatus = switchStatus;
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 }
