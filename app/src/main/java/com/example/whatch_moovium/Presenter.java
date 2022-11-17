@@ -48,9 +48,15 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
 
     @Override
     public void onButtonAddClick() {
-        databaseHandler.addWatchlistMovie(actuallyMovie.getId());
-        Toast.makeText(movieSuggestion.getContext(),
-                "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+        if(databaseHandler.CheckIfExist("watchlist", actuallyMovie.getId())){
+            Toast.makeText(movieSuggestion.getContext(),
+                    "Film ist bereits auf der Watchlist!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            databaseHandler.addWatchlistMovie(actuallyMovie.getId());
+            Toast.makeText(movieSuggestion.getContext(),
+                    "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -65,9 +71,15 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
 
     @Override
     public void onButtonSeenClick() {
-        databaseHandler.addSeenlistMovie(actuallyMovie.getId());
-        Toast.makeText(movieSuggestion.getContext(),
-                "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+        if(databaseHandler.CheckIfExist("seenlist", actuallyMovie.getId())){
+            Toast.makeText(movieSuggestion.getContext(),
+                    "Film ist bereits auf der Seenlist!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            databaseHandler.addSeenlistMovie(actuallyMovie.getId());
+            Toast.makeText(movieSuggestion.getContext(),
+                    "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onButtonNextClick() {
