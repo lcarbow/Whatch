@@ -2,6 +2,7 @@ package com.example.whatch_moovium;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,32 +25,16 @@ public class ApiInterface {
     private RequestQueue mQueue;
     //api key
     private String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
-    apiDiscoverCallback myDiscoverCallback;
-    apiCallbackBackdrop myBackdropCallback;
-    apiCallbackPoster myPosterCallback;
 
     //constructor
     public ApiInterface(Context context) {
         mQueue = Volley.newRequestQueue(context);
     }
 
-    public void setCallback(Presenter context) {
-        //set discover callback
-        this.myDiscoverCallback = (apiDiscoverCallback) context;
-
-        //set poster callback
-        this.myPosterCallback = (apiCallbackPoster) context;
-
-        //set backdrop callback
-        this.myBackdropCallback = (apiCallbackBackdrop) context;
-    }
-
-
-    public void getDiscover(String sort, boolean flatrate, List<Integer> providers) {
+    //calling class has to implement api
+    public void getDiscover(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiDiscoverCallback receiver) {
 
         //make discover request
-
-
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1";
 
         //if only show from own streaming services
@@ -93,7 +78,7 @@ public class ApiInterface {
                         }
 
                         //hand movies to callback
-                        getDiscoverCallback(movieList);
+                        addWatchProviders(movieList, receiver);
 
 
                     }
@@ -112,9 +97,79 @@ public class ApiInterface {
 
     }
 
-    private void getDiscoverCallback(List<Movie> movieList) {
+    //takes movielist, makes new list for movies with provider, goes through each movie, makes api request for each movie
+    void addWatchProviders(List<Movie> movieList, Interfaces.apiDiscoverCallback receiver) {
+
+        List<Movie> movieListWithProvider = new ArrayList<Movie>();
+
+        for (Movie movie : movieList) {
+            watchProviderRequest(movieListWithProvider, movie, receiver);
+        }
+
+    }
+
+    //takes movie and makes api request for it
+    void watchProviderRequest(List<Movie> movieListWithProvider, Movie movie, Interfaces.apiDiscoverCallback receiver) {
+
+        //make api request
+        String url = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/watch/providers?api_key=" + apiKey;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject JSONwatchProviders) {
+
+                        String providers = "";
+
+                        try {
+
+                            JSONObject results = JSONwatchProviders.getJSONObject("results");
+                            JSONObject DE = results.getJSONObject("DE");
+                            JSONArray flatrate = DE.getJSONArray("flatrate");
+
+                            for (int i = 0; i < flatrate.length(); i++) {
+                                JSONObject provider = flatrate.getJSONObject(i);
+                                providers += provider.getString("provider_name") + " ";
+                                movie.addStreaming(provider.getString("provider_name"));
+                                Log.i("AlexDebugging", "Provider: " + provider.getString("provider_name"));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        //call callback
+                        receiveWatchprovider(movieListWithProvider, movie, receiver);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mQueue.add(request);
+
+    }
+
+    //receives movielistWithProvider, and movie
+    //adds movie to List and checks if the list has 20 entries
+    public void receiveWatchprovider(List<Movie> movieListWithProvider, Movie movie, Interfaces.apiDiscoverCallback receiver) {
+
+        //add movie with provider to list
+        movieListWithProvider.add(movie);
+
+        //check if all requests are done
+        if (movieListWithProvider.size() == 20) {
+            getDiscoverCallback(movieListWithProvider, receiver);
+        }
+
+    }
+
+    private void getDiscoverCallback(List<Movie> movieList, Interfaces.apiDiscoverCallback receiver) {
         //call callback function
-        myDiscoverCallback.receiveDiscover(movieList);
+        receiver.receiveDiscover(movieList);
     }
 
     //parses Movie object from movie json
@@ -138,7 +193,9 @@ public class ApiInterface {
         return movie;
     }
 
-    public void getPoster(String imgPath) {
+    //poster functions
+
+    public void getPoster(String imgPath, Interfaces.apiPosterCallback receiver) {
 
         String url = "https://image.tmdb.org/t/p/w780" + imgPath;
 
@@ -146,7 +203,7 @@ public class ApiInterface {
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        getPosterCallback(response);
+                        getPosterCallback(response, receiver);
                     }
                 }, 10000, 10000, null, null, new Response.ErrorListener() {
             @Override
@@ -158,11 +215,14 @@ public class ApiInterface {
         mQueue.add(imageRequest);
     }
 
-    private void getPosterCallback(Bitmap img) {
-        myPosterCallback.receivePoster(img);
+    private void getPosterCallback(Bitmap img, Interfaces.apiPosterCallback receiver) {
+        receiver.receivePoster(img);
     }
 
-    public void getBackdrop(String imgPath) {
+
+    //backdrop functions
+
+    public void getBackdrop(String imgPath, Interfaces.apiBackdropCallback receiver) {
 
         String url = "https://image.tmdb.org/t/p/original" + imgPath;
 
@@ -170,7 +230,7 @@ public class ApiInterface {
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        getBackdropCallback(response);
+                        getBackdropCallback(response, receiver);
                     }
                 }, 10000, 10000, null, null, new Response.ErrorListener() {
             @Override
@@ -182,9 +242,11 @@ public class ApiInterface {
         mQueue.add(imageRequest);
     }
 
-    private void getBackdropCallback(Bitmap img) {
-        myBackdropCallback.receiveBackdrop(img);
+    private void getBackdropCallback(Bitmap img, Interfaces.apiBackdropCallback receiver) {
+        receiver.receiveBackdrop(img);
     }
+
+
 
 
 
@@ -235,18 +297,5 @@ public class ApiInterface {
     }
 
 */
-
-
-    public interface apiDiscoverCallback {
-        void receiveDiscover(List<Movie> filteredMovieList);
-    }
-
-    public interface apiCallbackPoster {
-        void receivePoster(Bitmap img);
-    }
-
-    public interface apiCallbackBackdrop {
-        void receiveBackdrop(Bitmap img);
-    }
 
 }

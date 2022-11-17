@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedListener, ApiInterface.apiDiscoverCallback, ApiInterface.apiCallbackBackdrop, ApiInterface.apiCallbackPoster {
+public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
 
     // creating object of View Interface
     private Contract.LandingView landingPageView;
@@ -96,7 +96,6 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
             //set callback
             Log.i("userdebug", "3. getMoveListFromAPI");
 
-            myAPI_Interface.setCallback(this);
             Log.i("userdebug", "4. getMoveListFromAPI");
 
 
@@ -104,7 +103,7 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
             List<Integer> providerList = new ArrayList<>();
             providerList.add(8);
             providerList.add(337);
-            myAPI_Interface.getDiscover("popularity.desc", true, providerList);
+            myAPI_Interface.getDiscover("popularity.desc", true, providerList, this);
         }
     }
 
@@ -123,7 +122,7 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
     public void onFinished(Movie movie) {
         //6. Setzen der Views
         this.actuallyMovie = movie;
-        myAPI_Interface.getPoster(movie.getPoster());
+        myAPI_Interface.getPoster(movie.getPoster(), this);
 
         movieSuggestion.setTitle(movie.getTitle());
         movieSuggestion.setDescription(movie.getDescription());
