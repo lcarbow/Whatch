@@ -36,6 +36,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
 
     Button buttonShare;
     Button buttonAdd;
+    Button buttonDelete;
     Button buttonSeen;
     Button buttonNext;
     Button buttonBefore;
@@ -57,6 +58,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
 
         buttonShare = findViewById(R.id.button_share);
         buttonAdd = findViewById(R.id.button_add);
+        buttonDelete = findViewById(R.id.button_delete);
         buttonSeen = findViewById(R.id.button_seen);
         buttonNext = findViewById(R.id.button_next);
         buttonBefore = findViewById(R.id.button_back);
