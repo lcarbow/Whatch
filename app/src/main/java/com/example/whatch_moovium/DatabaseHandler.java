@@ -2,6 +2,7 @@ package com.example.whatch_moovium;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -57,6 +58,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_SEENLIST_NAME, null, values);
 
         db.close();
+    }
+    public boolean CheckIfExist(String TableName, int fieldValue) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from " + TableName + " where ID = " + fieldValue;
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
     }
 
 
