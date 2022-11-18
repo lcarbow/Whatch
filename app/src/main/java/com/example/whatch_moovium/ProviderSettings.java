@@ -24,7 +24,7 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
 
 
-    ArrayList<String> selectedProviders = new ArrayList<>();
+    //ArrayList<String> selectedProviders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
         Switch[] switches = new Switch[providerNames.length];
 
+
         for (int i = 0; i < providerNames.length; i++){
             possibleProviders.add(new ProviderModel(providerNames[i], switches[i]));
         }
@@ -98,11 +99,11 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (b){
-                        selectedProviders.add(providerName);
+                        //selectedProviders.add(providerName);
                         currentSwitch.setText("hab ich");
 
                     } else {
-                        selectedProviders.remove(providerName);
+                        //selectedProviders.remove(providerName);
                         currentSwitch.setText("Hab ich nicht");
                     }
                 }

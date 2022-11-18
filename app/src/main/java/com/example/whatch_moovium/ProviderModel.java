@@ -20,7 +20,4 @@ public class ProviderModel {
         return providerSwitch;
     }
 
-    public void setProviderName(String providerName) {
-        this.providerName = providerName;
-    }
 }
