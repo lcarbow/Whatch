@@ -58,15 +58,19 @@ public class DiscoverRequest {
                     watchProviderRequest(movie, countDownLatch);
                 }
 
-                //wait for latch to release - all providers set
+                //wait for latch to release
                 try {
                     countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                //return request
-                receiver.receiveDiscover(movieList);
+
+                //return movielist
+                //receiver.receiveDiscover(movieList);
+                for (Movie movie : movieList) {
+                    Log.i("AlexDebugging", "Title: " + movie.getTitle() + " Providers: " + movie.getStreaming());
+                }
 
             }
         });
@@ -74,7 +78,6 @@ public class DiscoverRequest {
 
     }
 
-    //makes the api request for discover
     private void discoverRequest(String sort, boolean flatrate, List<Integer> providers, List<Movie> movieList, CountDownLatch countDownLatch) {
 
         //make discover request
@@ -152,7 +155,7 @@ public class DiscoverRequest {
         return movie;
     }
 
-    //takes movie and makes api request for watchprovider
+    //takes movie and makes api request for it
     void watchProviderRequest(Movie movie, CountDownLatch countDownLatch) {
 
         //make api request
