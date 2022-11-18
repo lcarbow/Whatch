@@ -190,7 +190,6 @@ public class Movie {
     }
 
     public void addStreaming(String watchProvider) {
-        Log.i("AlexDebugging", "Inside Movie: Provider: " + watchProvider);
         this.streaming.add(watchProvider);
     }
 

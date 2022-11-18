@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.Interfaces;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.API_Interface;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.whatch_moovium.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +34,15 @@ public class ApiInterface {
 
     //calling class has to implement api
     public void getDiscover(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiDiscoverCallback receiver) {
+
+        //temp stuff
+        DiscoverRequest discoverRequest = new DiscoverRequest();
+        discoverRequest.getDiscoverThread(sort, flatrate, providers, receiver, mQueue);
+
+
+
+
+        //temp stuff end
 
         //make discover request
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1";
@@ -131,7 +141,6 @@ public class ApiInterface {
                                 JSONObject provider = flatrate.getJSONObject(i);
                                 providers += provider.getString("provider_name") + " ";
                                 movie.addStreaming(provider.getString("provider_name"));
-                                Log.i("AlexDebugging", "Provider: " + provider.getString("provider_name"));
                             }
 
                         } catch (JSONException e) {

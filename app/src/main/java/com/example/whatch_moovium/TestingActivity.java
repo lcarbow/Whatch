@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.Interfaces;
+
 import java.util.ArrayList;
 import java.util.List;
 
