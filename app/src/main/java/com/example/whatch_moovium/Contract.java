@@ -41,7 +41,7 @@ public interface Contract {
         streamingView.setText
         */
 
-        // method to set random
+        // method to set random//
         // text on the TextView
 
     }
