@@ -1,9 +1,11 @@
 package com.example.whatch_moovium;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,25 +21,35 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
     ArrayList<ProviderModel> providerModels;
 
     public ProviderAdapter(Context context, ArrayList<ProviderModel> providerModels, ProviderRecyclerViewInterface providerRecyclerViewInterface){
+
         this.context = context;
         this.providerModels = providerModels;
         this.providerRecyclerViewInterface = providerRecyclerViewInterface;
+
     }
 
     @NonNull
     @Override
     public ProviderAdapter.ProviderViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Aussehen der Zeilen
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.provider_settings_row, parent, false);
         return new ProviderAdapter.ProviderViewholder(view, providerRecyclerViewInterface);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProviderAdapter.ProviderViewholder holder, int position) {
         //Jede sichtbare Zeile bekommt Value zugewiesen
+
         holder.providerNames.setText(providerModels.get(position).getProviderName());
+
         holder.providerSwitches.setChecked(providerModels.get(position).getProviderSwitch().isChecked());
+
+        //holder.providerSwitches.setChecked(false);
+
+
     }
 
     @Override
@@ -57,11 +69,21 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
 
             providerSwitches = itemView.findViewById(R.id.provider_switch);
             providerNames = itemView.findViewById(R.id.provider_text);
-
             //ONClickListener an ItemView ranrängen
+            providerSwitches.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    int pos = getAdapterPosition();
+                    //@Nadine: Hier fühlt sich die Switch angesprochen
+                    Log.i("userdebug", "Hallo, ich bin Switch Nr " + String.valueOf(pos));
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //@Nadine: Hier fühlt sich nur die TextView angesprochen. Nicht aber die Switch
+
+
                     if (providerRecyclerViewInterface != null){
                         int pos = getAdapterPosition();
 
@@ -69,6 +91,7 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
                             providerRecyclerViewInterface.onSwitchFlipped(pos);
                         }
                     }
+
                 }
             });
         }

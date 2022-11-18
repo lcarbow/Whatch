@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -79,32 +80,46 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
-        Switch[] switches = new Switch[providerNames.length];
+        //Switch[] switches = new Switch[providerNames.length];
+        //@Nadine: Das Ding ist.. Du hast ne leere liste erstellt :D
 
 
         for (int i = 0; i < providerNames.length; i++){
-            possibleProviders.add(new ProviderModel(providerNames[i], switches[i]));
+            Switch switchh = new Switch(this);
+            //@Nadine: Hab jetzt hier einfach bei jedem Schleifendurchlauf ne Switch erstellt die dann direkt zur Liste zugefügt wird.
+
+            possibleProviders.add(new ProviderModel(providerNames[i], switchh));
         }
+
     }
 
 
     @Override
     public void onSwitchFlipped(int position) {
+
         String providerName = possibleProviders.get(position).getProviderName();
 
         Switch currentSwitch = possibleProviders.get(position).getProviderSwitch();
 
         if (currentSwitch != null){
+            //@Nadine. Die Switch existiert, aber iwie wird hier nur die TextView genommen.
+            // Das mit onCheckedChanged wird also nicht erkannt...
+            Log.i("userdebug", "Ich werde ausgeführt,es existiert eine Switch. nützt aber nix");
+            currentSwitch.setChecked(true);
             currentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (b){
                         //selectedProviders.add(providerName);
-                        currentSwitch.setText("hab ich");
+                        //currentSwitch.setText("hab ich");
+                        Log.i("userdebug", "Ich werde nicht ausgeführt");
 
                     } else {
                         //selectedProviders.remove(providerName);
-                        currentSwitch.setText("Hab ich nicht");
+                        //currentSwitch.setText("Hab ich nicht");
+                        Log.i("userdebug", "Ich werde nicht ausgeführt");
+
                     }
                 }
             });
