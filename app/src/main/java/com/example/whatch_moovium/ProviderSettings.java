@@ -2,15 +2,15 @@ package com.example.whatch_moovium;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
@@ -24,8 +24,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
     BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
 
-
-    //ArrayList<String> selectedProviders = new ArrayList<>();
+    //Diese Liste hier später mit der Providerliste aus der DB ersetzen
+    ArrayList<String> listOfProvidersTest = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         //Adapter an RecyclerView ranhängen
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         //Bottom Nav
         bottomNavigationView = findViewById(R.id.bottom_navigator);
@@ -80,49 +79,46 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
-        //Switch[] switches = new Switch[providerNames.length];
-        //@Nadine: Das Ding ist.. Du hast ne leere liste erstellt :D
-
 
         for (int i = 0; i < providerNames.length; i++){
-            Switch switchh = new Switch(this);
-            //@Nadine: Hab jetzt hier einfach bei jedem Schleifendurchlauf ne Switch erstellt die dann direkt zur Liste zugefügt wird.
+            Switch newSwitch = new Switch(this);
 
-            possibleProviders.add(new ProviderModel(providerNames[i], switchh));
+            SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
+
+            newSwitch.setChecked(newBool);
+            possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
+
+
+            //NOTE: diesen Teil entfernen wenn Database-Einbindung vorhanden
+            listOfProvidersTest.add(providerNames[i]);
         }
 
     }
 
 
     @Override
-    public void onSwitchFlipped(int position) {
+    public void onSwitchFlipped(int position, boolean switchState) {
 
         String providerName = possibleProviders.get(position).getProviderName();
+        ProviderModel providerStatus = possibleProviders.get(position);
 
-        Switch currentSwitch = possibleProviders.get(position).getProviderSwitch();
+        SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor switchEditor = switchPref.edit();
 
-        if (currentSwitch != null){
-            //@Nadine. Die Switch existiert, aber iwie wird hier nur die TextView genommen.
-            // Das mit onCheckedChanged wird also nicht erkannt...
-            Log.i("userdebug", "Ich werde ausgeführt,es existiert eine Switch. nützt aber nix");
-            currentSwitch.setChecked(true);
-            currentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b){
-                        //selectedProviders.add(providerName);
-                        //currentSwitch.setText("hab ich");
-                        Log.i("userdebug", "Ich werde nicht ausgeführt");
-
-                    } else {
-                        //selectedProviders.remove(providerName);
-                        //currentSwitch.setText("Hab ich nicht");
-                        Log.i("userdebug", "Ich werde nicht ausgeführt");
-
-                    }
-                }
-            });
+        if (switchState){
+            Log.i("userdebug", providerName + " zur Liste hinzugefügt");
+            listOfProvidersTest.add(providerName);
+            providerStatus.setProviderStatus(true);
+            switchEditor.putBoolean("value"+position, true);
+            switchEditor.apply();
+        } else {
+            Log.i("userdebug", providerName + " von Liste entfernt");
+            listOfProvidersTest.remove(providerName);
+            providerStatus.setProviderStatus(false);
+            switchEditor.putBoolean("value"+position, false);
+            switchEditor.apply();
         }
     }
 }
