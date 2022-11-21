@@ -20,6 +20,7 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
     Context context;
     ArrayList<ProviderModel> providerModels;
 
+
     public ProviderAdapter(Context context, ArrayList<ProviderModel> providerModels, ProviderRecyclerViewInterface providerRecyclerViewInterface){
 
         this.context = context;
@@ -45,9 +46,8 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
 
         holder.providerNames.setText(providerModels.get(position).getProviderName());
 
-        holder.providerSwitches.setChecked(providerModels.get(position).getProviderSwitch().isChecked());
+        holder.providerSwitches.setChecked(providerModels.get(position).getProviderStatus());
 
-        //holder.providerSwitches.setChecked(false);
 
 
     }
@@ -69,29 +69,18 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
 
             providerSwitches = itemView.findViewById(R.id.provider_switch);
             providerNames = itemView.findViewById(R.id.provider_text);
-            //ONClickListener an ItemView ranrängen
+            //Switch ansprechen
             providerSwitches.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    int pos = getAdapterPosition();
-                    //@Nadine: Hier fühlt sich die Switch angesprochen
-                    Log.i("userdebug", "Hallo, ich bin Switch Nr " + String.valueOf(pos));
-                }
-            });
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //@Nadine: Hier fühlt sich nur die TextView angesprochen. Nicht aber die Switch
-
-
                     if (providerRecyclerViewInterface != null){
                         int pos = getAdapterPosition();
 
                         if (pos != RecyclerView.NO_POSITION){
-                            providerRecyclerViewInterface.onSwitchFlipped(pos);
+                            providerRecyclerViewInterface.onSwitchFlipped(pos, b);
+                            Log.i("userdebug", "Hallo, ich bin Switch Nr " + String.valueOf(pos));
                         }
                     }
-
                 }
             });
         }
