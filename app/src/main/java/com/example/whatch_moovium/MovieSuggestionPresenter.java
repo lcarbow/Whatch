@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
+public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresenter, Contract.Model.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
 
     // creating object of View Interface
     private Contract.LandingView landingPageView;
@@ -29,12 +29,12 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
     DatabaseHandler databaseHandler;
 
     // instantiating the objects of View Interface
-    public Presenter(Contract.LandingView landingPageView) {
+    public MovieSuggestionPresenter(Contract.LandingView landingPageView) {
         this.landingPageView = landingPageView;
     }
 
     // instantiating the objects of View Interface
-    public Presenter(Contract.MovieView movieSuggestion) {
+    public MovieSuggestionPresenter(Contract.MovieView movieSuggestion) {
         this.movieSuggestion = movieSuggestion;
         this.databaseHandler = new DatabaseHandler(movieSuggestion.getContext());
     }

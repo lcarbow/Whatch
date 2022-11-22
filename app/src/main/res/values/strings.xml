@@ -47,4 +47,16 @@
         <item>Test11</item>
         <item>Test12</item>
     </string-array>
+
+    <!--Genres-->
+    <string-array name="genrelist">
+        <item>Komödie</item>
+        <item>Drama</item>
+        <item>Action</item>
+        <item>Animation</item>
+        <item>Familie</item>
+        <item>Fantasy</item>
+        <item>Thriller</item>
+        <item>Science Fiction</item>
+    </string-array>
 </resources>

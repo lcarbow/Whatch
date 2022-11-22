@@ -28,8 +28,8 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         Button button = findViewById(R.id.button);
 
         //Presenter
-        Contract.Presenter presenter;
-        presenter = new Presenter(this);
+        Contract.MovieSuggestionPresenter presenter;
+        presenter = new MovieSuggestionPresenter(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
