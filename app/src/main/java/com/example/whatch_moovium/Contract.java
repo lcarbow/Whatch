@@ -3,6 +3,8 @@ package com.example.whatch_moovium;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 public interface Contract {
 
     interface MovieView {
@@ -60,7 +62,7 @@ public interface Contract {
 
     }
 
-    interface Presenter {
+    interface MovieSuggestionPresenter {
 
         // method to be called when
         // the button is clicked
@@ -76,6 +78,11 @@ public interface Contract {
         // method to destroy
         // lifecycle of MainActivity
         //void onDestroy();
+    }
+
+    interface MovieListPresenter {
+        void getMovieListFromApi();
+
     }
 
 }

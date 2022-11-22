@@ -7,19 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.List;
 
 public class MovieSuggestion extends AppCompatActivity implements Contract.MovieView {
 
@@ -63,8 +59,8 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         buttonBefore = findViewById(R.id.button_back);
 
         //Presenter
-        Contract.Presenter presenter;
-        presenter = new Presenter(this);
+        Contract.MovieSuggestionPresenter presenter;
+        presenter = new MovieSuggestionPresenter(this);
         presenter.getMovieListFromApi();
 
 
