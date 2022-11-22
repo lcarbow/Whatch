@@ -11,32 +11,52 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
+public class LandingPage_Genre_ParentItemAdapter
+        extends RecyclerView
+        .Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
 
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private List<Model> itemList;
+    // An object of RecyclerView.RecycledViewPool
+    // is created to share the Views
+    // between the child and
+    // the parent RecyclerViews
+    private RecyclerView.RecycledViewPool
+            viewPool
+            = new RecyclerView
+            .RecycledViewPool();
+    private List<LandingPage_Genres_ModelParent> itemList;
 
-    LandingPage_Genre_ParentItemAdapter(List<Model> itemList)
+    LandingPage_Genre_ParentItemAdapter(List<LandingPage_Genres_ModelParent> itemList)
     {
         this.itemList = itemList;
     }
 
     @NonNull
     @Override
-    public ParentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ParentViewHolder onCreateViewHolder(
+            @NonNull ViewGroup viewGroup,
+            int i)
+    {
 
-
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
+        // Here we inflate the corresponding
+        // layout of the parent item
+        View view = LayoutInflater
+                .from(viewGroup.getContext())
+                .inflate(
+                        R.layout.genre_titles,
+                        viewGroup, false);
 
         return new ParentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ParentViewHolder parentViewHolder, int position) {
+    public void onBindViewHolder(
+            @NonNull ParentViewHolder parentViewHolder,
+            int position)
+    {
 
         // Create an instance of the ParentItem
         // class for the given position
-        Model parentItem = itemList.get(position);
+        LandingPage_Genres_ModelParent parentItem = itemList.get(position);
 
         // For the created instance,
         // get the title and set it
@@ -49,7 +69,13 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
         // Here we have assigned the layout
         // as LinearLayout with vertical orientation
-        LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.ChildRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(
+                parentViewHolder
+                        .ChildRecyclerView
+                        .getContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false);
 
         // Since this is a nested layout, so
         // to define how many child items
@@ -57,12 +83,16 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
         // child RecyclerView is nested
         // inside the parent RecyclerView,
         // we use the following method
-        layoutManager.setInitialPrefetchItemCount(parentItem.getArrayList().size());
+        layoutManager
+                .setInitialPrefetchItemCount(
+                        parentItem
+                                .getChildItemList()
+                                .size());
 
         // Create an instance of the child
         // item view adapter and set its
         // adapter, layout manager and RecyclerViewPool
-        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(parentItem.getArrayList());
+        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(parentItem.getChildItemList());
         parentViewHolder.ChildRecyclerView.setLayoutManager(layoutManager);
         parentViewHolder.ChildRecyclerView.setAdapter(childItemAdapter);
         parentViewHolder.ChildRecyclerView.setRecycledViewPool(viewPool);
@@ -74,27 +104,33 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
     // of instances we have created
     // of the ParentItemList
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
 
         return itemList.size();
     }
 
-
     // This class is to initialize
     // the Views present in
     // the parent RecyclerView
-    class ParentViewHolder extends RecyclerView.ViewHolder {
+    class ParentViewHolder
+            extends RecyclerView.ViewHolder {
 
         private TextView ParentItemTitle;
         private RecyclerView ChildRecyclerView;
 
-        ParentViewHolder(final View itemView) {
+        ParentViewHolder(final View itemView)
+        {
             super(itemView);
 
-            ParentItemTitle = itemView.findViewById(R.id.parent_item_title);
-            ChildRecyclerView = itemView.findViewById(R.id.child_recyclerview);
+            ParentItemTitle
+                    = itemView
+                    .findViewById(
+                            R.id.parent_item_title);
+            ChildRecyclerView
+                    = itemView
+                    .findViewById(
+                            R.id.child_recyclerview);
         }
     }
-
-
 }

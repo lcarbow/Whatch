@@ -18,13 +18,11 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPage_Genres extends AppCompatActivity implements Contract.LandingViewGenre {
+public class LandingPage_Genres extends AppCompatActivity implements Contract.LandingView {
 
     BottomNavigationView bottomNavigationView;
-    private ArrayList<Model> titleList;
+    private ArrayList<LandingPage_Genres_ModelParent> titleList;
     private RecyclerView ParentRecyclerViewItem;
-    private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
-    private LinearLayoutManager layoutManager;
 
 
     @Override
@@ -32,16 +30,25 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page_genres);
 
-        //RecyclerView
         ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
 
-        //Presenter
+        //In Presenter auslagern
+        LinearLayoutManager layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
+        LandingPage_Genre_ParentItemAdapter parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(ParentItemList());
+        ParentRecyclerViewItem.setAdapter(parentItemAdapter);
+        ParentRecyclerViewItem.setLayoutManager(layoutManager);
+
         Contract.MovieListPresenter presenter;
         presenter = new MovieListPresenter(this);
         presenter.getMovieListFromApi();
 
+
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.genres);
+
+
+        //setTitleInfos();
+        //setAdapter();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -71,6 +78,42 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
 
     }
+    //In Presenter auslagern
+    private List<LandingPage_Genres_ModelParent> ParentItemList()
+    {
+        List<LandingPage_Genres_ModelParent> itemList = new ArrayList<>();
+
+        String[] genreList = getResources().getStringArray(R.array.genrelist);
+
+        for (int i = 0; i < genreList.length; i++){
+
+            itemList.add(new LandingPage_Genres_ModelParent(genreList[i], ChildItemList()));
+
+        }
+
+        return itemList;
+    }
+    //In Presenter auslagern
+    private List<Movie> ChildItemList()
+    {
+        List<Movie> ChildItemList = new ArrayList<>();
+
+
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+        ChildItemList.add(new Movie());
+
+
+
+
+        return ChildItemList;
+    }
 
     @Override
     protected void onPause() {
@@ -84,21 +127,5 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
 
     @Override
     public Context getContext() {
-        return LandingPage_Genres.this;
-    }
-
-    @Override
-    public void setAdapter(List<Model> itemList) {
-        layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
-        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(itemList);
-        ParentRecyclerViewItem.setAdapter(parentItemAdapter);
-        ParentRecyclerViewItem.setLayoutManager(layoutManager);
-
-    }
-
-
-    //Adapter setten, Dieser wird vom Presenter aufgerufen
-    //Dafür wird eine Liste von ModelPartens übergeben
-    // Diese besteht aus den GenreTitlen (String) und einer Liste von Movies für das jeweilige Genre
-
+        return LandingPage_Genres.this;    }
 }

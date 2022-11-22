@@ -13,14 +13,14 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresenter, Contract.ModelView.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
+public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresenter, Contract.Model.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
 
     // creating object of View Interface
     private Contract.LandingView landingPageView;
     private Contract.MovieView movieSuggestion;
 
     // creating object of Model Interface
-    private Contract.ModelView model;
+    private Contract.Model model;
 
     Movie actuallyMovie;
     ApiInterface myAPI_Interface;
@@ -51,15 +51,9 @@ public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresent
 
     @Override
     public void onButtonAddClick() {
-        if(databaseHandler.CheckIfExist("watchlist", actuallyMovie.getId())){
-            Toast.makeText(movieSuggestion.getContext(),
-                    "Film ist bereits auf der Watchlist!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            databaseHandler.addWatchlistMovie(actuallyMovie.getId());
-            Toast.makeText(movieSuggestion.getContext(),
-                    "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
-        }
+        databaseHandler.addWatchlistMovie(actuallyMovie.getId());
+        Toast.makeText(movieSuggestion.getContext(),
+                "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -74,15 +68,9 @@ public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresent
 
     @Override
     public void onButtonSeenClick() {
-        if(databaseHandler.CheckIfExist("seenlist", actuallyMovie.getId())){
-            Toast.makeText(movieSuggestion.getContext(),
-                    "Film ist bereits auf der Seenlist!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            databaseHandler.addSeenlistMovie(actuallyMovie.getId());
-            Toast.makeText(movieSuggestion.getContext(),
-                    "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
-        }
+        databaseHandler.addSeenlistMovie(actuallyMovie.getId());
+        Toast.makeText(movieSuggestion.getContext(),
+                "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
     }
 
     public void onButtonNextClick() {
