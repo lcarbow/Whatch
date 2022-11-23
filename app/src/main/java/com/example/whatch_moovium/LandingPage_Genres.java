@@ -21,7 +21,7 @@ import java.util.List;
 public class LandingPage_Genres extends AppCompatActivity implements Contract.LandingViewGenre {
 
     BottomNavigationView bottomNavigationView;
-    private ArrayList<LandingPage_Genres_ModelParent> titleList;
+    private ArrayList<Model> titleList;
     private RecyclerView ParentRecyclerViewItem;
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
@@ -87,15 +87,18 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         return LandingPage_Genres.this;
     }
 
-    //Adapter setten, Dieser wird vom Presenter aufgerufen
-    //Dafür wird eine Liste von ModelPartens übergeben
-    // Diese besteht aus den GenreTitlen (String) und einer Liste von Movies für das jeweilige Genre
     @Override
-    public void setAdapter(List<LandingPage_Genres_ModelParent> itemList) {
+    public void setAdapter(List<Model> itemList) {
         layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
         parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
 
     }
+
+
+    //Adapter setten, Dieser wird vom Presenter aufgerufen
+    //Dafür wird eine Liste von ModelPartens übergeben
+    // Diese besteht aus den GenreTitlen (String) und einer Liste von Movies für das jeweilige Genre
+
 }

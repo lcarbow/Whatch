@@ -23,7 +23,7 @@ public interface Contract {
 
     interface LandingViewGenre {
         Context getContext();
-        void setAdapter(List<LandingPage_Genres_ModelParent> itemList);
+        void setAdapter(List<Model> itemList);
     }
 
     interface LandingView {
@@ -53,7 +53,7 @@ public interface Contract {
 
     }
 
-    interface Model {
+    interface ModelView {
 
         // nested interface to be
         interface OnFinishedListener {
@@ -62,19 +62,11 @@ public interface Contract {
             // completes its execution
             void onFinished(Movie movie);
         }
-        void getNextMovie(Contract.Model.OnFinishedListener onFinishedListener);
-        void getBeforeMovie(Contract.Model.OnFinishedListener onFinishedListener);
+        void getNextMovie(ModelView.OnFinishedListener onFinishedListener);
+        void getBeforeMovie(ModelView.OnFinishedListener onFinishedListener);
+        void nextIndex();
+        int showIndex();
 
-    }
-
-    interface ModelAdapter {
-        // nested interface to be
-        interface OnFinishedListener {
-            // function to be called
-            // once the Handler of Model class
-            // completes its execution
-            void onFinished(Movie movie);
-        }
     }
 
     interface MovieSuggestionPresenter {
@@ -97,6 +89,8 @@ public interface Contract {
 
     interface MovieListPresenter {
         void getMovieListFromApi();
+        void onButtonClick();
+
 
     }
 

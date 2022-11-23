@@ -4,8 +4,10 @@ package com.example.whatch_moovium;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import java.util.List;
 public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ChildItemAdapter.ChildViewHolder> {
 
     private List<Movie> ChildItemList;
+    //Presenter
 
     LandingPage_Genre_ChildItemAdapter(List<Movie> childItemList)
     {
@@ -25,6 +28,7 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
     @NonNull
     @Override
     public ChildViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
 
         // Here we inflate the corresponding
         // layout of the child item
@@ -56,7 +60,17 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
 
         ChildViewHolder(View itemView) {
             super(itemView);
+
             childImageView = itemView.findViewById(R.id.img_child_item);
+
+            childImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(view.getContext(),MovieSuggestion.class);
+                    view.getContext().startActivity(i);
+                    Log.i("userdebug","Umleitung zur MovieSugg");
+                }
+            });
         }
     }
 }
