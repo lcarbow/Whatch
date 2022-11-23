@@ -12,7 +12,6 @@ public class Model implements Contract.Model {
     // array list of strings from which
     // random strings will be selected
     // to display in the activitymodel
-    private String genreTitel;
     private List <Movie> arrayList;
     int index;
 
@@ -21,35 +20,12 @@ public class Model implements Contract.Model {
         index = 0;
     }
 
-    public Model(String genreTitel, List<Movie> arrayList, int index) {
-        this.genreTitel = genreTitel;
-        this.arrayList = arrayList;
-        this.index = index;
-    }
-
-
     public List<Movie> getArrayList() {
         return arrayList;
     }
 
     public void setArrayList(List<Movie> arrayList) {
         this.arrayList = arrayList;
-    }
-
-    public String getGenreTitel() {
-        return genreTitel;
-    }
-
-    public void setGenreTitel(String genreTitel) {
-        this.genreTitel = genreTitel;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 
     @Override
