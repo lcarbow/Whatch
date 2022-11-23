@@ -9,15 +9,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieListPresenter implements Contract.MovieListPresenter, Contract.Model.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
+public class MovieListPresenter implements Contract.MovieListPresenter, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewGenre landingPageView;
 
-    // creating object of Model Interface
-    private Contract.Model model;
-
-    Movie actuallyMovie;
     ApiInterface myAPI_Interface;
     List<Movie> movieList;
+
+    //besser?
     int index;
 
     public MovieListPresenter(Contract.LandingViewGenre landingPageView) {
@@ -27,9 +25,7 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Contract
     @Override
     public void getMovieListFromApi() {
 
-            //make api interface
             myAPI_Interface = new ApiInterface(landingPageView.getContext());
-            //set callback
 
             List<Integer> providerList = new ArrayList<>();
             providerList.add(8);
@@ -40,14 +36,12 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Contract
 
     @Override
     public void receiveDiscover(List<Movie> filteredMovieList) {
-        //3. Komplette Liste Shufflen
         Collections.shuffle(filteredMovieList);
         movieList = filteredMovieList;
 
         List<LandingPage_Genres_ModelParent> itemList = new ArrayList<>();
 
-        ArrayList genreList;
-        genreList = new ArrayList<String>();
+        ArrayList genreList= new ArrayList<String>();
         genreList.add("Komödie");
         genreList.add("Drama");
         genreList.add("Action");
@@ -81,7 +75,7 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Contract
 
     @Override
     public void receivePoster(Bitmap img) {
-
+            //Muss ausgeführt werden, noch bevor Seite geladen ist.
             movieList.get(index).setPosterBitmap(img);
             index++;
 
@@ -93,9 +87,4 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Contract
 
     }
 
-    @Override
-    public void onFinished(Movie movie) {
-        this.actuallyMovie = movie;
-        myAPI_Interface.getPoster(movie.getPoster(), this);
-    }
 }
