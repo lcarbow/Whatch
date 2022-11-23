@@ -1,5 +1,6 @@
 package com.example.whatch_moovium;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Movie {
     List<String> genre = new ArrayList<>();
     //ENUM?
     String poster;
+    Bitmap posterBitmap;
     String backdrop;
     String releaseDate;
     List<String> streaming = new ArrayList<>();
@@ -38,7 +40,17 @@ public class Movie {
     public Movie() {
     }
 
+    public Movie(Bitmap posterBitmap) {
+        this.posterBitmap = posterBitmap;
+    }
 
+    public Bitmap getPosterBitmap() {
+        return posterBitmap;
+    }
+
+    public void setPosterBitmap(Bitmap posterBitmap) {
+        this.posterBitmap = posterBitmap;
+    }
 
     //setter & getter
     public String getTitle() {

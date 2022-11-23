@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 public class LandingPage_Genre_ChildItemAdapter
-        extends RecyclerView
-        .Adapter<LandingPage_Genre_ChildItemAdapter.ChildViewHolder> {
+        extends RecyclerView.Adapter<LandingPage_Genre_ChildItemAdapter.ChildViewHolder> {
 
     private List<Movie> ChildItemList;
 
@@ -63,7 +63,7 @@ public class LandingPage_Genre_ChildItemAdapter
                 .setText(childItem.getChildItemTitle());
 
          */
-        //childViewHolder.childImageView.setImageBitmap(childItem.getPoster());
+        childViewHolder.childImageView.setImageBitmap(childItem.getPosterBitmap());
     }
 
 
@@ -80,6 +80,7 @@ public class LandingPage_Genre_ChildItemAdapter
         // that have been created
         return ChildItemList.size();
     }
+
 
     // This class is to initialize
     // the Views present

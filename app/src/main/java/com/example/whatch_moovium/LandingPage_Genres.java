@@ -18,11 +18,13 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPage_Genres extends AppCompatActivity implements Contract.LandingView {
+public class LandingPage_Genres extends AppCompatActivity implements Contract.LandingViewGenre {
 
     BottomNavigationView bottomNavigationView;
     private ArrayList<LandingPage_Genres_ModelParent> titleList;
     private RecyclerView ParentRecyclerViewItem;
+    LandingPage_Genre_ParentItemAdapter parentItemAdapter;
+    private LinearLayoutManager layoutManager;
 
 
     @Override
@@ -33,10 +35,8 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
 
         //In Presenter auslagern
-        LinearLayoutManager layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
-        LandingPage_Genre_ParentItemAdapter parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(ParentItemList());
-        ParentRecyclerViewItem.setAdapter(parentItemAdapter);
-        ParentRecyclerViewItem.setLayoutManager(layoutManager);
+
+
 
         Contract.MovieListPresenter presenter;
         presenter = new MovieListPresenter(this);
@@ -78,42 +78,6 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
 
     }
-    //In Presenter auslagern
-    private List<LandingPage_Genres_ModelParent> ParentItemList()
-    {
-        List<LandingPage_Genres_ModelParent> itemList = new ArrayList<>();
-
-        String[] genreList = getResources().getStringArray(R.array.genrelist);
-
-        for (int i = 0; i < genreList.length; i++){
-
-            itemList.add(new LandingPage_Genres_ModelParent(genreList[i], ChildItemList()));
-
-        }
-
-        return itemList;
-    }
-    //In Presenter auslagern
-    private List<Movie> ChildItemList()
-    {
-        List<Movie> ChildItemList = new ArrayList<>();
-
-
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-        ChildItemList.add(new Movie());
-
-
-
-
-        return ChildItemList;
-    }
 
     @Override
     protected void onPause() {
@@ -128,4 +92,13 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
     @Override
     public Context getContext() {
         return LandingPage_Genres.this;    }
+
+    @Override
+    public void setAdapter(List<LandingPage_Genres_ModelParent> itemList) {
+        layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
+        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(itemList);
+        ParentRecyclerViewItem.setAdapter(parentItemAdapter);
+        ParentRecyclerViewItem.setLayoutManager(layoutManager);
+
+    }
 }
