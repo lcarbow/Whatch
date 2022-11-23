@@ -11,18 +11,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class LandingPage_Genre_ParentItemAdapter
-        extends RecyclerView
-        .Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
+public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
 
-    // An object of RecyclerView.RecycledViewPool
-    // is created to share the Views
-    // between the child and
-    // the parent RecyclerViews
-    private RecyclerView.RecycledViewPool
-            viewPool
-            = new RecyclerView
-            .RecycledViewPool();
+    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private List<LandingPage_Genres_ModelParent> itemList;
 
     LandingPage_Genre_ParentItemAdapter(List<LandingPage_Genres_ModelParent> itemList)
@@ -32,27 +23,16 @@ public class LandingPage_Genre_ParentItemAdapter
 
     @NonNull
     @Override
-    public ParentViewHolder onCreateViewHolder(
-            @NonNull ViewGroup viewGroup,
-            int i)
-    {
+    public ParentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        // Here we inflate the corresponding
-        // layout of the parent item
-        View view = LayoutInflater
-                .from(viewGroup.getContext())
-                .inflate(
-                        R.layout.genre_titles,
-                        viewGroup, false);
+
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
 
         return new ParentViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(
-            @NonNull ParentViewHolder parentViewHolder,
-            int position)
-    {
+    public void onBindViewHolder(@NonNull ParentViewHolder parentViewHolder, int position) {
 
         // Create an instance of the ParentItem
         // class for the given position
@@ -69,13 +49,7 @@ public class LandingPage_Genre_ParentItemAdapter
 
         // Here we have assigned the layout
         // as LinearLayout with vertical orientation
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(
-                parentViewHolder
-                        .ChildRecyclerView
-                        .getContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.ChildRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         // Since this is a nested layout, so
         // to define how many child items
@@ -83,11 +57,7 @@ public class LandingPage_Genre_ParentItemAdapter
         // child RecyclerView is nested
         // inside the parent RecyclerView,
         // we use the following method
-        layoutManager
-                .setInitialPrefetchItemCount(
-                        parentItem
-                                .getChildItemList()
-                                .size());
+        layoutManager.setInitialPrefetchItemCount(parentItem.getChildItemList().size());
 
         // Create an instance of the child
         // item view adapter and set its
@@ -104,8 +74,7 @@ public class LandingPage_Genre_ParentItemAdapter
     // of instances we have created
     // of the ParentItemList
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
 
         return itemList.size();
     }
@@ -114,24 +83,16 @@ public class LandingPage_Genre_ParentItemAdapter
     // This class is to initialize
     // the Views present in
     // the parent RecyclerView
-    class ParentViewHolder
-            extends RecyclerView.ViewHolder {
+    class ParentViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ParentItemTitle;
         private RecyclerView ChildRecyclerView;
 
-        ParentViewHolder(final View itemView)
-        {
+        ParentViewHolder(final View itemView) {
             super(itemView);
 
-            ParentItemTitle
-                    = itemView
-                    .findViewById(
-                            R.id.parent_item_title);
-            ChildRecyclerView
-                    = itemView
-                    .findViewById(
-                            R.id.child_recyclerview);
+            ParentItemTitle = itemView.findViewById(R.id.parent_item_title);
+            ChildRecyclerView = itemView.findViewById(R.id.child_recyclerview);
         }
     }
 
