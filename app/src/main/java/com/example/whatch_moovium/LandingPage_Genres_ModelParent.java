@@ -25,9 +25,7 @@ public class LandingPage_Genres_ModelParent {
         return ParentItemTitle;
     }
 
-    public void setParentItemTitle(
-            String parentItemTitle)
-    {
+    public void setParentItemTitle(String parentItemTitle) {
         ParentItemTitle = parentItemTitle;
     }
 
@@ -36,9 +34,7 @@ public class LandingPage_Genres_ModelParent {
         return ChildItemList;
     }
 
-    public void setChildItemList(
-            List<Movie> childItemList)
-    {
+    public void setChildItemList(List<Movie> childItemList) {
         ChildItemList = childItemList;
     }
 }
