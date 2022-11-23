@@ -1,13 +1,17 @@
 package com.example.whatch_moovium;
 
-import java.util.List;
+import android.os.Handler;
+import android.util.Log;
 
-public class Model implements Contract.ModelView {
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+public class Model implements Contract.Model {
 
     // array list of strings from which
     // random strings will be selected
     // to display in the activitymodel
-    private String ParentItemTitle;
     private List <Movie> arrayList;
     int index;
 
@@ -16,26 +20,12 @@ public class Model implements Contract.ModelView {
         index = 0;
     }
 
-    public Model(String parentItemTitle, List<Movie> arrayList) {
-        ParentItemTitle = parentItemTitle;
-        this.arrayList = arrayList;
-        this.index = 0;
-    }
-
     public List<Movie> getArrayList() {
         return arrayList;
     }
 
     public void setArrayList(List<Movie> arrayList) {
         this.arrayList = arrayList;
-    }
-
-    public String getParentItemTitle() {
-        return ParentItemTitle;
-    }
-
-    public void setParentItemTitle(String parentItemTitle) {
-        ParentItemTitle = parentItemTitle;
     }
 
     @Override
@@ -60,18 +50,6 @@ public class Model implements Contract.ModelView {
         }
         listener.onFinished(arrayList.get(index));
         index--;
-    }
-
-    @Override
-    public void nextIndex() {
-        this.index = index + 1;
-
-
-    }
-
-    @Override
-    public int showIndex() {
-        return index;
     }
 
 }

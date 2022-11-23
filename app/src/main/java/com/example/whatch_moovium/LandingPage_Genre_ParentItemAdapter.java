@@ -110,6 +110,7 @@ public class LandingPage_Genre_ParentItemAdapter
         return itemList.size();
     }
 
+
     // This class is to initialize
     // the Views present in
     // the parent RecyclerView
@@ -133,4 +134,6 @@ public class LandingPage_Genre_ParentItemAdapter
                             R.id.child_recyclerview);
         }
     }
+
+
 }
