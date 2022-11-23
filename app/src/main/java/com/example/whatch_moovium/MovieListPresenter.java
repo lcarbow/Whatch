@@ -1,7 +1,6 @@
 package com.example.whatch_moovium;
 
-import androidx.annotation.NonNull;
-
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -9,11 +8,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieListPresenter implements Contract.MovieListPresenter, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
+public class MovieListPresenter implements Contract.MovieListPresenter, Contract.ModelView.OnFinishedListener,Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewGenre landingPageView;
+    private Contract.ModelView model;
 
     ApiInterface myAPI_Interface;
     List<Movie> movieList;
+    List<Model> itemList;
+    List<String> genreList;
 
     //besser?
     int index;
@@ -33,15 +35,25 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Interfac
             myAPI_Interface.getDiscover("popularity.desc", true, providerList, this);
     }
 
+    @Override
+    public void onButtonClick() {
+        if (landingPageView != null) {
+            Intent i = new Intent(landingPageView.getContext(),MovieSuggestion.class);
+            landingPageView.getContext().startActivity(i);
+            Log.i("userdebug","Umleitung zur MovieSugg");
+
+        }
+    }
+
 
     @Override
     public void receiveDiscover(List<Movie> filteredMovieList) {
         Collections.shuffle(filteredMovieList);
         movieList = filteredMovieList;
 
-        List<LandingPage_Genres_ModelParent> itemList = new ArrayList<>();
+        itemList = new ArrayList<>();
 
-        ArrayList genreList= new ArrayList<String>();
+        genreList= new ArrayList<>();
         genreList.add("Komödie");
         genreList.add("Drama");
         genreList.add("Action");
@@ -58,26 +70,28 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Interfac
         }
         for (int i = 0; i < genreList.size(); i++){
 
-            itemList.add(new LandingPage_Genres_ModelParent(genreList.get(i).toString(), movieList));
+            model = new Model(genreList.get(i).toString(),movieList);
+
+            itemList.add(new Model(genreList.get(i).toString(), movieList));
 
 
         }
 
 
-        landingPageView.setAdapter(itemList);
-
-        //4. neue Model Klasse erstellen mit den neuen Filmen
-        //model = new Model(filteredMovieList);
-        //ChildItemList(filteredMovieList);
-        //5. Funktion von model aufrufen, in der gewartet wird bis der listener ready ist
-        //model.getNextMovie(this);
     }
 
     @Override
     public void receivePoster(Bitmap img) {
-            //Muss ausgeführt werden, noch bevor Seite geladen ist.
-            movieList.get(index).setPosterBitmap(img);
-            index++;
+
+
+        //Muss ausgeführt werden, noch bevor Seite geladen ist.
+            movieList.get(model.showIndex()).setPosterBitmap(img);
+            model.nextIndex();
+
+        if (model.showIndex() == movieList.size()) {
+            landingPageView.setAdapter(itemList);
+
+        }
 
         //movieSuggestion.setPosterImage(img);
     }
@@ -87,4 +101,8 @@ public class MovieListPresenter implements Contract.MovieListPresenter, Interfac
 
     }
 
+    @Override
+    public void onFinished(Movie movie) {
+
+    }
 }
