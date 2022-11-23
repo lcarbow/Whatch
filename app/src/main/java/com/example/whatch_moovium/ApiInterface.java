@@ -43,7 +43,7 @@ public class ApiInterface {
             String providersString = "";
             for (Integer providerINT : providers) {
                 providersString += Integer.toString(providerINT);
-                providersString += "%7C";
+                providersString += "%7C";//
             }
             url += "&with_watch_providers=" + providersString + "&watch_region=DE&with_watch_monetization_types=flatrate";
         }
