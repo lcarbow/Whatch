@@ -14,9 +14,9 @@ import java.util.List;
 public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private List<LandingPage_Genres_ModelParent> itemList;
+    private List<Model> itemList;
 
-    LandingPage_Genre_ParentItemAdapter(List<LandingPage_Genres_ModelParent> itemList)
+    LandingPage_Genre_ParentItemAdapter(List<Model> itemList)
     {
         this.itemList = itemList;
     }
@@ -36,7 +36,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
         // Create an instance of the ParentItem
         // class for the given position
-        LandingPage_Genres_ModelParent parentItem = itemList.get(position);
+        Model parentItem = itemList.get(position);
 
         // For the created instance,
         // get the title and set it
@@ -57,12 +57,12 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
         // child RecyclerView is nested
         // inside the parent RecyclerView,
         // we use the following method
-        layoutManager.setInitialPrefetchItemCount(parentItem.getChildItemList().size());
+        layoutManager.setInitialPrefetchItemCount(parentItem.getArrayList().size());
 
         // Create an instance of the child
         // item view adapter and set its
         // adapter, layout manager and RecyclerViewPool
-        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(parentItem.getChildItemList());
+        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(parentItem.getArrayList());
         parentViewHolder.ChildRecyclerView.setLayoutManager(layoutManager);
         parentViewHolder.ChildRecyclerView.setAdapter(childItemAdapter);
         parentViewHolder.ChildRecyclerView.setRecycledViewPool(viewPool);
