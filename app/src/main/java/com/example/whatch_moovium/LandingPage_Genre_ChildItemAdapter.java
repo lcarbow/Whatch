@@ -22,7 +22,7 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
 
     LandingPage_Genre_ChildItemAdapter(List<Movie> childItemList)
     {
-        this.ChildItemList = childItemList;
+        this.ChildItemList = childItemList;//
     }
 
     @NonNull
