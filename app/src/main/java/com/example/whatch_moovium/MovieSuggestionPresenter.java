@@ -10,14 +10,14 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresenter, Contract.Model.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
+public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresenter, Contract.ModelView.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback {
 
     // creating object of View Interface
     private Contract.LandingView landingPageView;
     private Contract.MovieView movieSuggestion;
 
     // creating object of Model Interface
-    private Contract.Model model;
+    private Contract.ModelView model;
 
     Movie actuallyMovie;
     ApiInterface myAPI_Interface;
