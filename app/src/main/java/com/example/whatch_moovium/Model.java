@@ -11,7 +11,7 @@ public class Model implements Contract.Model {
 
     // array list of strings from which
     // random strings will be selected
-    // to display in the activity
+    // to display in the activitymodel
     private List <Movie> arrayList;
     int index;
 
