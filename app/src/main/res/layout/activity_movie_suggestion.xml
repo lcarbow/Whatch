@@ -102,11 +102,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="120dp"
                             android:layout_weight="1"
-                            android:background="@android:drawable/ic_menu_close_clear_cancel"
+                            android:background="@drawable/ic_baseline_clear_48"
                             android:scaleX="0.5"
                             android:scaleY="0.5"
                             android:text=""
-                            android:visibility="visible"
+                            android:visibility="invisible"
                             app:backgroundTint="@null" />
 
                     </FrameLayout>

@@ -1,5 +1,7 @@
 package com.example.whatch_moovium;
 
+import static android.os.Build.ID;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -37,23 +39,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void addWatchlistMovie(int ID){
+    public void addWatchlistMovie(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_WATCHLIST_ID, ID);
+        values.put(COLUMN_WATCHLIST_ID, id);
 
         db.insert(TABLE_WATCHLIST_NAME, null, values);
 
         db.close();
     }
-    public void addSeenlistMovie(int ID){
+    public void addSeenlistMovie(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_SEENLIST_ID, ID);
+        values.put(COLUMN_SEENLIST_ID, id);
 
         db.insert(TABLE_SEENLIST_NAME, null, values);
 
@@ -69,6 +71,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         return true;
+    }
+
+    public void delWatchlistMovie(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_WATCHLIST_NAME, "ID ="+id, null);
+        db.close();
     }
 
 

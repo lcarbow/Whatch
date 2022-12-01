@@ -75,6 +75,7 @@ public interface Contract {
         // the button is clicked
         void onButtonClick();
         void onButtonAddClick();
+        void onButtonDeleteClick();
         void onButtonShareClick();
         void onButtonSeenClick();
         void onButtonNextClick();
