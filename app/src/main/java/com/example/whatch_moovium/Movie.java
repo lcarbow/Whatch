@@ -23,7 +23,6 @@ public class Movie {
     //ENUM?
     String original_language;
 
-
     public Movie(String title, int id, String description, Double rating, List<String> genre, String poster, String backdrop, String releaseDate, List<String> streaming, String original_language) {
         this.title = title;
         this.id = id;
@@ -202,7 +201,6 @@ public class Movie {
     }
 
     public void addStreaming(String watchProvider) {
-        Log.i("AlexDebugging", "Inside Movie: Provider: " + watchProvider);
         this.streaming.add(watchProvider);
     }
 
@@ -212,5 +210,30 @@ public class Movie {
 
     public void setOriginal_language(String original_language) {
         this.original_language = original_language;
+    }
+
+    public int getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(int imdbID) {
+        this.imdbID = imdbID;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", id=" + id +
+                ", imdbID=" + imdbID +
+                ", description='" + description + '\'' +
+                ", rating=" + rating +
+                ", genre=" + getGenre() +
+                ", poster='" + poster + '\'' +
+                ", backdrop='" + backdrop + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", streaming=" + streaming +
+                ", original_language='" + original_language + '\'' +
+                '}';
     }
 }
