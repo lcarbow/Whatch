@@ -81,16 +81,35 @@
                         android:text=""
                         app:backgroundTint="@null" />
 
-                    <Button
-                        android:id="@+id/button_add"
+                    <FrameLayout
                         android:layout_width="100dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/add_fill0_wght400_grad0_opsz48_1_"
-                        android:scaleX="0.5"
-                        android:scaleY="0.5"
-                        android:text=""
-                        app:backgroundTint="@null" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <Button
+                            android:id="@+id/button_add"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/add_fill0_wght400_grad0_opsz48_1_"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:text=""
+                            app:backgroundTint="@null" />
+
+                        <Button
+                            android:id="@+id/button_delete"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/ic_menu_close_clear_cancel"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:text=""
+                            android:visibility="visible"
+                            app:backgroundTint="@null" />
+
+                    </FrameLayout>
 
                     <Button
                         android:id="@+id/button_seen"
@@ -102,6 +121,7 @@
                         android:scaleY="0.5"
                         android:text=""
                         app:backgroundTint="@null" />
+
                 </LinearLayout>
 
                 <TextView
