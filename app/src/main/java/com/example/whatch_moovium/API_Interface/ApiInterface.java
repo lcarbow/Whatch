@@ -28,7 +28,7 @@ import java.util.concurrent.CountDownLatch;
 public class ApiInterface {
 
     private RequestQueue mQueue;
-    Activity activity;
+    private Activity activity;
     //api key
     private static String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
 
@@ -169,7 +169,7 @@ public class ApiInterface {
         mQueue.add(request);
     }
 
-    void getAll(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiAllCallback receiver) {
+    public void getAll(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiAllCallback receiver) {
 
         //make thread
         Thread thread = new Thread(new Runnable() {
@@ -233,7 +233,7 @@ public class ApiInterface {
     }
 
     //gets list of all genres
-    void getGenres(Interfaces.apiGenreCallback receiver) {
+    public void getGenres(Interfaces.apiGenreCallback receiver) {
 
         List<Genre> genres = new ArrayList<Genre>();
 
@@ -273,7 +273,7 @@ public class ApiInterface {
     }
 
     //makes genres request and fills genres list
-    void genreRequest(List<Genre> genres, CountDownLatch countDownLatch) {
+    private void genreRequest(List<Genre> genres, CountDownLatch countDownLatch) {
         Log.i("AlexDebugging", "genrerequest start");
         //make api request
         String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE";
@@ -312,7 +312,7 @@ public class ApiInterface {
     }
 
     //takes list with ints and return list with movie objects
-    void getWatchlist(List<Integer> idList/*, Interfaces.apiWatchlistCallback receiver*/) {
+    public void getWatchlist(List<Integer> idList, Interfaces.apiWatchlistCallback receiver) {
 
         //make thread
         Thread thread = new Thread(new Runnable() {
@@ -365,12 +365,17 @@ public class ApiInterface {
                 Log.i("AlexDebugging", "getwatchlist provider finished");
 
                 //print list
-                for (Movie movie : movieList) {
+                /*for (Movie movie : movieList) {
                     Log.i("AlexDebugging", movie.toString());
-                }
+                }*/
 
-                //return movielsit
-                //receiver.receiveWatchlist(movieList);
+                //return movielist
+                activity.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        receiver.receiveWatchlist(movieList);
+                    }
+                });
 
             }
         });
@@ -378,7 +383,7 @@ public class ApiInterface {
 
     }
 
-    void movieRequest(Movie movie, int id, CountDownLatch countDownLatch) {
+    private void movieRequest(Movie movie, int id, CountDownLatch countDownLatch) {
 
         //make api request
         String url = " https://api.themoviedb.org/3/movie/" + id + "?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE";
@@ -426,7 +431,7 @@ public class ApiInterface {
     }
 
     //takes movie and makes api request for watchprovider
-    void watchProviderRequest(Movie movie, CountDownLatch countDownLatch) {
+    private void watchProviderRequest(Movie movie, CountDownLatch countDownLatch) {
 
         //make api request
         String url = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/watch/providers?api_key=" + apiKey;
