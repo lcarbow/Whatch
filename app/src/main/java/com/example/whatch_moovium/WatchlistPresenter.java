@@ -30,7 +30,7 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
         List<Integer> watchList = new ArrayList<>();
         watchList = dbHandler.getWatchlist();
 
-        myApiInterface.getWatchlist(watchList, true, this);
+        myApiInterface.getWatchlist(watchList, this);
     }
 
     @Override
@@ -44,7 +44,8 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     }
 
     @Override
-    public void receiveDiscover(List<Movie> watchList){
+    public void receiveWatchlist(List<Movie> watchList){
+        movieList = watchList;
 
     }
 
