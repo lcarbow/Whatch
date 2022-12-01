@@ -225,7 +225,15 @@ public class Movie {
         return "Movie{" +
                 "title='" + title + '\'' +
                 ", id=" + id +
+                ", imdbID=" + imdbID +
+                ", description='" + description + '\'' +
+                ", rating=" + rating +
                 ", genre=" + getGenre() +
+                ", poster='" + poster + '\'' +
+                ", backdrop='" + backdrop + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", streaming=" + streaming +
+                ", original_language='" + original_language + '\'' +
                 '}';
     }
 }

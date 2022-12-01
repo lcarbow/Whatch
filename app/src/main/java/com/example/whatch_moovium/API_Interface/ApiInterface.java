@@ -147,7 +147,7 @@ public class ApiInterface {
                                 JSONObject jsonMovie = results.getJSONObject(i);
                                 //parse movie form json
                                 Movie movie = new Movie();
-                                movieParser(movie, jsonMovie);
+                                movieParserDiscover(movie, jsonMovie);
                                 //add movie to list
                                 movieList.add(movie);
                             }
@@ -314,17 +314,19 @@ public class ApiInterface {
     }
 
     //takes list with ints and return list with movie objects
-    void getWatchlist(List<Integer> idList, Interfaces.apiWatchlistCallback receiver) {
+    void getWatchlist(List<Integer> idList/*, Interfaces.apiWatchlistCallback receiver*/) {
 
         //make thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
 
+                Log.i("AlexDebugging", "getwatchlist started");
+
                 //make Movielist
                 List<Movie> movieList = new ArrayList<Movie>();
 
-                //make countdowmlatch
+                //make countdowmlatch for movie requests
                 CountDownLatch countDownLatch = new CountDownLatch(idList.size());
 
                 for (Integer id : idList) {
@@ -340,13 +342,37 @@ public class ApiInterface {
                     e.printStackTrace();
                 }
 
+                Log.i("AlexDebugging", "getwatchlist movies finished");
+
+                /*----Get watchprovider----*/
+                //make countdowmlatch for provider requests
+                countDownLatch = new CountDownLatch(movieList.size());
+
+                Log.i("AlexDebugging", "getwatchlist make provider requests");
+                for (Movie movie : movieList) {
+                    watchProviderRequest(movie, countDownLatch);
+                }
+
+                Log.i("AlexDebugging", "getwatchlist wait for provider");
+
+                //wait for latch
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                Log.i("AlexDebugging", "getwatchlist provider finished");
+
                 //print list
-                /*for (Movie movie : movieList) {
+                for (Movie movie : movieList) {
                     Log.i("AlexDebugging", movie.toString());
-                }*/
+                }
 
                 //return movielsit
-                receiver.receiveWatchlist(movieList);
+                //receiver.receiveWatchlist(movieList);
 
             }
         });
@@ -383,7 +409,7 @@ public class ApiInterface {
                         }*/
 
                         try {
-                            movieParser(movie, jsonMovie);
+                            movieParserMovie(movie, jsonMovie);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -443,8 +469,8 @@ public class ApiInterface {
         mQueue.add(request);
     }
 
-    //parses Movie object from movie json
-    private void movieParser(Movie movie, JSONObject jsonMovie) throws JSONException {
+    //parses Movie object from movie json from a discover request
+    private void movieParserDiscover(Movie movie, JSONObject jsonMovie) throws JSONException {
         //make new movie object
         movie.setTitle(jsonMovie.getString("title"));
         movie.setId(jsonMovie.getInt("id"));
@@ -454,6 +480,25 @@ public class ApiInterface {
         JSONArray jsonGenres = jsonMovie.getJSONArray("genre_ids");
         for (int j = 0; j < jsonGenres.length(); j++) {
             movie.addGenre(jsonGenres.getInt(j));
+        }
+        movie.setPoster(jsonMovie.getString("poster_path"));
+        movie.setBackdrop(jsonMovie.getString("backdrop_path"));
+        movie.setReleaseDate(jsonMovie.getString("release_date"));
+        movie.setOriginal_language(jsonMovie.getString("original_language"));
+
+    }
+
+    //parses Movie object from movie json from an movie request
+    private void movieParserMovie(Movie movie, JSONObject jsonMovie) throws JSONException {
+        //make new movie object
+        movie.setTitle(jsonMovie.getString("title"));
+        movie.setId(jsonMovie.getInt("id"));
+        movie.setDescription(jsonMovie.getString("overview"));
+        movie.setRating(jsonMovie.getDouble("vote_average"));
+        //add genre ids
+        JSONArray jsonGenres = jsonMovie.getJSONArray("genres");
+        for (int j = 0; j < jsonGenres.length(); j++) {
+            movie.addGenre(jsonGenres.getJSONObject(j).getInt("id"));
         }
         movie.setPoster(jsonMovie.getString("poster_path"));
         movie.setBackdrop(jsonMovie.getString("backdrop_path"));
