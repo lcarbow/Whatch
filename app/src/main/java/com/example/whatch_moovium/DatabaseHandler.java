@@ -1,5 +1,7 @@
 package com.example.whatch_moovium;
 
+import static android.os.Build.ID;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,9 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -40,23 +39,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public void addWatchlistMovie(int ID){
+    public void addWatchlistMovie(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_WATCHLIST_ID, ID);
+        values.put(COLUMN_WATCHLIST_ID, id);
 
         db.insert(TABLE_WATCHLIST_NAME, null, values);
 
         db.close();
     }
-    public void addSeenlistMovie(int ID){
+    public void addSeenlistMovie(int id){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(COLUMN_SEENLIST_ID, ID);
+        values.put(COLUMN_SEENLIST_ID, id);
 
         db.insert(TABLE_SEENLIST_NAME, null, values);
 
@@ -74,18 +73,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return true;
     }
 
-    public List<Integer> getWatchlist(){
-        List<Integer> watchList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from watchlist";
-        Cursor cursor = db.rawQuery(Query, null);
-        int fieldToAdd;
-        while (cursor.moveToNext()){
-            fieldToAdd = cursor.getInt(0);
-            watchList.add(fieldToAdd);
-        }
-        cursor.close();
-        return watchList;
+    public void delWatchlistMovie(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_WATCHLIST_NAME, "ID ="+id, null);
+        db.close();
     }
 
 
