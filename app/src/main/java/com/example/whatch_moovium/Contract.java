@@ -96,7 +96,9 @@ public interface Contract {
 
     interface WatchlistPresenter{
         void getMovieListFromApi();
+        void onButtonClick();
     }
+
     interface LandingViewWatchlist {
         Context getContext();
         void setAdapter(List<Model> itemList);
