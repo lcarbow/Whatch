@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.Interfaces;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieListPresenter implements Contract.MovieListPresenter, Contract.ModelView.OnFinishedListener,Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
+public class MovieListPresenter implements Contract.MovieListPresenter, Contract.ModelView.OnFinishedListener, Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewGenre landingPageView;
     private Contract.ModelView model;
 
