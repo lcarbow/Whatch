@@ -3,11 +3,12 @@ package com.example.whatch_moovium;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
+import com.example.whatch_moovium.API_Interface.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract.ModelView.OnFinishedListener,Interfaces.apiDiscoverCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
+public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract.ModelView.OnFinishedListener,Interfaces.apiWatchlistCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewWatchlist landingPageWatchlist;
     private Contract.ModelView model;
 
