@@ -74,6 +74,13 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
             }
         });
 
+        buttonDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void  onClick(View view) {
+                presenter.onButtonDeleteClick();
+            }
+        });
+
         buttonSeen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

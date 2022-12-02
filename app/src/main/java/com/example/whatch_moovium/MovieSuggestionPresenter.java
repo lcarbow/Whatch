@@ -24,8 +24,6 @@ public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresent
 
     Movie actuallyMovie;
     ApiInterface myAPI_Interface;
-
-
     DatabaseHandler databaseHandler;
 
     // instantiating the objects of View Interface
@@ -60,6 +58,13 @@ public class MovieSuggestionPresenter implements Contract.MovieSuggestionPresent
             Toast.makeText(movieSuggestion.getContext(),
                     "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onButtonDeleteClick(){
+        databaseHandler.delWatchlistMovie(actuallyMovie.getId());
+        Toast.makeText(movieSuggestion.getContext(),
+                "Aus Watchlist entfernt!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
