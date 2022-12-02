@@ -1,19 +1,27 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.R;
 
 import java.util.List;
 
 public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private View view;
     private List<Model> itemList;
 
     LandingPage_Genre_ParentItemAdapter(List<Model> itemList)
@@ -26,7 +34,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
     public ParentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
 
         return new ParentViewHolder(view);
     }
@@ -91,8 +99,32 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
         ParentViewHolder(final View itemView) {
             super(itemView);
 
+
             ParentItemTitle = itemView.findViewById(R.id.parent_item_title);
             ChildRecyclerView = itemView.findViewById(R.id.child_recyclerview);
+
+            ParentItemTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    StorageClass.getInstance().setMyModel(StorageClass.getInstance().getMyModelList().get(getAdapterPosition()));
+                    Log.i("architectureLog", "TitleClick");
+                }
+            });
+            ChildRecyclerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    StorageClass.getInstance().setMyModel(StorageClass.getInstance().getMyModelList().get(getAdapterPosition()));
+                    Log.i("architectureLog", "ChildClick");
+                }
+            });
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i("architectureLog", "view Click");
+
+                }
+            });
+
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +15,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Presenter.MovieSuggestionPresenter;
+import com.example.whatch_moovium.Aufraeumen.ProviderSettings;
+import com.example.whatch_moovium.R;
+import com.example.whatch_moovium.Aufraeumen.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MovieSuggestion extends AppCompatActivity implements Contract.MovieView {
+public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView {
 
     BottomNavigationView bottomNavigationView;
 
+    Contract.IMovieSuggestionPresenter presenter;
 
     //Views initialisieren
 
@@ -45,6 +52,8 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_suggestion);
 
+        Log.i("architectureLog", "OnCreate");
+
         //Views zuweisen
         titleView = findViewById(R.id.titleView);
         descriptionView = findViewById(R.id.movieDesc);
@@ -61,10 +70,8 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         buttonBefore = findViewById(R.id.button_back);
 
         //Presenter
-        Contract.MovieSuggestionPresenter presenter;
         presenter = new MovieSuggestionPresenter(this);
-        presenter.getMovieListFromApi();
-
+        presenter.onPageLoaded();
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,15 +127,15 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
                 switch(item.getItemId())
                 {
                     case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Surprise.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Mood.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Genres.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -141,8 +148,8 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.Movie
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
-        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
     /* Wichtig für Bildaz from Moviez

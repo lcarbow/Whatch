@@ -3,11 +3,15 @@ package com.example.whatch_moovium;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Model.Movie;
+
 import java.util.List;
 
 public interface Contract {
 
-    interface MovieView {
+    //MUELL!
+    interface IMovieView {
         //MovieView zu MovieSuggestion setzen
         Context getContext();
         String getTextTitle();
@@ -21,11 +25,20 @@ public interface Contract {
 
     }
 
-    interface LandingViewGenre {
+    interface ILandingViewGenre {
         Context getContext();
         void setAdapter(List<Model> itemList);
     }
 
+    interface ILandingViewSurprise {
+        Context getContext();
+    }
+
+    interface ILandingViewMood {
+        Context getContext();
+    }
+
+    //MUELL!
     interface LandingView {
 
         Context getContext();
@@ -53,8 +66,7 @@ public interface Contract {
 
     }
 
-    interface ModelView {
-
+    interface IModelView {
         // nested interface to be
         interface OnFinishedListener {
             // function to be called
@@ -62,38 +74,43 @@ public interface Contract {
             // completes its execution
             void onFinished(Movie movie);
         }
-        void getNextMovie(ModelView.OnFinishedListener onFinishedListener);
-        void getBeforeMovie(ModelView.OnFinishedListener onFinishedListener);
+        void getNextMovie(IModelView.OnFinishedListener onFinishedListener);
+        void getBeforeMovie(IModelView.OnFinishedListener onFinishedListener);
         void nextIndex();
         int showIndex();
+    }
+
+
+    interface ISurprisePresenter {
+        void getMovieListFromApi();
+        void onButtonClick();
+    }
+
+    interface IGenrePresenter {
+        void getMovieListFromApi();
 
     }
 
-    interface MovieSuggestionPresenter {
+    interface IMoodPresenter {
+        void getMovieListFromApi();
+        void onButtonClick();
+    }
 
+    interface IMovieSuggestionPresenter {
         // method to be called when
         // the button is clicked
-        void onButtonClick();
+        void onPageLoaded();
         void onButtonAddClick();
         void onButtonDeleteClick();
         void onButtonShareClick();
         void onButtonSeenClick();
         void onButtonNextClick();
         void onButtonBeforeClick();
-
-        void getMovieListFromApi();
-
         // method to destroy
         // lifecycle of MainActivity
         //void onDestroy();
     }
 
-    interface MovieListPresenter {
-        void getMovieListFromApi();
-        void onButtonClick();
-
-
-    }
 
     interface WatchlistPresenter{
         void getMovieListFromApi();

@@ -15,56 +15,56 @@
         android:theme="@style/Theme.Design.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".ProviderSettings"
+            android:name=".Aufraeumen.ProviderSettings"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".WatchlistPage"
+            android:name=".Aufraeumen.WatchlistPage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LandingPage_Genres"
+            android:name=".View.LandingPage_Genres"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LandingPage_Mood"
+            android:name=".View.LandingPage_Mood"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MovieSuggestion"
+            android:name=".View.MovieSuggestion"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LandingPage_Surprise"
+            android:name=".View.LandingPage_Surprise"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".View.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Dispatcher"
+            android:name=".Aufraeumen.Dispatcher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +77,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TestingActivity"
+            android:name=".Aufraeumen.TestingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

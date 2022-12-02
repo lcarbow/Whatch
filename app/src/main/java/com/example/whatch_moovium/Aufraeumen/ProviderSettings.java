@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Aufraeumen;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.example.whatch_moovium.R;
+import com.example.whatch_moovium.View.LandingPage_Genres;
+import com.example.whatch_moovium.View.LandingPage_Mood;
+import com.example.whatch_moovium.View.LandingPage_Surprise;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -51,15 +55,15 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
                 switch(item.getItemId())
                 {
                     case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Surprise.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Mood.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Genres.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

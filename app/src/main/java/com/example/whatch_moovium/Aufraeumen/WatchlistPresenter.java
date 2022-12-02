@@ -1,16 +1,20 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Aufraeumen;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import com.example.whatch_moovium.API_Interface.*;
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract.ModelView.OnFinishedListener,Interfaces.apiWatchlistCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
+public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract.IModelView.OnFinishedListener,Interfaces.apiWatchlistCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewWatchlist landingPageWatchlist;
-    private Contract.ModelView model;
+    private Contract.IModelView model;
 
     ApiInterface myApiInterface;
     DatabaseHandler dbHandler;
@@ -36,7 +40,7 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     @Override
     public void onButtonClick(){
         if (landingPageWatchlist != null) {
-            Intent i = new Intent(landingPageWatchlist.getContext(),MovieSuggestion.class);
+            Intent i = new Intent(landingPageWatchlist.getContext(), MovieSuggestion.class);
             landingPageWatchlist.getContext().startActivity(i);
             Log.i("userdebug","Umleitung zur MovieSugg");
 

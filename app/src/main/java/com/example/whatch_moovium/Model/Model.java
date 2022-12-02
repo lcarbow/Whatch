@@ -1,15 +1,20 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Model;
+
+import com.example.whatch_moovium.Contract;
 
 import java.util.List;
 
-public class Model implements Contract.ModelView {
+public class Model implements Contract.IModelView {
 
     // array list of strings from which
     // random strings will be selected
     // to display in the activitymodel
     private String ParentItemTitle;
     private List <Movie> arrayList;
-    int index;
+
+    //////////DIESE GANZE INDEX KACKE IN STORAGE CLASS!!! //////////
+    private int index;
+    /////////////////////////////////////////////////////////
 
     public Model(List<Movie> arrayList) {
         this.arrayList = arrayList;
@@ -67,6 +72,14 @@ public class Model implements Contract.ModelView {
         this.index = index + 1;
 
 
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     @Override
