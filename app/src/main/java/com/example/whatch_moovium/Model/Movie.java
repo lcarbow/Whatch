@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Model;
 
 import android.graphics.Bitmap;
 import android.util.Log;

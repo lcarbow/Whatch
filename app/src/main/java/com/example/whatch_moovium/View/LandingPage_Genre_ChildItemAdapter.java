@@ -1,17 +1,20 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.R;
 
 import java.util.List;
 
@@ -42,6 +45,7 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
 
         Movie childItem = ChildItemList.get(position);
         childViewHolder.childImageView.setImageBitmap(childItem.getPosterBitmap());
+        childViewHolder.childtextView.setText(childItem.getTitle());
     }
 
 
@@ -57,18 +61,23 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
     class ChildViewHolder extends RecyclerView.ViewHolder {
 
         ImageView childImageView;
+        TextView childtextView;
 
         ChildViewHolder(View itemView) {
             super(itemView);
 
             childImageView = itemView.findViewById(R.id.img_child_item);
+            childtextView = itemView.findViewById(R.id.testView);
 
             childImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(view.getContext(),MovieSuggestion.class);
+                    Intent i = new Intent(view.getContext(), MovieSuggestion.class);
                     view.getContext().startActivity(i);
-                    Log.i("userdebug","Umleitung zur MovieSugg");
+                    StorageClass.getInstance().getMyModel().setIndex(getAdapterPosition());
+
+                    Log.i("architectureLog", "ImgClick");
+
                 }
             });
         }

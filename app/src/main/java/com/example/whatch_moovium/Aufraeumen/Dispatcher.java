@@ -1,9 +1,11 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Aufraeumen;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import com.example.whatch_moovium.View.LandingPage_Surprise;
 
 public class Dispatcher extends Activity {
     @Override

@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +12,19 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Presenter.GenrePresenter;
+import com.example.whatch_moovium.Aufraeumen.ProviderSettings;
+import com.example.whatch_moovium.R;
+import com.example.whatch_moovium.Aufraeumen.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPage_Genres extends AppCompatActivity implements Contract.LandingViewGenre {
+public class LandingPage_Genres extends AppCompatActivity implements Contract.ILandingViewGenre {
 
     BottomNavigationView bottomNavigationView;
     private ArrayList<Model> titleList;
@@ -36,8 +42,8 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
 
         //Presenter
-        Contract.MovieListPresenter presenter;
-        presenter = new MovieListPresenter(this);
+        Contract.IGenrePresenter presenter;
+        presenter = new GenrePresenter(this);
         presenter.getMovieListFromApi();
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
@@ -49,11 +55,11 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
                 switch(item.getItemId())
                 {
                     case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Surprise.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Mood.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.genres:
@@ -67,8 +73,8 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
-        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
 
@@ -93,7 +99,6 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.La
         parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-
     }
 
 

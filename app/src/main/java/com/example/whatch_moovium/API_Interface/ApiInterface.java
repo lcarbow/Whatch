@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,8 +12,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.whatch_moovium.Genre;
-import com.example.whatch_moovium.Movie;
+import com.example.whatch_moovium.Aufraeumen.Genre;
+import com.example.whatch_moovium.Model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;

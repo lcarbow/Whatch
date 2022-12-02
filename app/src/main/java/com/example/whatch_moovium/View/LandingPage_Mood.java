@@ -1,48 +1,31 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.whatch_moovium.Aufraeumen.ProviderSettings;
+import com.example.whatch_moovium.R;
+import com.example.whatch_moovium.Aufraeumen.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class LandingPage_Surprise extends AppCompatActivity implements Contract.LandingView {
+public class LandingPage_Mood extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_landing_page_surprise);
+        setContentView(R.layout.activity_landing_page_mood);
 
-        //Views
-        Button button = findViewById(R.id.button);
-
-        //Presenter
-        Contract.MovieSuggestionPresenter presenter;
-        presenter = new MovieSuggestionPresenter(this);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                presenter.onButtonClick();
-
-            }
-        });
-
-//Bottom Nav
         bottomNavigationView = findViewById(R.id.bottom_navigator);
-        bottomNavigationView.setSelectedItemId(R.id.surprise);
+        bottomNavigationView.setSelectedItemId(R.id.mood);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -50,13 +33,13 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
                 switch(item.getItemId())
                 {
                     case R.id.surprise:
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Mood.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
                         overridePendingTransition(0,0);
                         return true;
+                    case R.id.mood:
+                        return true;
                     case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(),LandingPage_Genres.class));
+                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -64,13 +47,12 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
             }
         });
 
-//Top Nav
+        //Top Nav
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
-        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
-
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
     @Override
@@ -82,10 +64,4 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         editor.putString("lastActivity", getClass().getName());
         editor.commit();
     }
-
-    @Override
-    public Context getContext() {
-        return LandingPage_Surprise.this;
-    }
-
 }

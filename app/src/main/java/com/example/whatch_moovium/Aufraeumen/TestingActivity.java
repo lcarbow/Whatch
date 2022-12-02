@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Aufraeumen;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
+import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.R;
 
 import java.util.ArrayList;
 import java.util.List;
