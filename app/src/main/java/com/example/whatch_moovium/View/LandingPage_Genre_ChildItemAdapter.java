@@ -74,9 +74,9 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
                 public void onClick(View view) {
                     Intent i = new Intent(view.getContext(), MovieSuggestion.class);
                     view.getContext().startActivity(i);
+                    //StorageClass.getInstance().getMyModel().setIndex(getLayoutPosition());
                     StorageClass.getInstance().getMyModel().setIndex(getAdapterPosition());
 
-                    Log.i("architectureLog", "ImgClick");
 
                 }
             });

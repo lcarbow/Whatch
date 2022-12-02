@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -103,27 +104,26 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
             ParentItemTitle = itemView.findViewById(R.id.parent_item_title);
             ChildRecyclerView = itemView.findViewById(R.id.child_recyclerview);
 
-            ParentItemTitle.setOnClickListener(new View.OnClickListener() {
+            ChildRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
                 @Override
-                public void onClick(View view) {
+                public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
                     StorageClass.getInstance().setMyModel(StorageClass.getInstance().getMyModelList().get(getAdapterPosition()));
-                    Log.i("architectureLog", "TitleClick");
+
+                    return false;
+
                 }
-            });
-            ChildRecyclerView.setOnClickListener(new View.OnClickListener() {
+
                 @Override
-                public void onClick(View view) {
-                    StorageClass.getInstance().setMyModel(StorageClass.getInstance().getMyModelList().get(getAdapterPosition()));
-                    Log.i("architectureLog", "ChildClick");
+                public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
                 }
-            });
-            view.setOnClickListener(new View.OnClickListener() {
+
                 @Override
-                public void onClick(View view) {
-                    Log.i("architectureLog", "view Click");
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
                 }
             });
+
 
         }
     }

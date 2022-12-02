@@ -85,9 +85,9 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
 
         //StorageClass.getInstance().getMyModelList().get(outerIndex).getArrayList().get(innerIndex).setPosterBitmap(img);
 
-        innerIndex++;
+        //innerIndex++;
         //Log.i("architectureLog", "innerIndex: " + innerIndex);
-
+/*
         if (innerIndex == 20) {
             innerIndex = 0;
             outerIndex++;
@@ -97,6 +97,9 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
             landingPageView.setAdapter(itemList);
 
         }
+
+ */
+        landingPageView.setAdapter(itemList);
 
 
     }
@@ -120,7 +123,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
             for (int j = 0; j < StorageClass.getInstance().getMyModelList().size(); j++) {
                 //Log.i("architectureLog", "" + StorageClass.getInstance().getMyModelList().get(i).getArrayList().get(j).getTitle());
 
-                myAPI_Interface.getPoster(StorageClass.getInstance().getMyModelList().get(i).getArrayList().get(j).getPoster(), this);
+                myAPI_Interface.getPoster(StorageClass.getInstance().getMyModelList().get(0).getArrayList().get(0).getPoster(), this);
             }
             itemList.add(new Model(genreList.get(i), StorageClass.getInstance().getMyModelList().get(i).getArrayList()));
 
@@ -128,6 +131,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
 
 
     }
+
 
     @Override
     public void receiveGenres(List<Genre> genres) {
