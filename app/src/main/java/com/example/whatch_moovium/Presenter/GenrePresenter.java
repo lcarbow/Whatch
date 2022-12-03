@@ -33,9 +33,6 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
     //besser?
     private int outerIndex;
     private int innerIndex;
-    private int testIndex = 0;
-
-
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
@@ -52,7 +49,6 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
         StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
         myAPI_Interface.getGenres(this);
         myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
-        //myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
     }
 
 
@@ -80,14 +76,17 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
             StorageClass.getInstance().addMyModelList(new Model(modelList));
         }
 
+        //Zur ItemList hinzufügen
         for (int i = 0; i < StorageClass.getInstance().getMyModelList().size(); i++){
             itemList.add(new Model(genreList.get(i), StorageClass.getInstance().getMyModelList().get(i).getArrayList()));
         }
+        //Bilder anfordern für die sichtbaren Views
+        //Dauert zu lange alle zu holen
+        //Vllt iwie eine OnScroll Funktion um die nächsten zu holen?
+        //Bzw das er sie nach und nach holt, aber kp
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                Log.i("neuerLog", "testIndex = " + testIndex);
                 myAPI_Interface.getPoster(StorageClass.getInstance().getMyModelList().get(i).getArrayList().get(j).getPoster(),this);
-                testIndex++;
             }
         }
 
@@ -105,6 +104,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
 
     @Override
     public void receivePoster(Bitmap img) {
+        //Bilder in der Reihenfolge zu den Models hinzufügen
         StorageClass.getInstance().getMyModelList().get(outerIndex).getArrayList().get(innerIndex).setPosterBitmap(img);
         if(innerIndex <= 4) {
             innerIndex++;
@@ -112,9 +112,9 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
         if (innerIndex >= 4) {
             outerIndex++;
             innerIndex = 0;
-
         }
-        Log.i("neuerLog", "innerIndex= " + innerIndex + " outerIndex= " + outerIndex);
+        //Erst wenn die Schleife durch ist Adapter setzen
+        //Stürzt aber ab!!! TODO ALEX
         if (outerIndex >= 3) {
             landingPageView.setAdapter(itemList);
 
