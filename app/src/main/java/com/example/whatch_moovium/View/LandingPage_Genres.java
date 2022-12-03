@@ -33,7 +33,6 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +101,7 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
 
     }
+
 
 
     //Adapter setten, Dieser wird vom Presenter aufgerufen
