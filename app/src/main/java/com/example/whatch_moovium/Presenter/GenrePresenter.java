@@ -28,12 +28,12 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
 
     //private Map<String, Model> itemList;
     List<Model> itemList;
-    List<Movie> MovieListt;
     List<String> genreList;
 
     //besser?
     private int outerIndex;
-    private int innerIndex = 0;
+    private int innerIndex;
+    private int testIndex = 0;
 
 
 
@@ -42,9 +42,8 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
         this.itemList = new ArrayList<>();
         this.genreList = new ArrayList<>();
-        this.MovieListt = new ArrayList<>();
-
-        outerIndex = 0;
+        this.innerIndex = 0;
+        this.outerIndex = 0;
 
     }
 
@@ -53,7 +52,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
         StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
         myAPI_Interface.getGenres(this);
         myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
-        myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
+        //myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
     }
 
 
@@ -78,13 +77,20 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
     public void receiveAll(List<List> list) {
 
         for (List modelList: list) {
-            Model myModel = new Model(modelList);
-            StorageClass.getInstance().addMyModelList(myModel);
+            StorageClass.getInstance().addMyModelList(new Model(modelList));
         }
 
         for (int i = 0; i < StorageClass.getInstance().getMyModelList().size(); i++){
             itemList.add(new Model(genreList.get(i), StorageClass.getInstance().getMyModelList().get(i).getArrayList()));
         }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                Log.i("neuerLog", "testIndex = " + testIndex);
+                myAPI_Interface.getPoster(StorageClass.getInstance().getMyModelList().get(i).getArrayList().get(j).getPoster(),this);
+                testIndex++;
+            }
+        }
+
     }
 
 
@@ -93,12 +99,26 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
         for (Genre g : genres) {
             genreList.add(g.getName());
         }
+
     }
 
 
     @Override
     public void receivePoster(Bitmap img) {
+        StorageClass.getInstance().getMyModelList().get(outerIndex).getArrayList().get(innerIndex).setPosterBitmap(img);
+        if(innerIndex <= 4) {
+            innerIndex++;
+        }
+        if (innerIndex >= 4) {
+            outerIndex++;
+            innerIndex = 0;
 
+        }
+        Log.i("neuerLog", "innerIndex= " + innerIndex + " outerIndex= " + outerIndex);
+        if (outerIndex >= 3) {
+            landingPageView.setAdapter(itemList);
+
+        }
     }
 
 }
