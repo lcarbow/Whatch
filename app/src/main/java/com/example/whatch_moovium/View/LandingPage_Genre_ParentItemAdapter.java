@@ -105,6 +105,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
             ChildRecyclerView = itemView.findViewById(R.id.child_recyclerview);
 
             ChildRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                ////////////////AUSLAGERN IN PRESENTER TODO ////////////////
                 @Override
                 public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
                     StorageClass.getInstance().setMyModel(StorageClass.getInstance().getMyModelList().get(getAdapterPosition()));
@@ -123,6 +124,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
                 }
             });
+            ////////////////
 
 
         }
