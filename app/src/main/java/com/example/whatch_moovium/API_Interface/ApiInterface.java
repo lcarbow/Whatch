@@ -215,8 +215,14 @@ public class ApiInterface {
                 Log.i("AlexDebugging", "continued");
 
                 //return lists
-                receiver.receiveAll(allList);
 
+
+                activity.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        receiver.receiveAll(allList);
+                    }
+                });
                 //Print Lists
                 /*for (List list : allList) {
                     for (Object object : list) {
