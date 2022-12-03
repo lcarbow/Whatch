@@ -9,21 +9,16 @@ public class StorageClass {
     private Model myModel;
     private List<Model> myModelList;
     private List<Integer> providerList;
+    List<Model> itemList;
+    List<String> genreList;
     private Movie actualMovie;
-    private int globalIndex;
-
-    public int getGlobalIndex() {
-        return globalIndex;
-    }
-
-    public void setGlobalIndex(int globalIndex) {
-        this.globalIndex = globalIndex;
-    }
 
     public StorageClass() {
 
-        providerList = new ArrayList<>();
-        myModelList = new ArrayList<>();
+        this.providerList = new ArrayList<>();
+        this.myModelList = new ArrayList<>();
+        this.itemList = new ArrayList<>();
+        this.genreList = new ArrayList<>();
     }
 
     public static StorageClass getInstance() {
@@ -61,5 +56,21 @@ public class StorageClass {
 
     public List<Model> getMyModelList() {
         return myModelList;
+    }
+
+    public List<Model> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Model> itemList) {
+        this.itemList = itemList;
+    }
+
+    public List<String> getGenreList() {
+        return genreList;
+    }
+
+    public void setGenreList(List<String> genreList) {
+        this.genreList = genreList;
     }
 }
