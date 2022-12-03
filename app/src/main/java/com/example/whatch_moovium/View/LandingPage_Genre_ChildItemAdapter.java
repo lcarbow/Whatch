@@ -70,6 +70,7 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
             childtextView = itemView.findViewById(R.id.testView);
 
             childImageView.setOnClickListener(new View.OnClickListener() {
+                ///////////////AUSLAGERN IN PRESENTER TODO ///////////////
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(view.getContext(), MovieSuggestion.class);
@@ -79,6 +80,7 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
 
                 }
             });
+            ////////////////////////////////////
         }
     }
 }

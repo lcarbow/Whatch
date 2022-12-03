@@ -21,11 +21,13 @@ public class Model implements Contract.IModelView {
         index = 0;
     }
 
+    ///////////// TITLE AUSLAGERN ///////////////
     public Model(String parentItemTitle, List<Movie> arrayList) {
         ParentItemTitle = parentItemTitle;
         this.arrayList = arrayList;
         this.index = 0;
     }
+    /////////////////////////////
 
     public List<Movie> getArrayList() {
         return arrayList;
