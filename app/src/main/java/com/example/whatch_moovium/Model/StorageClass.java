@@ -5,13 +5,23 @@ import java.util.List;
 
 public class StorageClass {
 
+    ////// Singleton ///////////
     private static StorageClass instance = null;
+
+    ///////// Generell ////////
     private Model myModel;
+
+
+    //////// Genre ////////
     private List<Model> myModelList;
     private List<Integer> providerList;
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
+    boolean imageLoaded;
+
+
+
 
     public StorageClass() {
 
@@ -19,6 +29,7 @@ public class StorageClass {
         this.myModelList = new ArrayList<>();
         this.itemList = new ArrayList<>();
         this.genreList = new ArrayList<>();
+        imageLoaded = false;
     }
 
     public static StorageClass getInstance() {
@@ -72,5 +83,13 @@ public class StorageClass {
 
     public void setGenreList(List<String> genreList) {
         this.genreList = genreList;
+    }
+
+    public boolean isImageLoaded() {
+        return imageLoaded;
+    }
+
+    public void setImageLoaded(boolean imageLoaded) {
+        this.imageLoaded = imageLoaded;
     }
 }

@@ -28,6 +28,8 @@ public interface Contract {
     interface ILandingViewGenre {
         Context getContext();
         void setAdapter(List<Model> itemList);
+        void dataChange();
+
     }
 
     interface ILandingViewSurprise {
@@ -88,8 +90,11 @@ public interface Contract {
 
     interface IGenrePresenter {
         void getMovieListFromApi();
+        void loadImages(int vertical, int horizontal);
 
     }
+
+
 
     interface IMoodPresenter {
         void getMovieListFromApi();

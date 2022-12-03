@@ -1,6 +1,7 @@
 package com.example.whatch_moovium.Model;
 
 import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Presenter.ImageHelper;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Model implements Contract.IModelView {
     private String ParentItemTitle;
     private List <Movie> arrayList;
 
+
     //////////DIESE GANZE INDEX KACKE IN STORAGE CLASS!!! //////////
     private int index;
     /////////////////////////////////////////////////////////
@@ -19,6 +21,8 @@ public class Model implements Contract.IModelView {
     public Model(List<Movie> arrayList) {
         this.arrayList = arrayList;
         index = 0;
+
+
     }
 
     ///////////// TITLE AUSLAGERN ///////////////

@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.GenrePresenter;
 import com.example.whatch_moovium.Aufraeumen.ProviderSettings;
 import com.example.whatch_moovium.R;
@@ -32,6 +33,13 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
     private RecyclerView ParentRecyclerViewItem;
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
+    Contract.IGenrePresenter presenter;
+
+    int newPosition = 4;
+    int lastPosition = 3;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +50,29 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
 
         //Presenter
-        Contract.IGenrePresenter presenter;
         presenter = new GenrePresenter(this);
         presenter.getMovieListFromApi();
+
+        ParentRecyclerViewItem.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.i("helperclass", String.valueOf(newState));
+                if(newState == 0) {
+                    newPosition = layoutManager.findFirstVisibleItemPosition();
+                    presenter.loadImages(0, newPosition);
+
+                }
+
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+            }
+        });
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.genres);
@@ -80,13 +108,17 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
 
     @Override
     protected void onPause() {
+
         super.onPause();
 
         SharedPreferences prefs = getSharedPreferences("X", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("lastActivity", getClass().getName());
         editor.commit();
+
+
     }
+
 
     @Override
     public Context getContext() {
@@ -99,13 +131,14 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
+        presenter.loadImages(0, 0);
+
 
     }
 
+    @Override
+    public void dataChange() {
+        parentItemAdapter.notifyDataSetChanged();
 
-
-    //Adapter setten, Dieser wird vom Presenter aufgerufen
-    //Dafür wird eine Liste von ModelPartens übergeben
-    // Diese besteht aus den GenreTitlen (String) und einer Liste von Movies für das jeweilige Genre
-
+    }
 }

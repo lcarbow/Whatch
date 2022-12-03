@@ -17,11 +17,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
+public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
+
     private Contract.ILandingViewGenre landingPageView;
-
     ApiInterface myAPI_Interface;
+    ImageHelper imageHelper;
 
+    //Für das Setzen der Bilder. Muss aber iwie anders gemacht werden
+    // FIND ICH NÄMLICH KACKE UND UMSTÄNDLICH
     private int outerIndex;
     private int innerIndex;
 
@@ -44,9 +47,23 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
             myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
         } else {
             landingPageView.setAdapter(StorageClass.getInstance().getItemList());
+
         }
 
     }
+
+    @Override
+    public void loadImages(int vertical, int horizontal) {
+        StorageClass.getInstance().setImageLoaded(true);
+        for (int i = vertical; i < vertical+3; i++) {
+            for(int j = horizontal; j < horizontal+4 ; j ++) {
+                imageHelper = new ImageHelper(i,j,landingPageView);
+                imageHelper.addImageToMovie();
+            }
+            landingPageView.dataChange();
+        }
+    }
+
 
     @Override
     public void onFinished(Movie movie) {
@@ -59,22 +76,13 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
         for (List modelList: list) {
             StorageClass.getInstance().addMyModelList(new Model(modelList));
         }
-
         //Zur ItemList hinzufügen
         for (int i = 0; i < StorageClass.getInstance().getGenreList().size(); i++){
             StorageClass.getInstance().getItemList().add(new Model(StorageClass.getInstance().getGenreList().get(i), StorageClass.getInstance().getMyModelList().get(i).getArrayList()));
         }
-        //Bilder anfordern für die sichtbaren Views
-        //Dauert zu lange alle zu holen
-        //Vllt iwie eine OnScroll Funktion um die nächsten zu holen?
-        //Bzw das er sie nach und nach holt, aber kp
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
-                myAPI_Interface.getPoster(StorageClass.getInstance().getMyModelList().get(i).getArrayList().get(j).getPoster(),this);
-            }
-        }
-        //TODO ALEX: Adapter soll hier sein, stürzt dann aber ab!
-        //landingPageView.setAdapter(itemList);
+
+
+        landingPageView.setAdapter(StorageClass.getInstance().getItemList());
 
 
     }
@@ -89,22 +97,5 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
     }
 
 
-    @Override
-    public void receivePoster(Bitmap img) {
-        //Bilder in der Reihenfolge zu den Models hinzufügen
-        StorageClass.getInstance().getMyModelList().get(outerIndex).getArrayList().get(innerIndex).setPosterBitmap(img);
-        if(innerIndex <= 4) {
-            innerIndex++;
-        }
-        if (innerIndex >= 4) {
-            outerIndex++;
-            innerIndex = 0;
-        }
-        //Erst wenn die Schleife durch ist Adapter setzen
-        if (outerIndex >= 3) {
-            landingPageView.setAdapter(StorageClass.getInstance().getItemList());
-
-        }
-    }
 
 }
