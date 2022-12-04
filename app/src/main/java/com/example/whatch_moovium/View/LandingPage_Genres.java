@@ -57,10 +57,12 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.i("helperclass", String.valueOf(newState));
-                if(newState == 0) {
+                if(newState == 0 && StorageClass.getInstance().isReady() == true) {
+                    StorageClass.getInstance().setReady(false);
                     newPosition = layoutManager.findFirstVisibleItemPosition();
-                    presenter.loadImages(0, newPosition);
+                    StorageClass.getInstance().setVerticalPosition(newPosition);
+
+                    presenter.loadImages(0, 4, StorageClass.getInstance().getVerticalPosition(), 1);
 
                 }
 
@@ -128,10 +130,10 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
     @Override
     public void setAdapter(List<Model> itemList) {
         layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
-        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(itemList);
+        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter, itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-        presenter.loadImages(0, 0);
+        presenter.loadImages(0,4, 0,4);
 
 
     }

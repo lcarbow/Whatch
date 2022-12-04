@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.R;
@@ -21,6 +22,7 @@ import java.util.List;
 public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ChildItemAdapter.ChildViewHolder> {
 
     private List<Movie> ChildItemList;
+
     //Presenter
 
     LandingPage_Genre_ChildItemAdapter(List<Movie> childItemList)

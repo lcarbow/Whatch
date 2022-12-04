@@ -1,7 +1,5 @@
 package com.example.whatch_moovium.Presenter;
 
-import android.graphics.Bitmap;
-import android.location.GnssMeasurementsEvent;
 import android.util.Log;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
@@ -12,9 +10,7 @@ import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
@@ -30,6 +26,12 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
+        myAPI_Interface = new ApiInterface(landingPageView.getContext());
+        this.innerIndex = 0;
+        this.outerIndex = 0;
+
+    }
+    public GenrePresenter() {
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
         this.innerIndex = 0;
         this.outerIndex = 0;
@@ -53,15 +55,15 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
     }
 
     @Override
-    public void loadImages(int vertical, int horizontal) {
-        StorageClass.getInstance().setImageLoaded(true);
-        for (int i = vertical; i < vertical+3; i++) {
-            for(int j = horizontal; j < horizontal+4 ; j ++) {
+    public void loadImages(int horizontal, int horizonalCount, int vertical, int verticalCount) {
+        for (int i = horizontal; i < horizontal+horizonalCount; i++) {
+            for(int j = vertical; j < vertical+verticalCount ; j ++) {
                 imageHelper = new ImageHelper(i,j,landingPageView);
                 imageHelper.addImageToMovie();
+
             }
-            landingPageView.dataChange();
         }
+        StorageClass.getInstance().setReady(true);
     }
 
 

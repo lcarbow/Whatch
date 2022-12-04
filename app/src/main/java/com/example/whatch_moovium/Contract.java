@@ -90,7 +90,7 @@ public interface Contract {
 
     interface IGenrePresenter {
         void getMovieListFromApi();
-        void loadImages(int vertical, int horizontal);
+        void loadImages(int horizontal,int horizonalCount, int vertical, int verticalCount);
 
     }
 

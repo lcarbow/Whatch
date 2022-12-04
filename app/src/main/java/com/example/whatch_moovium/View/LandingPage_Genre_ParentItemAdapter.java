@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.R;
@@ -21,13 +21,20 @@ import java.util.List;
 
 public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
 
+    private final Contract.IGenrePresenter genrePresenter;
+
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private View view;
     private List<Model> itemList;
+    LinearLayoutManager layoutManager;
 
-    LandingPage_Genre_ParentItemAdapter(List<Model> itemList)
+
+
+    LandingPage_Genre_ParentItemAdapter(Contract.IGenrePresenter genrePresenter, List<Model> itemList)
     {
+        this.genrePresenter = genrePresenter;
         this.itemList = itemList;
+
     }
 
     @NonNull
@@ -37,7 +44,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
         view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
 
-        return new ParentViewHolder(view);
+        return new ParentViewHolder(view, genrePresenter);
     }
 
     @Override
@@ -58,7 +65,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
         // Here we have assigned the layout
         // as LinearLayout with vertical orientation
-        LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.ChildRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(parentViewHolder.ChildRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         // Since this is a nested layout, so
         // to define how many child items
@@ -97,7 +104,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
         private TextView ParentItemTitle;
         private RecyclerView ChildRecyclerView;
 
-        ParentViewHolder(final View itemView) {
+        ParentViewHolder(final View itemView, Contract.IGenrePresenter genrePresenter) {
             super(itemView);
 
 
@@ -126,6 +133,32 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
             });
             ////////////////
 
+            ChildRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    //int newPosition = layoutManager.findFirstCompletelyVisibleItemPosition();
+
+                    //Log.i("helperclass", String.valueOf(firstVisiblePosition));
+
+                    if(newState == 0 && StorageClass.getInstance().isReady() == true) {
+                        LinearLayoutManager layoutManager = ((LinearLayoutManager)recyclerView.getLayoutManager());
+                        int newPosition = layoutManager.findFirstVisibleItemPosition();
+                        StorageClass.getInstance().setHorizontalPosition(newPosition);
+                        genrePresenter.loadImages(StorageClass.getInstance().getHorizontalPosition(), 4, StorageClass.getInstance().getVerticalPosition(), 1);
+
+                    }
+
+
+
+                }
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                }
+            });
 
         }
     }
