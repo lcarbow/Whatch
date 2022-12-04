@@ -22,6 +22,7 @@ public class Movie {
     List<String> streaming = new ArrayList<>();
     //ENUM?
     String original_language;
+    boolean imageLoaded = false;
 
     public Movie(String title, int id, String description, Double rating, List<String> genre, String poster, String backdrop, String releaseDate, List<String> streaming, String original_language) {
         this.title = title;
@@ -235,5 +236,13 @@ public class Movie {
                 ", streaming=" + streaming +
                 ", original_language='" + original_language + '\'' +
                 '}';
+    }
+
+    public boolean isImageLoaded() {
+        return imageLoaded;
+    }
+
+    public void setImageLoaded(boolean imageLoaded) {
+        this.imageLoaded = imageLoaded;
     }
 }
