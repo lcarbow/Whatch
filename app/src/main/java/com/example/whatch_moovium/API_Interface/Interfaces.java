@@ -33,4 +33,8 @@ public class Interfaces {
         void receiveWatchlist(List<Movie> watchlist);
     }
 
+    public interface apiWatchproviderCallback {
+        void receiveWatchprovider(Movie movie);
+    }
+
 }
