@@ -21,6 +21,7 @@ import com.example.whatch_moovium.R;
 import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -44,21 +45,6 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         presenter = new GenrePresenter(this);
         presenter.getMovieListFromApi();
 
-        ParentRecyclerViewItem.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == 1 && StorageClass.getInstance().isReady() == true) {
-                    presenter.loadImagesVertical(0, 4, layoutManager.findFirstVisibleItemPosition(), 4);
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-            }
-        });
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.genres);
@@ -117,12 +103,8 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter, itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-        presenter.loadImagesVertical(0,5, 0,4);
-    }
 
-    @Override
-    public void dataChange() {
-        parentItemAdapter.notifyDataSetChanged();
 
     }
+
 }
