@@ -1,10 +1,9 @@
-package com.example.whatch_moovium.Aufraeumen;
+package com.example.whatch_moovium;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import com.example.whatch_moovium.API_Interface.*;
-import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.View.MovieSuggestion;

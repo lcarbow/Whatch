@@ -1,41 +1,29 @@
 package com.example.whatch_moovium.Presenter;
 
-import android.util.Log;
+import android.content.Intent;
+import android.view.View;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
-import com.example.whatch_moovium.Aufraeumen.Genre;
+import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
-import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
+public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
 
     private Contract.ILandingViewGenre landingPageView;
     ApiInterface myAPI_Interface;
-    ImageHelper imageHelper;
-
-    //Für das Setzen der Bilder. Muss aber iwie anders gemacht werden
-    // FIND ICH NÄMLICH KACKE UND UMSTÄNDLICH
-    private int outerIndex;
-    private int innerIndex;
+    ImageHelperVertical imageHelperVertical;
+    ImageHelperHorizontal imageHelperHorizontal;
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
-        this.innerIndex = 0;
-        this.outerIndex = 0;
-
-    }
-    public GenrePresenter() {
-        myAPI_Interface = new ApiInterface(landingPageView.getContext());
-        this.innerIndex = 0;
-        this.outerIndex = 0;
-
     }
 
     @Override
@@ -55,21 +43,42 @@ public class GenrePresenter implements Contract.IGenrePresenter, Contract.IModel
     }
 
     @Override
-    public void loadImages(int horizontal, int horizonalCount, int vertical, int verticalCount) {
+    public void loadImagesVertical(int horizontal, int horizonalCount, int vertical, int verticalCount) {
+        StorageClass.getInstance().setReady(false);
         for (int i = horizontal; i < horizontal+horizonalCount; i++) {
             for(int j = vertical; j < vertical+verticalCount ; j ++) {
-                imageHelper = new ImageHelper(i,j,landingPageView);
-                imageHelper.addImageToMovie();
+                imageHelperVertical = new ImageHelperVertical(i,j,landingPageView);
+                imageHelperVertical.addImageToMovie();
+
+            }
+        }
+        StorageClass.getInstance().setReady(true);
+
+    }
+
+    @Override
+    public void loadImagesHorizontal(int horizontal, int horizonalCount, int vertical, int verticalCount) {
+        StorageClass.getInstance().setReady(false);
+        for (int i = horizontal; i < horizontal+horizonalCount; i++) {
+            for(int j = vertical; j < vertical+verticalCount ; j ++) {
+                imageHelperHorizontal = new ImageHelperHorizontal(i,j,landingPageView);
+                imageHelperHorizontal.addImageToMovie();
 
             }
         }
         StorageClass.getInstance().setReady(true);
     }
 
+    @Override
+    public void setMovieVertical(int position) {
+        StorageClass.getInstance().setMyModel(StorageClass.getInstance().getMyModelList().get(position));
+    }
 
     @Override
-    public void onFinished(Movie movie) {
-
+    public void onClickImage(View view, int adapterPosition) {
+        Intent i = new Intent(view.getContext(), MovieSuggestion.class);
+        view.getContext().startActivity(i);
+        StorageClass.getInstance().getMyModel().setIndex(adapterPosition);
     }
 
     @Override

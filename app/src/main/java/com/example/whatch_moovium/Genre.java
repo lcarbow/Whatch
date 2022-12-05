@@ -1,4 +1,4 @@
-package com.example.whatch_moovium.Aufraeumen;
+package com.example.whatch_moovium;
 
 public class Genre {
 

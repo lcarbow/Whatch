@@ -17,9 +17,9 @@ import android.widget.TextView;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Presenter.MovieSuggestionPresenter;
-import com.example.whatch_moovium.Aufraeumen.ProviderSettings;
+import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.Aufraeumen.WatchlistPage;
+import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

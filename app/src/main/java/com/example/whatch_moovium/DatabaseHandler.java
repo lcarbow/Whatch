@@ -1,4 +1,4 @@
-package com.example.whatch_moovium.Aufraeumen;
+package com.example.whatch_moovium;
 
 import static android.os.Build.ID;
 
