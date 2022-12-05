@@ -35,6 +35,5 @@ public class ImageHelperVertical implements Interfaces.apiPosterCallback{
         StorageClass.getInstance().getMyModelList().get(outerIndex).getArrayList().get(innerIndex).setImageLoaded(true);
         landingPageView.dataChange();
 
-
     }
 }
