@@ -103,7 +103,7 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter, itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-
+//
 
     }
 
