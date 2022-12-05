@@ -12,7 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.whatch_moovium.Aufraeumen.Genre;
+import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Model.Movie;
 
 import org.json.JSONArray;

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
-import com.example.whatch_moovium.Aufraeumen.DatabaseHandler;
+import com.example.whatch_moovium.DatabaseHandler;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 
@@ -38,14 +38,10 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
 
     @Override
     public void onFinished(Movie movie) {
-        //6. Setzen der Views
 
         StorageClass.getInstance().setActualMovie(movie);
 
-        //////////AUSLAGERN IN STORAGE CLASS ?! ///////////////
         myAPI_Interface.getPoster(movie.getPoster(), this);
-        /////////////////////////////////////////////////////
-
         movieSuggestion.setTitle(movie.getTitle());
         movieSuggestion.setDescription(movie.getDescription());
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
@@ -58,9 +54,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     @Override
     public void receivePoster(Bitmap img) {
 
-        //////////AUSLAGERN IN STORAGE CLASS ?! ///////////////
         movieSuggestion.setPosterImage(img);
-        //////////////////////////////////////////////////
 
     }
 

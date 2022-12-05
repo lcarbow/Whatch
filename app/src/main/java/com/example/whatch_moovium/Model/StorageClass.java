@@ -18,10 +18,7 @@ public class StorageClass {
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
-    boolean imageLoaded;
-
-
-
+    private boolean ready;
 
     public StorageClass() {
 
@@ -29,7 +26,7 @@ public class StorageClass {
         this.myModelList = new ArrayList<>();
         this.itemList = new ArrayList<>();
         this.genreList = new ArrayList<>();
-        imageLoaded = false;
+        this.ready = true;
     }
 
     public static StorageClass getInstance() {
@@ -85,11 +82,12 @@ public class StorageClass {
         this.genreList = genreList;
     }
 
-    public boolean isImageLoaded() {
-        return imageLoaded;
+    public boolean isReady() {
+        return ready;
     }
 
-    public void setImageLoaded(boolean imageLoaded) {
-        this.imageLoaded = imageLoaded;
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
+
 }

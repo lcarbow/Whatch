@@ -10,13 +10,6 @@
         android:id="@+id/img_child_item"
         android:layout_width="95dp"
         android:layout_height="140dp"
-        android:layout_marginEnd="10dp"
-        app:srcCompat="@drawable/hangover" />
-
-    <TextView
-        android:id="@+id/testView"
-        android:layout_width="95dp"
-        android:layout_height="wrap_content"
-        android:text="blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+        android:layout_marginEnd="10dp" />
 
 </FrameLayout>

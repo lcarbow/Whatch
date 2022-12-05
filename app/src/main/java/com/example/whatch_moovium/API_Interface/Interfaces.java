@@ -2,7 +2,7 @@ package com.example.whatch_moovium.API_Interface;
 
 import android.graphics.Bitmap;
 
-import com.example.whatch_moovium.Aufraeumen.Genre;
+import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Model.Movie;
 
 import java.util.List;

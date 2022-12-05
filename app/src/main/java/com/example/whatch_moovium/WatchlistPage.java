@@ -1,4 +1,4 @@
-package com.example.whatch_moovium.Aufraeumen;
+package com.example.whatch_moovium;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
-import com.example.whatch_moovium.R;
 import com.example.whatch_moovium.View.LandingPage_Genres;
 import com.example.whatch_moovium.View.LandingPage_Mood;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
