@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
-public class ApiInterface implements Interfaces.apiWatchproviderCallback{
+public class ApiInterface {
 
     private RequestQueue mQueue;
     private Activity activity;
@@ -49,16 +49,11 @@ public class ApiInterface implements Interfaces.apiWatchproviderCallback{
         idList.add(634649);
         getWatchlist(idList);*/
 
-        //getwatchprovidertest
+        /*//getwatchprovidertest
         Movie movie = new Movie();
         movie.setId(438631);
-        getWatchprovider(movie, this);
+        getWatchprovider(movie, this);*/
 
-    }
-
-    @Override
-    public void receiveWatchprovider(Movie movie) {
-        Log.i("AlexDebugging", movie.getStreaming());
     }
 
     //calling class has to implement api
