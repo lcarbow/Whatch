@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.Aufraeumen.TestingActivity;
+import com.example.whatch_moovium.TestingActivity;
 
 public class MainActivity extends AppCompatActivity {
 

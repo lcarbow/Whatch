@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
@@ -17,29 +16,21 @@ import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.GenrePresenter;
-import com.example.whatch_moovium.Aufraeumen.ProviderSettings;
+import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.Aufraeumen.WatchlistPage;
+import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LandingPage_Genres extends AppCompatActivity implements Contract.ILandingViewGenre {
 
     BottomNavigationView bottomNavigationView;
-    private ArrayList<Model> titleList;
     private RecyclerView ParentRecyclerViewItem;
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
     Contract.IGenrePresenter presenter;
-
-    int newPosition = 4;
-    int lastPosition = 3;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +48,9 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState == 0 && StorageClass.getInstance().isReady() == true) {
-                    StorageClass.getInstance().setReady(false);
-                    newPosition = layoutManager.findFirstVisibleItemPosition();
-                    StorageClass.getInstance().setVerticalPosition(newPosition);
-
-                    presenter.loadImages(0, 4, StorageClass.getInstance().getVerticalPosition(), 1);
-
+                if(newState == 1 && StorageClass.getInstance().isReady() == true) {
+                    presenter.loadImagesVertical(0, 4, layoutManager.findFirstVisibleItemPosition(), 4);
                 }
-
-
             }
 
             @Override
@@ -133,9 +117,7 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter, itemList);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-        presenter.loadImages(0,4, 0,4);
-
-
+        presenter.loadImagesVertical(0,5, 0,4);
     }
 
     @Override

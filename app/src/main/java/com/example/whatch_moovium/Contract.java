@@ -2,6 +2,7 @@ package com.example.whatch_moovium;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.View;
 
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
@@ -90,8 +91,10 @@ public interface Contract {
 
     interface IGenrePresenter {
         void getMovieListFromApi();
-        void loadImages(int horizontal,int horizonalCount, int vertical, int verticalCount);
-
+        void loadImagesVertical(int horizontal, int horizonalCount, int vertical, int verticalCount);
+        void loadImagesHorizontal(int horizontal,int horizonalCount, int vertical, int verticalCount);
+        void setMovieVertical(int position);
+        void onClickImage(View view, int adapterPosition);
     }
 
 
