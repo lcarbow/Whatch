@@ -49,6 +49,11 @@ public class ApiInterface {
         idList.add(634649);
         getWatchlist(idList);*/
 
+        /*//getwatchprovidertest
+        Movie movie = new Movie();
+        movie.setId(438631);
+        getWatchprovider(movie, this);*/
+
     }
 
     //calling class has to implement api
@@ -175,7 +180,7 @@ public class ApiInterface {
             @Override
             public void run() {
 
-                Log.i("AlexDebugging", "get all started");
+
                 /*----get list with all genres----*/
                 //make list
                 List<Genre> allGenres = new ArrayList<Genre>();
@@ -184,13 +189,12 @@ public class ApiInterface {
                 //make genres request
                 genreRequest(allGenres, countDownLatch);
                 //wait for latch
-                Log.i("AlexDebugging", "waiting for genrelist");
                 try {
                     countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.i("AlexDebugging", "continued");
+
 
                 /*----Make lists with lists----*/
                 List<List> allList = new ArrayList<List>();
@@ -204,7 +208,7 @@ public class ApiInterface {
                     discoverRequest(sort, flatrate, providers, genreMovieList, genre.getId().toString(), countDownLatch);
                     allList.add(genreMovieList);
                 }
-                Log.i("AlexDebugging", "started discover requests, waiting for latch");
+
 
                 //wait for latch
                 try {
@@ -212,7 +216,6 @@ public class ApiInterface {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.i("AlexDebugging", "continued");
 
                 //return lists
 
@@ -246,7 +249,6 @@ public class ApiInterface {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("AlexDebugging", "genre thread run");
 
                 //countdownlatch for discover request
                 CountDownLatch countDownLatch = new CountDownLatch(1);
@@ -260,8 +262,6 @@ public class ApiInterface {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                Log.i("AlexDebugging", "genre thread resumed, list made");
 
                 //return request
                 activity.runOnUiThread(new Runnable(){
@@ -279,7 +279,7 @@ public class ApiInterface {
 
     //makes genres request and fills genres list
     private void genreRequest(List<Genre> genres, CountDownLatch countDownLatch) {
-        Log.i("AlexDebugging", "genrerequest start");
+
         //make api request
         String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE";
 
@@ -287,7 +287,7 @@ public class ApiInterface {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonGenres) {
-                        Log.i("AlexDebugging", "request received");
+
                         try {
 
                             JSONArray jsonGenreList = jsonGenres.getJSONArray("genres");
@@ -303,7 +303,6 @@ public class ApiInterface {
 
                         //countdown latch
                         countDownLatch.countDown();
-                        Log.i("AlexDebugging", "latch counted down");
 
                     }
                 }, new Response.ErrorListener() {
@@ -313,7 +312,7 @@ public class ApiInterface {
             }
         });
         mQueue.add(request);
-        Log.i("AlexDebugging", "request sent");
+
     }
 
     //takes list with ints and return list with movie objects
@@ -323,8 +322,6 @@ public class ApiInterface {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-
-                Log.i("AlexDebugging", "getwatchlist started");
 
                 //make Movielist
                 List<Movie> movieList = new ArrayList<Movie>();
@@ -345,18 +342,13 @@ public class ApiInterface {
                     e.printStackTrace();
                 }
 
-                Log.i("AlexDebugging", "getwatchlist movies finished");
-
                 /*----Get watchprovider----*/
                 //make countdowmlatch for provider requests
                 countDownLatch = new CountDownLatch(movieList.size());
 
-                Log.i("AlexDebugging", "getwatchlist make provider requests");
                 for (Movie movie : movieList) {
                     watchProviderRequest(movie, countDownLatch);
                 }
-
-                Log.i("AlexDebugging", "getwatchlist wait for provider");
 
                 //wait for latch
                 try {
@@ -364,10 +356,6 @@ public class ApiInterface {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-
-
-                Log.i("AlexDebugging", "getwatchlist provider finished");
 
                 //print list
                 /*for (Movie movie : movieList) {
@@ -433,6 +421,40 @@ public class ApiInterface {
             }
         });
         mQueue.add(request);
+    }
+
+    public void getWatchprovider(Movie movie, Interfaces.apiWatchproviderCallback receiver) {
+
+        //make thread
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                //make countdownlatch
+                CountDownLatch countDownLatch = new CountDownLatch(1);
+
+                //providerrequest
+                watchProviderRequest(movie, countDownLatch);
+
+                //wait for latch
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //return movielist
+                activity.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        receiver.receiveWatchprovider(movie);
+                    }
+                });
+
+            }
+        });
+        thread.start();
+
     }
 
     //takes movie and makes api request for watchprovider
@@ -564,6 +586,5 @@ public class ApiInterface {
     private void getBackdropCallback(Bitmap img, Interfaces.apiBackdropCallback receiver) {
         receiver.receiveBackdrop(img);
     }
-
 
 }
