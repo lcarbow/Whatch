@@ -57,7 +57,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
         layoutManager.setInitialPrefetchItemCount(parentItem.getArrayList().size());
 
-        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(genrePresenter, parentItem.getArrayList());
+        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(this.view.getContext(), genrePresenter, parentItem.getArrayList());
         parentViewHolder.ChildRecyclerView.setLayoutManager(layoutManager);
         parentViewHolder.ChildRecyclerView.setAdapter(childItemAdapter);
         parentViewHolder.ChildRecyclerView.setRecycledViewPool(viewPool);
@@ -97,29 +97,6 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
                 @Override
                 public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-                }
-            });
-
-            ChildRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-
-                    if(newState == 0 && StorageClass.getInstance().isReady() == true) {
-                        genrePresenter.loadImagesHorizontal(5, 15, getAdapterPosition(), 1);
-
-
-
-                    }
-
-
-
-                }
-
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
 
                 }
             });

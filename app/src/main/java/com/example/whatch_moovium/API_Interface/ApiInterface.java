@@ -392,7 +392,7 @@ public class ApiInterface {
 
         //make api request
         String url = " https://api.themoviedb.org/3/movie/" + id + "?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE";
-
+//https://api.themoviedb.org/3/movie/
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

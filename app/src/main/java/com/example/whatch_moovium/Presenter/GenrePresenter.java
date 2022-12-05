@@ -8,6 +8,7 @@ import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
@@ -18,8 +19,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
 
     private Contract.ILandingViewGenre landingPageView;
     ApiInterface myAPI_Interface;
-    ImageHelperVertical imageHelperVertical;
-    ImageHelperHorizontal imageHelperHorizontal;
+
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
@@ -39,34 +39,6 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
             landingPageView.setAdapter(StorageClass.getInstance().getItemList());
 
         }
-
-    }
-
-    @Override
-    public void loadImagesVertical(int horizontal, int horizonalCount, int vertical, int verticalCount) {
-        StorageClass.getInstance().setReady(false);
-        for (int i = horizontal; i < horizontal+horizonalCount; i++) {
-            for(int j = vertical; j < vertical+verticalCount ; j ++) {
-                imageHelperVertical = new ImageHelperVertical(i,j,landingPageView);
-                imageHelperVertical.addImageToMovie();
-
-            }
-        }
-        StorageClass.getInstance().setReady(true);
-
-    }
-
-    @Override
-    public void loadImagesHorizontal(int horizontal, int horizonalCount, int vertical, int verticalCount) {
-        StorageClass.getInstance().setReady(false);
-        for (int i = horizontal; i < horizontal+horizonalCount; i++) {
-            for(int j = vertical; j < vertical+verticalCount ; j ++) {
-                imageHelperHorizontal = new ImageHelperHorizontal(i,j,landingPageView);
-                imageHelperHorizontal.addImageToMovie();
-
-            }
-        }
-        StorageClass.getInstance().setReady(true);
     }
 
     @Override
