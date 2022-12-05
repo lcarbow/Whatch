@@ -52,7 +52,7 @@ public class Model implements Contract.IModelView {
         if(index >= arrayList.size()) {
             index = 0;
         } else if(index < 0) {
-            index = arrayList.size()-1;
+            index = arrayList.size()-1;//
         }//
         listener.onFinished(arrayList.get(index));
         index++;
