@@ -31,7 +31,7 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
     private RecyclerView ParentRecyclerViewItem;
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
-    Contract.IGenrePresenter presenter;
+    private Contract.IGenrePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

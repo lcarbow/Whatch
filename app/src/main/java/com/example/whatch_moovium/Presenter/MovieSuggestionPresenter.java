@@ -18,7 +18,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     // creating object of View Interface
     private Contract.IMovieView movieSuggestion;
 
-    ApiInterface myAPI_Interface;
+    private ApiInterface myAPI_Interface;
     DatabaseHandler databaseHandler;
 
     // instantiating the objects of View Interface
@@ -40,15 +40,12 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     public void onFinished(Movie movie) {
 
         StorageClass.getInstance().setActualMovie(movie);
-
         myAPI_Interface.getPoster(movie.getPoster(), this);
         movieSuggestion.setTitle(movie.getTitle());
         movieSuggestion.setDescription(movie.getDescription());
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());
         movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
-
-
     }
 
     @Override

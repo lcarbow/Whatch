@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class LandingPage_Surprise extends AppCompatActivity implements Contract.ILandingViewSurprise {
 
     BottomNavigationView bottomNavigationView;
+    private Contract.ISurprisePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,6 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         Button button = findViewById(R.id.button);
 
         //Presenter
-        Contract.ISurprisePresenter presenter;
         presenter = new SurprisePresenter(this);
         presenter.getMovieListFromApi();
 

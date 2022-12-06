@@ -21,18 +21,14 @@ import java.util.List;
 public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<LandingPage_Genre_ParentItemAdapter.ParentViewHolder> {
 
     private final Contract.IGenrePresenter genrePresenter;
-
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private View view;
+    private RecyclerView.RecycledViewPool viewPool;
     private List<Model> itemList;
-    private LinearLayoutManager layoutManager;
-
-
 
     LandingPage_Genre_ParentItemAdapter(Contract.IGenrePresenter genrePresenter, List<Model> itemList)
     {
         this.genrePresenter = genrePresenter;
         this.itemList = itemList;
+        this.viewPool = new RecyclerView.RecycledViewPool();
 
     }
 
@@ -41,7 +37,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
     public ParentViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
 
-        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_titles, viewGroup, false);
 
         return new ParentViewHolder(view, genrePresenter);
     }
@@ -53,11 +49,11 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
         parentViewHolder.ParentItemTitle.setText(parentItem.getParentItemTitle());
 
-        layoutManager = new LinearLayoutManager(parentViewHolder.ChildRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.ChildRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
 
         layoutManager.setInitialPrefetchItemCount(parentItem.getArrayList().size());
 
-        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(this.view.getContext(), genrePresenter, parentItem.getArrayList());
+        LandingPage_Genre_ChildItemAdapter childItemAdapter = new LandingPage_Genre_ChildItemAdapter(genrePresenter, parentItem.getArrayList());
         parentViewHolder.ChildRecyclerView.setLayoutManager(layoutManager);
         parentViewHolder.ChildRecyclerView.setAdapter(childItemAdapter);
         parentViewHolder.ChildRecyclerView.setRecycledViewPool(viewPool);
