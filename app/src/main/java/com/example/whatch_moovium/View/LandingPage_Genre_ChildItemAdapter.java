@@ -26,18 +26,11 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
 
     private final Contract.IGenrePresenter genrePresenter;
     private List<Movie> ChildItemList;
-    View view;
-    private Context context;
-    Picasso.Builder builder;
 
-
-    LandingPage_Genre_ChildItemAdapter(Context context, Contract.IGenrePresenter genrePresenter, List<Movie> childItemList)
-    {   this.context = context;
+    LandingPage_Genre_ChildItemAdapter(Contract.IGenrePresenter genrePresenter, List<Movie> childItemList)
+    {
         this.genrePresenter = genrePresenter;
         this.ChildItemList = childItemList;
-        builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttp3Downloader(context));
-        //builder.indicatorsEnabled(true);
 
     }
 
@@ -45,7 +38,7 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
     @Override
     public ChildViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_poster, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.genre_poster, viewGroup, false);
 
         return new ChildViewHolder(view, genrePresenter);
     }
@@ -56,8 +49,8 @@ public class LandingPage_Genre_ChildItemAdapter extends RecyclerView.Adapter<Lan
         Movie childItem = ChildItemList.get(position);
         String imgPath = childItem.getPoster();
 
-        builder.build().load("https://image.tmdb.org/t/p/w780" + imgPath)
-                .into(childViewHolder.childImageView);
+        genrePresenter.setImageViewForLoader(childViewHolder.childImageView);
+        genrePresenter.LoadImagesFromImageLoader(imgPath);
     }
 
 

@@ -3,6 +3,7 @@ package com.example.whatch_moovium;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
@@ -92,6 +93,8 @@ public interface Contract {
         void getMovieListFromApi();
         void setMovieVertical(int position);
         void onClickImage(View view, int adapterPosition);
+        void setImageViewForLoader(ImageView imageView);
+        void LoadImagesFromImageLoader(String imgPath);
     }
 
 
@@ -114,6 +117,22 @@ public interface Contract {
         // method to destroy
         // lifecycle of MainActivity
         //void onDestroy();
+    }
+
+    interface IImageLoader {
+        void loadImages(String imgPath);
+        void setImageView(ImageView imageView);
+    }
+
+
+    interface WatchlistPresenter{
+        void getMovieListFromApi();
+        void onButtonClick();
+    }
+
+    interface LandingViewWatchlist {
+        Context getContext();
+        void setAdapter(List<Model> itemList);
     }
 
 

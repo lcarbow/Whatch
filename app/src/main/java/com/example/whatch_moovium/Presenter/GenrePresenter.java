@@ -2,6 +2,7 @@ package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
@@ -18,13 +19,18 @@ import java.util.List;
 public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
 
     private Contract.ILandingViewGenre landingPageView;
-    ApiInterface myAPI_Interface;
+    private Contract.IImageLoader imageLoader;
+    private ApiInterface myAPI_Interface;
+
 
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
+        imageLoader = new ImageLoader(landingPageView.getContext());
+
     }
+
 
     @Override
     public void getMovieListFromApi() {
@@ -53,6 +59,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         StorageClass.getInstance().getMyModel().setIndex(adapterPosition);
     }
 
+
     @Override
     public void receiveAll(List<List> list) {
 
@@ -80,5 +87,14 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
     }
 
 
+    @Override
+    public void setImageViewForLoader(ImageView imageView) {
+        imageLoader.setImageView(imageView);
+    }
+
+    @Override
+    public void LoadImagesFromImageLoader(String imgPath) {
+        imageLoader.loadImages(imgPath);
+    }
 
 }
