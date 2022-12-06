@@ -82,7 +82,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
                 public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
                     genrePresenter.setMovieVertical(getAdapterPosition());
 
-                    return false;
+                    return false; //
 
                 }
 
