@@ -31,7 +31,11 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     @Override
     public void onPageLoaded() {
         StorageClass.getInstance().getMyModel().getNextMovie(this);
-        Log.i("architectureLog", String.valueOf(StorageClass.getInstance().getMyModel().showIndex()));
+        //Log.i("architectureLog", String.valueOf(StorageClass.getInstance().getMyModel().showIndex()));
+
+        for (Integer i : StorageClass.getInstance().getProviderList()) {
+            Log.i("architectureLog", i.toString());
+        }
 
     }
 

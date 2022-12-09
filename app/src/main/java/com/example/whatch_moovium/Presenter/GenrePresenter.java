@@ -35,7 +35,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
     @Override
     public void getMovieListFromApi() {
         //TODO @Nadine bei den Triggern setzen, dann kann das hier weg
-        StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
+        /*StorageClass.getInstance().setProviderList(Arrays.asList(8,337));*/
 
         if(StorageClass.getInstance().getItemList().size() == 0) {
             //Verhindert die lange Wartezeit, die Filme werden gespeichert.

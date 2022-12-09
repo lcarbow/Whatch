@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.View.LandingPage_Genres;
 import com.example.whatch_moovium.View.LandingPage_Mood;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ProviderSettings extends AppCompatActivity implements ProviderRecyclerViewInterface {
 
@@ -114,6 +116,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
         if (switchState){
             Log.i("userdebug", providerName + " zur Liste hinzugefügt");
+            StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
+            /*StorageClass.getInstance().addProviderIdList(8);*/
             listOfProvidersTest.add(providerName);
             providerStatus.setProviderStatus(true);
             switchEditor.putBoolean("value"+position, true);
