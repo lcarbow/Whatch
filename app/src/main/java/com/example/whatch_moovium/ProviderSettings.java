@@ -23,10 +23,9 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ProviderSettings extends AppCompatActivity implements ProviderRecyclerViewInterface {
-
-    Provider providerElementTest = new Provider(0);
 
     BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
@@ -87,12 +86,12 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
         String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
-
+        List<Integer> providerList = new ArrayList<>();
 
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(this);
 
-            int currentProvider = Integer.parseInt(providerIDs[i]);
+            //int currentProvider = Integer.parseInt(providerIDs[i]);
             //StorageClass.getInstance().addProviderIdList(new Provider(currentProvider));
 
             SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -100,15 +99,14 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
             int currentId = Integer.parseInt(providerIDs[i]);
             newSwitch.setChecked(newBool);
-            possibleProviders.add(new ProviderModel(providerNames[i], providerIDs[i], newSwitch, newBool));
-
-
-            providerElementTest.setId(possibleProviders.get(i).getProviderID());
-            StorageClass.getInstance().addProviderIdList(providerElementTest);
-
-            //NOTE: diesen Teil entfernen wenn Database-Einbindung vorhanden
-            listOfProvidersTest.add(providerNames[i]);
+            possibleProviders.add(new ProviderModel(providerNames[i], currentId, newSwitch, newBool));
+            if (newBool){
+                providerList.add(currentId);
+            }
         }
+
+        StorageClass.getInstance().setProviderList(providerList);
+        //Log.i("remover", "" + providerList.);
 
     }
 
@@ -125,10 +123,10 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
         if (switchState){
             Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
-            //StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
-            /*StorageClass.getInstance().addProviderIdList(8);*/
-            providerElementTest.setId(possibleProviders.get(position).getProviderID());
-            StorageClass.getInstance().addProviderIdList(providerElementTest);
+
+            int currentPositionID = providerStatus.getProviderID();
+
+            StorageClass.getInstance().addProviderIdList(currentPositionID);
 
             listOfProvidersTest.add(providerName);
             providerStatus.setProviderStatus(true);
@@ -136,8 +134,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
             switchEditor.apply();
         } else {
             Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
-            providerElementTest.setId(possibleProviders.get(position).getProviderID());
-            StorageClass.getInstance().removeProviderIdList(providerElementTest);
+            int currentPositionID = providerStatus.getProviderID();
+            StorageClass.getInstance().removeProviderIdList(currentPositionID);
             listOfProvidersTest.remove(providerName);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);
