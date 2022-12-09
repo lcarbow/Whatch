@@ -5,6 +5,7 @@ import android.widget.Switch;
 public class ProviderModel {
     String providerName;
     Switch providerSwitch;
+    int providerID;
 
     boolean providerStatus;
 
@@ -12,6 +13,7 @@ public class ProviderModel {
         this.providerName = providerName;
         this.providerSwitch = providerSwitch;
         this.providerStatus = providerStatus;
+        this.providerID = Integer.parseInt(providerID);
     }
 
     public String getProviderName() {
@@ -26,5 +28,9 @@ public class ProviderModel {
 
     public void setProviderStatus(boolean providerStatus) {
         this.providerStatus = providerStatus;
+    }
+
+    public int getProviderID() {
+        return providerID;
     }
 }

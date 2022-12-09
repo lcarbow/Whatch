@@ -62,6 +62,10 @@ public class StorageClass {
         this.myModelList.add(model);
     }
 
+    public void addProviderIdList(int id) {
+        this.providerList.add(id);
+    }
+
     public List<Model> getMyModelList() {
         return myModelList;
     }
