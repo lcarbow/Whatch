@@ -1,5 +1,7 @@
 package com.example.whatch_moovium.Model;
 
+import android.util.Log;
+
 import com.example.whatch_moovium.Provider;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class StorageClass {
 
     //////// Genre ////////
     private List<Model> myModelList;
-    private List<Provider> providerList;
+    private List<Integer> providerList;
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
@@ -47,13 +49,13 @@ public class StorageClass {
     public List<Integer> getProviderList() {
         List<Integer> providerListInt = new ArrayList<>();
 
-        for (Provider i : providerList) {
-            providerListInt.add(i.getId());
+        for (int i : providerList) {
+            providerListInt.add(i);
         }
         return providerListInt;
     }
 
-    public void setProviderList(List<Provider> providerList) {
+    public void setProviderList(List<Integer> providerList) {
         this.providerList = providerList;
     }
 
@@ -69,13 +71,25 @@ public class StorageClass {
         this.myModelList.add(model);
     }
 
-    public void addProviderIdList(Provider i) {
+    public void addProviderIdList(int i) {
 
         this.providerList.add(i);
     }
 
-    public void removeProviderIdList(Provider i) {
-        this.providerList.remove(i);
+    public void removeProviderIdList(int i) {
+        boolean isInList = false;
+        for (int element : providerList){
+            if (element == i){
+                isInList = true;
+                Log.i("remover", "" + i);
+                Log.i("remover", "" + element);
+            }
+        }
+        if(isInList){
+            //this.providerList.remove(i);
+            Log.i("remover", "" + isInList);
+        }
+
     }
 
     public List<Model> getMyModelList() {
