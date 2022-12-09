@@ -26,6 +26,8 @@ import java.util.Arrays;
 
 public class ProviderSettings extends AppCompatActivity implements ProviderRecyclerViewInterface {
 
+    Provider providerElementTest = new Provider(0);
+
     BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
 
@@ -100,8 +102,9 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
             newSwitch.setChecked(newBool);
             possibleProviders.add(new ProviderModel(providerNames[i], providerIDs[i], newSwitch, newBool));
 
-            //StorageClass.getInstance().addProviderIdList(new Provider(currentId));
 
+            providerElementTest.setId(possibleProviders.get(i).getProviderID());
+            StorageClass.getInstance().addProviderIdList(providerElementTest);
 
             //NOTE: diesen Teil entfernen wenn Database-Einbindung vorhanden
             listOfProvidersTest.add(providerNames[i]);
@@ -124,7 +127,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
             Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
             //StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
             /*StorageClass.getInstance().addProviderIdList(8);*/
-            StorageClass.getInstance().addProviderIdList(new Provider(possibleProviders.get(position).providerID));
+            providerElementTest.setId(possibleProviders.get(position).getProviderID());
+            StorageClass.getInstance().addProviderIdList(providerElementTest);
 
             listOfProvidersTest.add(providerName);
             providerStatus.setProviderStatus(true);
@@ -132,7 +136,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
             switchEditor.apply();
         } else {
             Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
-            StorageClass.getInstance().removeProviderIdList(new Provider(possibleProviders.get(position).providerID));
+            providerElementTest.setId(possibleProviders.get(position).getProviderID());
+            StorageClass.getInstance().removeProviderIdList(providerElementTest);
             listOfProvidersTest.remove(providerName);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);
