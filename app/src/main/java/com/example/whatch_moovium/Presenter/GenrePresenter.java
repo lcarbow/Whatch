@@ -48,7 +48,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
 
             myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
         } else {
-            landingPageView.setAdapter(StorageClass.getInstance().getItemList());
+            landingPageView.setAdapter();
 
         }
     }
@@ -75,10 +75,13 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         //Zur ItemList hinzufügen
         for (int i = 0; i < StorageClass.getInstance().getGenreList().size(); i++){
             StorageClass.getInstance().getItemList().add(new Model(StorageClass.getInstance().getGenreList().get(i), StorageClass.getInstance().getMyModelList().get(i).getArrayList()));
+            //Log.i("missingMovies", StorageClass.getInstance().getGenreList().get(i));
         }
+        Log.i("missingMovies", StorageClass.getInstance().getGenreList().get(18));
 
+        Log.i("missingMovies", StorageClass.getInstance().getMyModelList().get(18).getArrayList().get(0).getTitle());
 
-        landingPageView.setAdapter(StorageClass.getInstance().getItemList());
+        landingPageView.setAdapter();
 
 
     }

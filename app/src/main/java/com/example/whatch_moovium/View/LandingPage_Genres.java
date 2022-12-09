@@ -98,13 +98,12 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
     }
 
     @Override
-    public void setAdapter(List<Model> itemList) {
+    public void setAdapter() {
         layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
-        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter, itemList);
+        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter);
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-//
-
     }
+
 
 }
