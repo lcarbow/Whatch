@@ -22,12 +22,10 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
 
     private final Contract.IGenrePresenter genrePresenter;
     private RecyclerView.RecycledViewPool viewPool;
-    private List<Model> itemList;
 
-    LandingPage_Genre_ParentItemAdapter(Contract.IGenrePresenter genrePresenter, List<Model> itemList)
+    LandingPage_Genre_ParentItemAdapter(Contract.IGenrePresenter genrePresenter)
     {
         this.genrePresenter = genrePresenter;
-        this.itemList = itemList;
         this.viewPool = new RecyclerView.RecycledViewPool();
 
     }
@@ -45,7 +43,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
     @Override
     public void onBindViewHolder(@NonNull ParentViewHolder parentViewHolder, int position) {
 
-        Model parentItem = itemList.get(position);
+        Model parentItem = StorageClass.getInstance().getItemList().get(position);
 
         parentViewHolder.ParentItemTitle.setText(parentItem.getParentItemTitle());
 
@@ -62,7 +60,7 @@ public class LandingPage_Genre_ParentItemAdapter extends RecyclerView.Adapter<La
     @Override
     public int getItemCount() {
 
-        return itemList.size();
+        return StorageClass.getInstance().getItemList().size();
     }
 
     class ParentViewHolder extends RecyclerView.ViewHolder {

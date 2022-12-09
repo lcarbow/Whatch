@@ -29,7 +29,7 @@ public interface Contract {
 
     interface ILandingViewGenre {
         Context getContext();
-        void setAdapter(List<Model> itemList);
+        void setAdapter();
 
     }
 
