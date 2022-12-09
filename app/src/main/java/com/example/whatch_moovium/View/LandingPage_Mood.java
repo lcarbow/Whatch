@@ -3,21 +3,28 @@ package com.example.whatch_moovium.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Presenter.MoodPresenter;
+import com.example.whatch_moovium.Presenter.SurprisePresenter;
 import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
 import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class LandingPage_Mood extends AppCompatActivity {
+public class LandingPage_Mood extends AppCompatActivity implements Contract.ILandingViewMood{
 
     BottomNavigationView bottomNavigationView;
+    private Contract.IMoodPresenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,14 @@ public class LandingPage_Mood extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.mood);
+
+        ImageButton button1 = findViewById(R.id.imageButton1);
+        ImageButton button2 = findViewById(R.id.imageButton2);
+        ImageButton button3 = findViewById(R.id.imageButton3);
+        ImageButton button4 = findViewById(R.id.imageButton4);
+
+
+        presenter = new MoodPresenter(this);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -63,5 +78,10 @@ public class LandingPage_Mood extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("lastActivity", getClass().getName());
         editor.commit();
+    }
+
+    @Override
+    public Context getContext() {
+        return LandingPage_Mood.this;
     }
 }
