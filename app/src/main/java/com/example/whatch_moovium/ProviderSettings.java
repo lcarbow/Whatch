@@ -30,9 +30,6 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
     BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
 
-    //Diese Liste hier später mit der Providerliste aus der DB ersetzen
-    ArrayList<String> listOfProvidersTest = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,9 +88,6 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(this);
 
-            //int currentProvider = Integer.parseInt(providerIDs[i]);
-            //StorageClass.getInstance().addProviderIdList(new Provider(currentProvider));
-
             SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
@@ -106,7 +100,11 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         }
 
         StorageClass.getInstance().setProviderList(providerList);
-        //Log.i("remover", "" + providerList.);
+
+        //Test
+        for (int e = 0; e < providerList.size(); e++){
+            Log.i("providerLog", "" + providerList.get(e).toString());
+        }
 
     }
 
@@ -119,16 +117,12 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
         SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor switchEditor = switchPref.edit();
-
-
         if (switchState){
             Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
 
             int currentPositionID = providerStatus.getProviderID();
-
             StorageClass.getInstance().addProviderIdList(currentPositionID);
 
-            listOfProvidersTest.add(providerName);
             providerStatus.setProviderStatus(true);
             switchEditor.putBoolean("value"+position, true);
             switchEditor.apply();
@@ -136,7 +130,6 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
             Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
             int currentPositionID = providerStatus.getProviderID();
             StorageClass.getInstance().removeProviderIdList(currentPositionID);
-            listOfProvidersTest.remove(providerName);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);
             switchEditor.apply();

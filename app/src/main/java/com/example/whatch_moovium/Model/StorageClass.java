@@ -78,16 +78,15 @@ public class StorageClass {
 
     public void removeProviderIdList(int i) {
         boolean isInList = false;
-        for (int element : providerList){
+        for (int element = 0; element < providerList.size(); element++){
             if (element == i){
                 isInList = true;
-                Log.i("remover", "" + i);
-                Log.i("remover", "" + element);
+                //Log.i("remover", "" + i);
+                //Log.i("remover", "" + element);
             }
         }
         if(isInList){
-            //this.providerList.remove(i);
-            Log.i("remover", "" + isInList);
+            this.providerList.remove(i);
         }
 
     }
