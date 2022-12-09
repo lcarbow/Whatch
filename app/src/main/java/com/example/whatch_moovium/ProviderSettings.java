@@ -82,6 +82,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
+        String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
+
 
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(this);
@@ -90,7 +92,7 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
             newSwitch.setChecked(newBool);
-            possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
+            possibleProviders.add(new ProviderModel(providerNames[i], providerIDs[i], newSwitch, newBool));
 
 
             //NOTE: diesen Teil entfernen wenn Database-Einbindung vorhanden

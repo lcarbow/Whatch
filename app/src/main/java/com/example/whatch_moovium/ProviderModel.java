@@ -8,7 +8,7 @@ public class ProviderModel {
 
     boolean providerStatus;
 
-    public ProviderModel(String providerName, Switch providerSwitch, boolean providerStatus) {
+    public ProviderModel(String providerName, String providerID, Switch providerSwitch, boolean providerStatus) {
         this.providerName = providerName;
         this.providerSwitch = providerSwitch;
         this.providerStatus = providerStatus;
