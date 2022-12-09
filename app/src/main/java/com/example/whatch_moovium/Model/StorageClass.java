@@ -1,5 +1,7 @@
 package com.example.whatch_moovium.Model;
 
+import com.example.whatch_moovium.Provider;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ public class StorageClass {
 
     //////// Genre ////////
     private List<Model> myModelList;
-    private List<Integer> providerList;
+    private List<Provider> providerList;
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
@@ -43,10 +45,15 @@ public class StorageClass {
     }
 
     public List<Integer> getProviderList() {
-        return providerList;
+        List<Integer> providerListInt = new ArrayList<>();
+
+        for (Provider i : providerList) {
+            providerListInt.add(i.getId());
+        }
+        return providerListInt;
     }
 
-    public void setProviderList(List<Integer> providerList) {
+    public void setProviderList(List<Provider> providerList) {
         this.providerList = providerList;
     }
 
@@ -62,8 +69,13 @@ public class StorageClass {
         this.myModelList.add(model);
     }
 
-    public void addProviderIdList(int id) {
-        this.providerList.add(id);
+    public void addProviderIdList(Provider i) {
+
+        this.providerList.add(i);
+    }
+
+    public void removeProviderIdList(Provider i) {
+        this.providerList.remove(i);
     }
 
     public List<Model> getMyModelList() {
