@@ -29,7 +29,7 @@ public interface Contract {
 
     interface ILandingViewGenre {
         Context getContext();
-        void setAdapter();
+        void setAdapter(List<Model> itemList);
 
     }
 
@@ -77,10 +77,10 @@ public interface Contract {
             // completes its execution
             void onFinished(Movie movie);
         }
+        void getThisMovie(IModelView.OnFinishedListener onFinishedListener);
         void getNextMovie(IModelView.OnFinishedListener onFinishedListener);
         void getBeforeMovie(IModelView.OnFinishedListener onFinishedListener);
-        void nextIndex();
-        int showIndex();
+
     }
 
 

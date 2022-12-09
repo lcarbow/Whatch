@@ -55,12 +55,15 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     @Override
     public void receivePoster(Bitmap img){
 
+        /* NOPE!
         movieList.get(model.showIndex()).setPosterBitmap(img);
         model.nextIndex();
 
         if (model.showIndex() == movieList.size()){
             landingPageWatchlist.setAdapter(itemList);
         }
+
+         */
     }
 
     @Override

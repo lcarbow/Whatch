@@ -45,35 +45,36 @@ public class Model implements Contract.IModelView {
     }
 
     @Override
+    public void getThisMovie(OnFinishedListener listener) {
+        listener.onFinished(arrayList.get(index));
+
+    }
+
+    @Override
     // this method will invoke when
     // user clicks on the button
     // Soll auch für NEXT-Button genutzt werden
     public void getNextMovie(final OnFinishedListener listener) {
+        index++;
+
         if(index >= arrayList.size()) {
             index = 0;
         } else if(index < 0) {
             index = arrayList.size()-1;//
         }//
         listener.onFinished(arrayList.get(index));
-        index++;
     }
 
     public void getBeforeMovie(final OnFinishedListener listener) {
+        index--;
         if(index >= arrayList.size()) {
             index = 0;
         } else if(index < 0) {
             index = arrayList.size()-1;
         }
         listener.onFinished(arrayList.get(index));
-        index--;
     }
 
-    @Override
-    public void nextIndex() {
-        this.index = index + 1;
-
-
-    }
 
     public int getIndex() {
         return index;
@@ -83,9 +84,5 @@ public class Model implements Contract.IModelView {
         this.index = index;
     }
 
-    @Override
-    public int showIndex() {
-        return index;
-    }
 
 }
