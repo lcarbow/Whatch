@@ -1,6 +1,7 @@
 package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -40,6 +41,11 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         if(StorageClass.getInstance().getItemList().size() == 0) {
             //Verhindert die lange Wartezeit, die Filme werden gespeichert.
             myAPI_Interface.getGenres(this);
+
+            for (int i : StorageClass.getInstance().getProviderList() ) {
+                Log.i("providerLog", String.valueOf(i) + "ist in der Liste");
+            }
+
             myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
         } else {
             landingPageView.setAdapter(StorageClass.getInstance().getItemList());

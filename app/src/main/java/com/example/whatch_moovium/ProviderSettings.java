@@ -90,11 +90,17 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(this);
 
+            int currentProvider = Integer.parseInt(providerIDs[i]);
+            //StorageClass.getInstance().addProviderIdList(new Provider(currentProvider));
+
             SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
+            int currentId = Integer.parseInt(providerIDs[i]);
             newSwitch.setChecked(newBool);
             possibleProviders.add(new ProviderModel(providerNames[i], providerIDs[i], newSwitch, newBool));
+
+            //StorageClass.getInstance().addProviderIdList(new Provider(currentId));
 
 
             //NOTE: diesen Teil entfernen wenn Database-Einbindung vorhanden
@@ -115,15 +121,18 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
 
         if (switchState){
-            Log.i("userdebug", providerName + " zur Liste hinzugefügt");
-            StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
+            Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
+            //StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
             /*StorageClass.getInstance().addProviderIdList(8);*/
+            StorageClass.getInstance().addProviderIdList(new Provider(possibleProviders.get(position).providerID));
+
             listOfProvidersTest.add(providerName);
             providerStatus.setProviderStatus(true);
             switchEditor.putBoolean("value"+position, true);
             switchEditor.apply();
         } else {
-            Log.i("userdebug", providerName + " von Liste entfernt");
+            Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
+            StorageClass.getInstance().removeProviderIdList(new Provider(possibleProviders.get(position).providerID));
             listOfProvidersTest.remove(providerName);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);

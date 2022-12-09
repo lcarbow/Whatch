@@ -34,7 +34,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         //Log.i("architectureLog", String.valueOf(StorageClass.getInstance().getMyModel().showIndex()));
 
         for (Integer i : StorageClass.getInstance().getProviderList()) {
-            Log.i("architectureLog", i.toString());
+            //Log.i("providerLog", i.toString());
         }
 
     }
