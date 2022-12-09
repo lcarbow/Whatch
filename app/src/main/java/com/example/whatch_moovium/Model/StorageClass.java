@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.whatch_moovium.Provider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StorageClass {
@@ -72,21 +73,23 @@ public class StorageClass {
     }
 
     public void addProviderIdList(int i) {
-
+        Log.i("funktioniert", "Liste vor Hinzufügen: " + providerList.size());
         this.providerList.add(i);
+        Log.i("funktioniert", "Liste nach Hinzufügen: " + providerList.size());
     }
 
     public void removeProviderIdList(int i) {
-        boolean isInList = false;
+        int indexNo = 99999;
         for (int element = 0; element < providerList.size(); element++){
-            if (element == i){
-                isInList = true;
-                //Log.i("remover", "" + i);
-                //Log.i("remover", "" + element);
+            if (providerList.get(element) == i){
+                indexNo = element;
             }
         }
-        if(isInList){
-            this.providerList.remove(i);
+
+        if (providerList.contains(i)){
+            Log.i("funktioniert", "Liste vor Entfernung: " + providerList.size());
+            this.providerList.remove(indexNo);
+            Log.i("funktioniert", "Liste nach Entfernung: " + providerList.size());
         }
 
     }
