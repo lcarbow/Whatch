@@ -62,7 +62,7 @@
 
     <LinearLayout
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageButton
@@ -81,7 +81,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                app:srcCompat="@drawable/assets_erschoepft" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -89,14 +91,16 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                app:srcCompat="@drawable/assets_gluecklich" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageButton
@@ -105,7 +109,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                app:srcCompat="@drawable/assets_traurig" />
 
             <ImageButton
                 android:id="@+id/imageButton4"
@@ -113,7 +119,36 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                app:srcCompat="@drawable/assets_sprachlos" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                app:srcCompat="@drawable/assets_zufrieden" />
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:background="#00000000"
+                app:srcCompat="@drawable/assets_genervt" />
         </LinearLayout>
 
     </LinearLayout>

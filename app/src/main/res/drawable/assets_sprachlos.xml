@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_pressed = "false">
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="200dp"
+        android:height="200dp"
+        android:viewportWidth="200"
+        android:viewportHeight="200">
+      <path
+          android:pathData="M43.5,0L156.5,0A43.5,43.5 0,0 1,200 43.5L200,156.5A43.5,43.5 0,0 1,156.5 200L43.5,200A43.5,43.5 0,0 1,0 156.5L0,43.5A43.5,43.5 0,0 1,43.5 0z"
+          android:fillColor="@color/WhatchBlueLight"/>
+      <path
+          android:fillColor="@color/black"
+          android:pathData="M47.9,100.6a8.7,14.6 0,1 0,17.4 0a8.7,14.6 0,1 0,-17.4 0z"/>
+      <path
+          android:fillColor="@color/black"
+          android:pathData="M134.7,100.6a8.7,14.6 0,1 0,17.4 0a8.7,14.6 0,1 0,-17.4 0z"/>
+    </vector>
+  </item>
+  <item android:state_pressed = "true">
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="200dp"
+        android:height="200dp"
+        android:viewportWidth="200"
+        android:viewportHeight="200">
+      <path
+          android:pathData="M43.5,0L156.5,0A43.5,43.5 0,0 1,200 43.5L200,156.5A43.5,43.5 0,0 1,156.5 200L43.5,200A43.5,43.5 0,0 1,0 156.5L0,43.5A43.5,43.5 0,0 1,43.5 0z"
+          android:fillColor="@color/WhatchBlue"/>
+      <path
+          android:fillColor="@color/black"
+          android:pathData="M47.9,100.6a8.7,14.6 0,1 0,17.4 0a8.7,14.6 0,1 0,-17.4 0z"/>
+      <path
+          android:fillColor="@color/black"
+          android:pathData="M134.7,100.6a8.7,14.6 0,1 0,17.4 0a8.7,14.6 0,1 0,-17.4 0z"/>
+    </vector>
+  </item>
+</selector>
+

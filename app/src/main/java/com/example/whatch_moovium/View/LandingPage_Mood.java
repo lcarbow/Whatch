@@ -38,6 +38,8 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         ImageButton button2 = findViewById(R.id.imageButton2);
         ImageButton button3 = findViewById(R.id.imageButton3);
         ImageButton button4 = findViewById(R.id.imageButton4);
+        ImageButton button5 = findViewById(R.id.imageButton5);
+        ImageButton button6 = findViewById(R.id.imageButton6);
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.mood);
@@ -62,6 +64,18 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
             }
         });
         button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onEmojiClick();
+            }
+        });
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onEmojiClick();
+            }
+        });
+        button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.onEmojiClick();
