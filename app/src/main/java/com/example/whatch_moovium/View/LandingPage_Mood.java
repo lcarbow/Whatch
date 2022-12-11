@@ -44,7 +44,7 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.mood);
 
-
+//
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
