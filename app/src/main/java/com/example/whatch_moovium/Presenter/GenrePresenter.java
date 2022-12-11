@@ -30,27 +30,18 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
         imageLoader = new ImageLoader(landingPageView.getContext());
 
+
     }
 
 
     @Override
     public void getMovieListFromApi() {
-        //TODO @Nadine bei den Triggern setzen, dann kann das hier weg
-        /*StorageClass.getInstance().setProviderList(Arrays.asList(8,337));*/
 
-        if(StorageClass.getInstance().getItemList().size() == 0) {
-            //Verhindert die lange Wartezeit, die Filme werden gespeichert.
-            myAPI_Interface.getGenres(this);
+        myAPI_Interface.getGenres(this);
+        myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
 
-            for (int i : StorageClass.getInstance().getProviderList() ) {
-                Log.i("providerLog", String.valueOf(i) + "ist in der Liste");
-            }
 
-            myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
-        } else {
-            landingPageView.setAdapter(StorageClass.getInstance().getItemList());
 
-        }
     }
 
     @Override
@@ -78,7 +69,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         }
 
 
-        landingPageView.setAdapter(StorageClass.getInstance().getItemList());
+        landingPageView.setAdapter();
 
 
     }
@@ -89,7 +80,6 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         for (Genre g : genres) {
             StorageClass.getInstance().getGenreList().add(g.getName());
         }
-
     }
 
 

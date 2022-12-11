@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-
-    tools:context=".View.LandingPage_Mood">
-
+    tools:context=".View.LandingPage_MoodSuggestion">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigator"
@@ -21,7 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
-
 
     <ImageButton
         android:id="@+id/watchlist_button"
@@ -55,68 +52,98 @@
         style="@style/HeadlineStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/headline_mood"
+        android:text="@string/headline_moodSugg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headlineSurprise">
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:background="#00000000"
+                android:scaleType="centerInside" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:background="#00000000"
+                android:scaleType="centerInside" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:scaleX="1" />
 
             <ImageButton
                 android:id="@+id/imageButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_mood" />
+                android:background="#00000000"
+                android:scaleType="centerInside" />
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/comfortaa_variablefont_wght"
+                android:text="Weitere Filme"
+                android:textAlignment="gravity"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/WhatchBlue"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
