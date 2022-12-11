@@ -23,7 +23,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
     private Contract.IImageLoader imageLoader;
     private ApiInterface myAPI_Interface;
 
-
+//
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
