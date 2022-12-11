@@ -85,6 +85,8 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
         List<Integer> providerList = new ArrayList<>();
 
+        StorageClass.getInstance().resetSettingForGenreList();
+        
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(this);
 

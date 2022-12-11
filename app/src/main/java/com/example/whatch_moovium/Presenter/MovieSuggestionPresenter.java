@@ -31,10 +31,8 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     @Override
     public void onPageLoaded() {
         StorageClass.getInstance().getMyModel().getThisMovie(this);
-        //Log.i("architectureLog", String.valueOf(StorageClass.getInstance().getMyModel().showIndex()));
 
         for (Integer i : StorageClass.getInstance().getProviderList()) {
-            //Log.i("providerLog", i.toString());
         }
 
     }
@@ -50,7 +48,6 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         movieSuggestion.setDescription(movie.getDescription());
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());
-        //movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
     }
 
     @Override

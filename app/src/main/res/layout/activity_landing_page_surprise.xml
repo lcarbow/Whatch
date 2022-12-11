@@ -23,7 +23,6 @@
         style="@style/buttonStyle"
         android:layout_width="280dp"
         android:layout_height="280dp"
-        android:layout_marginBottom="188dp"
         android:background="@drawable/button_highlight"
         android:elegantTextHeight="true"
         android:freezesText="false"
@@ -34,23 +33,23 @@
         android:textColorHighlight="#FF0000"
         android:textSize="180sp"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headlineSurprise" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/navColor"
+        app:itemIconSize="45dp"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu"
-        app:itemIconSize="45dp"/>
+        app:menu="@menu/menu" />
 
     <ImageButton
         android:id="@+id/watchlist_button"

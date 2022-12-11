@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
@@ -38,12 +39,14 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page_genres);
 
-        //RecyclerView
-        ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
-
         //Presenter
         presenter = new GenrePresenter(this);
         presenter.getMovieListFromApi();
+
+        //RecyclerView
+        ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
+
+
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigator);
@@ -98,12 +101,17 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
     }
 
     @Override
-    public void setAdapter(List<Model> itemList) {
+    public void setAdapter() {
+        Log.i("test", "else 2");
         layoutManager = new LinearLayoutManager(LandingPage_Genres.this);
-        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter, itemList);
+        Log.i("test", "else 3");
+        parentItemAdapter = new LandingPage_Genre_ParentItemAdapter(presenter);
+        Log.i("test", "else 4");
         ParentRecyclerViewItem.setAdapter(parentItemAdapter);
+        Log.i("test", "else 5");
         ParentRecyclerViewItem.setLayoutManager(layoutManager);
-//
+        Log.i("test", "else 6");
+
 
     }
 

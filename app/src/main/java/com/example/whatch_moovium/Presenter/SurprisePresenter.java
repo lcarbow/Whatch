@@ -24,7 +24,6 @@ public class SurprisePresenter implements Contract.ISurprisePresenter, Interface
     public SurprisePresenter(Contract.ILandingViewSurprise landingPageView) {
         this.landingPageView = landingPageView;
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
-
     }
 
     @Override
@@ -37,15 +36,6 @@ public class SurprisePresenter implements Contract.ISurprisePresenter, Interface
 
     @Override
     public void getMovieListFromApi() {
-        //TODO @Nadine: Zum speichern der IDs
-        //StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
-        //StorageClass.getInstance().addMyModelList(new Model(modelList));
-
-        //StorageClass.getInstance().addProviderIdList(new Provider(8));
-
-        for (int i : StorageClass.getInstance().getProviderList() ) {
-            Log.i("providerLog", String.valueOf(i)  + "ist in der Liste" );
-        }
         myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
 
     }

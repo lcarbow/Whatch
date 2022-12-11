@@ -122,4 +122,10 @@ public class StorageClass {
         this.ready = ready;
     }
 
+    public void resetSettingForGenreList() {
+        this.myModelList.clear();
+        this.genreList.clear();
+        this.itemList.clear();
+    }
+
 }
