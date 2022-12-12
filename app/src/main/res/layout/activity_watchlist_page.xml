@@ -47,12 +47,27 @@
         app:srcCompat="@drawable/ic_settings" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/watchlist_headline"
+        style="@style/HeadlineStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WATCHLIST"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="70dp"
+        android:text="@string/deine_watchlist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/watchlist_Recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="2dp"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/watchlist_headline" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_settings);
 
-        RecyclerView recyclerView = findViewById(R.id.providerRecycler);
+        RecyclerView recyclerView = findViewById(R.id.provider_Recycler);
 
         setupProvider();
 
