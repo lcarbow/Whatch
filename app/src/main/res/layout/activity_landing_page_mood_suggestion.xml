@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-
-    tools:context=".View.LandingPage_Mood">
-
+    tools:context=".View.LandingPage_MoodSuggestion">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigator"
@@ -21,7 +19,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu" />
-
 
     <ImageButton
         android:id="@+id/watchlist_button"
@@ -55,103 +52,113 @@
         style="@style/HeadlineStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/headline_mood"
+        android:text="@string/headline_moodSugg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="450dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="310dp"
+        android:layout_height="500dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headlineSurprise">
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
                 android:background="#00000000"
-                app:srcCompat="@drawable/assets_erschoepft" />
+                android:foreground="@drawable/image_feedback"
+                android:scaleType="centerInside"
+                android:src="@drawable/godzilla" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
                 android:background="#00000000"
-                app:srcCompat="@drawable/assets_gluecklich" />
+                android:foreground="@drawable/image_feedback"
+                android:scaleType="centerInside"
+                android:src="@drawable/godzilla" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
                 android:background="#00000000"
-                app:srcCompat="@drawable/assets_traurig" />
+                android:foreground="@drawable/image_feedback"
+                android:scaleType="centerInside"
+                android:scaleX="1"
+                android:src="@drawable/godzilla" />
 
             <ImageButton
                 android:id="@+id/imageButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
                 android:background="#00000000"
-                app:srcCompat="@drawable/assets_sprachlos" />
+                android:foreground="@drawable/image_feedback"
+                android:scaleType="centerInside"
+                android:src="@drawable/godzilla" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imageButton5"
+            <Button
+                android:id="@+id/buttonNext"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:background="#00000000"
-                app:srcCompat="@drawable/assets_zufrieden" />
-
-            <ImageButton
-                android:id="@+id/imageButton6"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:background="#00000000"
-                app:srcCompat="@drawable/assets_genervt" />
+                android:background="@drawable/button_more_movies"
+                android:backgroundTint="@null"
+                android:elegantTextHeight="true"
+                android:fontFamily="@font/comfortaa_variablefont_wght"
+                android:text="Anderer Film"
+                android:textAlignment="gravity"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/WhatchBlue"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
         </LinearLayout>
-
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

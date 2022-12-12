@@ -27,7 +27,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
 
     BottomNavigationView bottomNavigationView;
 
-    Contract.IMovieSuggestionPresenter presenter;
+    private Contract.IMovieSuggestionPresenter presenter;
 
     //Views initialisieren
 
@@ -152,20 +152,6 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
-    /* Wichtig für Bildaz from Moviez
-    public void displayMovie(List<Movie> movieList) {
-
-        String uri = "@drawable/" + "hangover";  // where myresource (without the extension) is the file
-
-        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-
-        Drawable res = getResources().getDrawable(imageResource);
-
-        movieImage.setImageDrawable(res);
-
-    }
-
-     */
 
     @Override
     public Context getContext() {

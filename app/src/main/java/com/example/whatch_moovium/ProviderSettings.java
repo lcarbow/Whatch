@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.View.LandingPage_Genres;
 import com.example.whatch_moovium.View.LandingPage_Mood;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
@@ -21,14 +22,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProviderSettings extends AppCompatActivity implements ProviderRecyclerViewInterface {
 
     BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
-
-    //Diese Liste hier später mit der Providerliste aus der DB ersetzen
-    ArrayList<String> listOfProvidersTest = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,19 +82,30 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
+        String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
+        List<Integer> providerList = new ArrayList<>();
 
+        StorageClass.getInstance().resetSettingForGenreList();
+        
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(this);
 
             SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
+            int currentId = Integer.parseInt(providerIDs[i]);
             newSwitch.setChecked(newBool);
-            possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
+            possibleProviders.add(new ProviderModel(providerNames[i], currentId, newSwitch, newBool));
+            if (newBool){
+                providerList.add(currentId);
+            }
+        }
 
+        StorageClass.getInstance().setProviderList(providerList);
 
-            //NOTE: diesen Teil entfernen wenn Database-Einbindung vorhanden
-            listOfProvidersTest.add(providerNames[i]);
+        //Test
+        for (int e = 0; e < providerList.size(); e++){
+            Log.i("providerLog", "" + providerList.get(e).toString());
         }
 
     }
@@ -108,17 +119,19 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
         SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor switchEditor = switchPref.edit();
-
-
         if (switchState){
-            Log.i("userdebug", providerName + " zur Liste hinzugefügt");
-            listOfProvidersTest.add(providerName);
+            Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
+
+            int currentPositionID = providerStatus.getProviderID();
+            StorageClass.getInstance().addProviderIdList(currentPositionID);
+
             providerStatus.setProviderStatus(true);
             switchEditor.putBoolean("value"+position, true);
             switchEditor.apply();
         } else {
-            Log.i("userdebug", providerName + " von Liste entfernt");
-            listOfProvidersTest.remove(providerName);
+            Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
+            int currentPositionID = providerStatus.getProviderID();
+            StorageClass.getInstance().removeProviderIdList(currentPositionID);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);
             switchEditor.apply();

@@ -20,34 +20,27 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings_page">SettingsPage</string>
-    <string name="headline_mood">Wie geht\'s dir heute?</string>
-    <string name="deine_watchlist">Deine Watchlist</string>
+    <string name="headline_mood">Wie geht\'s Dir heute?</string>
+    <string name="headline_moodSugg">Welcher Film gefällt Dir?</string>
+
 
     <!--Providers-->
     <string-array name="possible_providers">
-        <item>Amazon Prime Video</item>
-        <item>Apple TV Plus</item>
-        <item>Disney Plus</item>
-        <item>Google Play Movies</item>
-        <item>Horizon</item>
-        <item>HBO</item>
-        <item>Maxdome</item>
-        <item>Neon TV</item>
         <item>Netflix</item>
-        <item>Paramount Plus</item>
-        <item>Sky</item>
-        <item>Test</item>
-        <item>Test2</item>
-        <item>Test3</item>
-        <item>Test4</item>
-        <item>Test5</item>
-        <item>Test6</item>
-        <item>Test7</item>
-        <item>Test8</item>
-        <item>Test9</item>
-        <item>Test10</item>
-        <item>Test11</item>
-        <item>Test12</item>
+        <item>Disney Plus</item>
+        <item>WOW</item>
+        <item>Sky Go</item>
+        <item>RTL+</item>
+        <item>Amazon Prime Video</item>
+    </string-array>
+
+    <string-array name="possible_providerIDs">
+        <item>8</item>
+        <item>337</item>
+        <item>30</item>
+        <item>29</item>
+        <item>298</item>
+        <item>9</item>
     </string-array>
 
     <!--Genres-->

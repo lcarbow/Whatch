@@ -1,6 +1,11 @@
 package com.example.whatch_moovium.Model;
 
+import android.util.Log;
+
+import com.example.whatch_moovium.Provider;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StorageClass {
@@ -43,7 +48,12 @@ public class StorageClass {
     }
 
     public List<Integer> getProviderList() {
-        return providerList;
+        List<Integer> providerListInt = new ArrayList<>();
+
+        for (int i : providerList) {
+            providerListInt.add(i);
+        }
+        return providerListInt;
     }
 
     public void setProviderList(List<Integer> providerList) {
@@ -60,6 +70,28 @@ public class StorageClass {
 
     public void addMyModelList(Model model) {
         this.myModelList.add(model);
+    }
+
+    public void addProviderIdList(int i) {
+        Log.i("funktioniert", "Liste vor Hinzufügen: " + providerList.size());
+        this.providerList.add(i);
+        Log.i("funktioniert", "Liste nach Hinzufügen: " + providerList.size());
+    }
+
+    public void removeProviderIdList(int i) {
+        int indexNo = 99999;
+        for (int element = 0; element < providerList.size(); element++){
+            if (providerList.get(element) == i){
+                indexNo = element;
+            }
+        }
+
+        if (providerList.contains(i)){
+            Log.i("funktioniert", "Liste vor Entfernung: " + providerList.size());
+            this.providerList.remove(indexNo);
+            Log.i("funktioniert", "Liste nach Entfernung: " + providerList.size());
+        }
+
     }
 
     public List<Model> getMyModelList() {
@@ -88,6 +120,12 @@ public class StorageClass {
 
     public void setReady(boolean ready) {
         this.ready = ready;
+    }
+
+    public void resetSettingForGenreList() {
+        this.myModelList.clear();
+        this.genreList.clear();
+        this.itemList.clear();
     }
 
 }

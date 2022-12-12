@@ -3,6 +3,8 @@ package com.example.whatch_moovium;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
@@ -28,7 +30,7 @@ public interface Contract {
 
     interface ILandingViewGenre {
         Context getContext();
-        void setAdapter(List<Model> itemList);
+        void setAdapter();
 
     }
 
@@ -40,32 +42,12 @@ public interface Contract {
         Context getContext();
     }
 
-    //MUELL!
-    interface LandingView {
-
+    interface ILandingViewMoodSugg {
         Context getContext();
-        /*
-        // method to display progress bar
-        // when next random course details
-        // is being fetched
-        void showProgress();
-
-        // method to hide progress bar
-        // when next random course details
-        // is being fetched
-        void hideProgress();
-
-
-         titleView.setText(movieList.get(0).getTitle());
-        descriptionView.setText(movieList.get(0).getDescription());
-        genreView.setText(movieList.get(0).getGenre());
-        ratingView.setText(String.format("%.1f", (movieList.get(0).getRating()*10)) + "% Benutzerbewertung");
-        streamingView.setText
-        */
-
-        // method to set random//
-        // text on the TextView
-
+        void setImageButton1(Bitmap img);
+        void setImageButton2(Bitmap img);
+        void setImageButton3(Bitmap img);
+        void setImageButton4(Bitmap img);
     }
 
     interface IModelView {
@@ -76,10 +58,10 @@ public interface Contract {
             // completes its execution
             void onFinished(Movie movie);
         }
+        void getThisMovie(IModelView.OnFinishedListener onFinishedListener);
         void getNextMovie(IModelView.OnFinishedListener onFinishedListener);
         void getBeforeMovie(IModelView.OnFinishedListener onFinishedListener);
-        void nextIndex();
-        int showIndex();
+
     }
 
 
@@ -92,13 +74,28 @@ public interface Contract {
         void getMovieListFromApi();
         void setMovieVertical(int position);
         void onClickImage(View view, int adapterPosition);
+        void setImageViewForLoader(ImageView imageView);
+        void LoadImagesFromImageLoader(String imgPath);
     }
 
 
 
     interface IMoodPresenter {
-        void getMovieListFromApi();
-        void onButtonClick();
+        void getRandomMovieListFromApi();
+        void onPageLoaded();
+        void getSimilarMovieListFromApi();
+        void onEmojiClick();
+        void toMovieSuggestion();
+        void toMoodSuggestion();
+
+    }
+
+    interface IMoodSuggPresenter {
+        void onPageLoaded();
+        void getSimilarMovieListFromApi();
+        void onMovieClick();
+        void toMovieSuggestion();
+        void onNextButtonClick();
     }
 
     interface IMovieSuggestionPresenter {
@@ -116,6 +113,11 @@ public interface Contract {
         //void onDestroy();
     }
 
+    interface IImageLoader {
+        void loadImages(String imgPath);
+        void setImageView(ImageView imageView);
+    }
+
 
     interface WatchlistPresenter{
         void getMovieListFromApi();
@@ -126,5 +128,6 @@ public interface Contract {
         Context getContext();
         void setAdapter(List<Model> itemList);
     }
+
 
 }

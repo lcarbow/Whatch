@@ -13,12 +13,12 @@ import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 
 
-public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback {
+public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback, Interfaces.apiWatchproviderCallback {
 
     // creating object of View Interface
     private Contract.IMovieView movieSuggestion;
 
-    ApiInterface myAPI_Interface;
+    private ApiInterface myAPI_Interface;
     DatabaseHandler databaseHandler;
 
     // instantiating the objects of View Interface
@@ -30,8 +30,10 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
 
     @Override
     public void onPageLoaded() {
-        StorageClass.getInstance().getMyModel().getNextMovie(this);
-        Log.i("architectureLog", String.valueOf(StorageClass.getInstance().getMyModel().showIndex()));
+        StorageClass.getInstance().getMyModel().getThisMovie(this);
+
+        for (Integer i : StorageClass.getInstance().getProviderList()) {
+        }
 
     }
 
@@ -40,15 +42,12 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     public void onFinished(Movie movie) {
 
         StorageClass.getInstance().setActualMovie(movie);
-
         myAPI_Interface.getPoster(movie.getPoster(), this);
+        myAPI_Interface.getWatchprovider(movie, this);
         movieSuggestion.setTitle(movie.getTitle());
         movieSuggestion.setDescription(movie.getDescription());
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());
-        movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
-
-
     }
 
     @Override
@@ -113,4 +112,8 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     }
 
 
+    @Override
+    public void receiveWatchprovider(Movie movie) {
+        movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
+    }
 }

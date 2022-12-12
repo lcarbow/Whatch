@@ -94,9 +94,7 @@ public class Movie {
                 //Wollen wir uns die Bezeichnungen auch dynamisch liefern lassen?
                 //https://api.themoviedb.org/3/genre/movie/list?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE
                 case "28":
-
                     genreToAppend = "Action";
-
                     break;
                 case "12":
                     genreToAppend = "Abenteuer";
@@ -106,6 +104,9 @@ public class Movie {
                     break;
                 case "35":
                     genreToAppend = "Komödie";
+                    break;
+                case "80":
+                    genreToAppend = "Krimi";
                     break;
                 case "99":
                     genreToAppend = "Dokumentarfilm";

@@ -1,6 +1,7 @@
 package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
@@ -8,6 +9,7 @@ import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.Provider;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.Arrays;
@@ -22,7 +24,6 @@ public class SurprisePresenter implements Contract.ISurprisePresenter, Interface
     public SurprisePresenter(Contract.ILandingViewSurprise landingPageView) {
         this.landingPageView = landingPageView;
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
-
     }
 
     @Override
@@ -35,9 +36,6 @@ public class SurprisePresenter implements Contract.ISurprisePresenter, Interface
 
     @Override
     public void getMovieListFromApi() {
-        //TODO @Nadine: Zum speichern der IDs
-        StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
-
         myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
 
     }

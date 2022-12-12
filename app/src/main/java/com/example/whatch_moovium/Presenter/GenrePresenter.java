@@ -1,7 +1,9 @@
 package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
@@ -18,27 +20,29 @@ import java.util.List;
 public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiAllCallback, Interfaces.apiGenreCallback{
 
     private Contract.ILandingViewGenre landingPageView;
-    ApiInterface myAPI_Interface;
+    private Contract.IImageLoader imageLoader;
+    private ApiInterface myAPI_Interface;
 
+//
 
     public GenrePresenter(Contract.ILandingViewGenre landingPageView) {
         this.landingPageView = landingPageView;
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
+        imageLoader = new ImageLoader(landingPageView.getContext());
+
+
     }
+
 
     @Override
     public void getMovieListFromApi() {
-        //TODO @Nadine bei den Triggern setzen, dann kann das hier weg
-        StorageClass.getInstance().setProviderList(Arrays.asList(8,337));
 
-        if(StorageClass.getInstance().getItemList().size() == 0) {
-            //Verhindert die lange Wartezeit, die Filme werden gespeichert.
-            myAPI_Interface.getGenres(this);
-            myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
-        } else {
-            landingPageView.setAdapter(StorageClass.getInstance().getItemList());
+        StorageClass.getInstance().resetSettingForGenreList();
+        myAPI_Interface.getGenres(this);
+        myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
 
-        }
+
+
     }
 
     @Override
@@ -53,6 +57,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         StorageClass.getInstance().getMyModel().setIndex(adapterPosition);
     }
 
+
     @Override
     public void receiveAll(List<List> list) {
 
@@ -65,7 +70,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         }
 
 
-        landingPageView.setAdapter(StorageClass.getInstance().getItemList());
+        landingPageView.setAdapter();
 
 
     }
@@ -76,9 +81,17 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
         for (Genre g : genres) {
             StorageClass.getInstance().getGenreList().add(g.getName());
         }
-
     }
 
 
+    @Override
+    public void setImageViewForLoader(ImageView imageView) {
+        imageLoader.setImageView(imageView);
+    }
+
+    @Override
+    public void LoadImagesFromImageLoader(String imgPath) {
+        imageLoader.loadImages(imgPath);
+    }
 
 }
