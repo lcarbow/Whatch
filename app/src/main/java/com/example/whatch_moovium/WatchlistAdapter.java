@@ -1,7 +1,7 @@
 package com.example.whatch_moovium;
 
 import android.content.Context;
-import android.media.Image;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,32 +10,30 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.whatch_moovium.Model.Movie;
 
 import java.util.ArrayList;
 
-public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.WatchlistViewholder{
+public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.WatchlistViewHolder>{
+    private ArrayList<WatchlistModel> watchlistGallery;
     private Context context;
-    private ArrayList<Movie> watchlistGallery;
 
-    //TODO replace IntegerList with Movielist
-    public WatchlistAdapter(Context context, ArrayList<Movie> watchlistGallery){
+    public WatchlistAdapter(Context context, ArrayList<WatchlistModel> watchlistGallery){
         this.context = context;
         this.watchlistGallery = watchlistGallery;
-
     }
 
     @NonNull
     @Override
-    public WatchlistAdapter.WatchlistViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WatchlistViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.watchlist_page_row, parent, false);
-        return new WatchlistAdapter.WatchlistViewholder(view);
+        View view = inflater.inflate(R.layout.watchlist_page_row, viewGroup, false);
+        return new WatchlistAdapter.WatchlistViewHolder(view);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WatchlistAdapter.WatchlistViewholder holder, int position) {
-        holder.posterImg.setImageResource(watchlistGallery.get(position).getPoster());
+    public void onBindViewHolder(@NonNull WatchlistViewHolder holder, int position) {
+        holder.posterImgView.setImageResource(watchlistGallery.get(position).getPoster());
     }
 
     @Override
@@ -43,12 +41,23 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
         return watchlistGallery.size();
     }
 
-    public class WatchlistViewholder extends RecyclerView.ViewHolder{
-        private ImageView posterImg;
-        public AdapterViewHolder(View view){
+
+    public class WatchlistViewHolder extends RecyclerView.ViewHolder {
+        private ImageView posterImgView;
+
+        public WatchlistViewHolder(View view){
             super(view);
 
-            posterImgView = (ImageView) view.findViewById(R.id.watchlist_item);
+            posterImgView = itemView.findViewById(R.id.watchlist_item);
+
+
+            /*posterImgView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    watchlistPresenter.onButtonClick();
+
+                }
+            });*/
         }
     }
 }
