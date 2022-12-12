@@ -37,6 +37,7 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
     @Override
     public void getMovieListFromApi() {
 
+        StorageClass.getInstance().resetSettingForGenreList();
         myAPI_Interface.getGenres(this);
         myAPI_Interface.getAll("popularity.desc", true,StorageClass.getInstance().getProviderList(),this);
 
