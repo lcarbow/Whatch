@@ -3,6 +3,8 @@ package com.example.whatch_moovium;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageView;
+
 import com.example.whatch_moovium.API_Interface.*;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
@@ -19,6 +21,7 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     DatabaseHandler dbHandler;
     List<Movie> movieList;
     List<Model> itemList;
+    private Contract.IImageLoader imageLoader;
 
     int index;
 
@@ -74,5 +77,15 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     @Override
     public void onFinished(Movie movie){
 
+    }
+
+    @Override
+    public void setImageViewForLoader(ImageView imageView) {
+        imageLoader.setImageView(imageView);
+    }
+
+    @Override
+    public void LoadImagesFromImageLoader(String imgPath) {
+        imageLoader.loadImages(imgPath);
     }
 }

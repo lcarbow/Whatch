@@ -122,11 +122,13 @@ public interface Contract {
     interface WatchlistPresenter{
         void getMovieListFromApi();
         void onButtonClick();
+        void setImageViewForLoader(ImageView imageView);
+        void LoadImagesFromImageLoader(String imgPath);
     }
 
     interface LandingViewWatchlist {
         Context getContext();
-        void setAdapter(List<Model> itemList);
+        void setAdapter(List<Movie> itemList);
     }
 
 

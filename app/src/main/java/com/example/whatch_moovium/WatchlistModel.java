@@ -1,6 +1,8 @@
 package com.example.whatch_moovium;
 
 public class WatchlistModel {
+    private Integer poster;
+
     public Integer getPoster() {
         return poster;
     }
@@ -9,5 +11,5 @@ public class WatchlistModel {
         this.poster = poster;
     }
 
-    private Integer poster;
+
 }
