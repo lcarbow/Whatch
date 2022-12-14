@@ -25,9 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProviderSettings extends AppCompatActivity implements ProviderRecyclerViewInterface {
+public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView {
 
-    BottomNavigationView bottomNavigationView;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
 
     @Override
@@ -46,6 +45,7 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -65,8 +65,9 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
                         startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 
@@ -76,7 +77,6 @@ public class ProviderSettings extends AppCompatActivity implements ProviderRecyc
 
         //providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
-
     }
 
 

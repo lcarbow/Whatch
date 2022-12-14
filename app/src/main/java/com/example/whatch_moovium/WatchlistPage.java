@@ -16,14 +16,13 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class WatchlistPage extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchlist_page);
 
         //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -43,8 +42,9 @@ public class WatchlistPage extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 

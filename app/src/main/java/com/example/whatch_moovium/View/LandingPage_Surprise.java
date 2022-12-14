@@ -22,7 +22,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class LandingPage_Surprise extends AppCompatActivity implements Contract.ILandingViewSurprise {
 
-    BottomNavigationView bottomNavigationView;
     private Contract.ISurprisePresenter presenter;
 
     @Override
@@ -47,6 +46,7 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         });
 
 //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.surprise);
 
@@ -65,8 +65,9 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
                         startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 
@@ -76,7 +77,6 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
 
         providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
-
 
     }
     @Override
