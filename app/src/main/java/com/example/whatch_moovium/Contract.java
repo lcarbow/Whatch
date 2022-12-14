@@ -129,5 +129,7 @@ public interface Contract {
         void setAdapter(List<Model> itemList);
     }
 
-
+    interface IProviderRecyclerView {
+        void onSwitchFlipped(int position, boolean switchState);
+    }
 }

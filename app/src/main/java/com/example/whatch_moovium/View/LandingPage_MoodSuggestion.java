@@ -30,7 +30,6 @@ import java.util.List;
 
 public class LandingPage_MoodSuggestion extends AppCompatActivity implements Contract.ILandingViewMoodSugg {
 
-    BottomNavigationView bottomNavigationView;
     private Contract.IMoodSuggPresenter presenter;
 
     ImageButton button1;
@@ -90,6 +89,9 @@ public class LandingPage_MoodSuggestion extends AppCompatActivity implements Con
             }
         });
 
+
+//Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.mood);
 
@@ -108,8 +110,9 @@ public class LandingPage_MoodSuggestion extends AppCompatActivity implements Con
                         startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 

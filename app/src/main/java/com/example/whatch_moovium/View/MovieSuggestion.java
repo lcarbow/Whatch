@@ -25,8 +25,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView {
 
-    BottomNavigationView bottomNavigationView;
-
     private Contract.IMovieSuggestionPresenter presenter;
 
     //Views initialisieren
@@ -118,6 +116,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         });
 
         //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.surprise);
 
@@ -138,8 +137,9 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
                         startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 

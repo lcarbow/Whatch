@@ -28,7 +28,6 @@ import java.util.List;
 
 public class LandingPage_Genres extends AppCompatActivity implements Contract.ILandingViewGenre {
 
-    BottomNavigationView bottomNavigationView;
     private RecyclerView ParentRecyclerViewItem;
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
@@ -39,19 +38,10 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page_genres);
 
-        //Presenter
-        presenter = new GenrePresenter(this);
-        presenter.getMovieListFromApi();
-
-        //RecyclerView
-        ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
-
-
-
-
+        //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.genres);
-
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -67,8 +57,9 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
                         return true;
                     case R.id.genres:
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 
@@ -79,6 +70,13 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
+
+        //Presenter
+        presenter = new GenrePresenter(this);
+        presenter.getMovieListFromApi();
+
+        //RecyclerView
+        ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
     }
 
     @Override

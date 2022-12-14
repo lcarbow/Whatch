@@ -22,7 +22,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class LandingPage_Mood extends AppCompatActivity implements Contract.ILandingViewMood{
 
-    BottomNavigationView bottomNavigationView;
     private Contract.IMoodPresenter presenter;
 
 
@@ -40,9 +39,6 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         ImageButton button4 = findViewById(R.id.imageButton4);
         ImageButton button5 = findViewById(R.id.imageButton5);
         ImageButton button6 = findViewById(R.id.imageButton6);
-
-        bottomNavigationView = findViewById(R.id.bottom_navigator);
-        bottomNavigationView.setSelectedItemId(R.id.mood);
 
 //
         button1.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +78,10 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
             }
         });
 
+//Bottom Nav
+        BottomNavigationView bottomNavigationView;
+        bottomNavigationView = findViewById(R.id.bottom_navigator);
+        bottomNavigationView.setSelectedItemId(R.id.mood);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -97,8 +97,9 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
                         startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
                         overridePendingTransition(0,0);
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             }
         });
 
