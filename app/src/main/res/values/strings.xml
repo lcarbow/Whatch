@@ -23,6 +23,8 @@
     <string name="headline_mood">Wie geht\'s Dir heute?</string>
     <string name="headline_moodSugg">Welcher Film gefällt Dir?</string>
 
+    <string name="deine_watchlist">Deine Watchlist</string>
+
 
     <!--Providers-->
     <string-array name="possible_providers">

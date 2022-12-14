@@ -119,7 +119,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
 
     }
 
-    /*//Watchlist Setup
+    /*//Watchlist TestSetup
     private ArrayList<WatchlistModel> testSetupPosters() {
         ArrayList<WatchlistModel> posters = new ArrayList<>();
         for (int i = 0;  i < image_tests.length; i++){
@@ -133,7 +133,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
     private List<Movie> setupWatchlist(){
 
         List<Movie> posters = new ArrayList<>();
-        //TODO getWatchlistIDs - turn them into Movie Objects and put them in "posters"
+        //TODO get WatchlistIDs - turn them into Movie Objects and put them in "posters"
         return posters;
     }
 
