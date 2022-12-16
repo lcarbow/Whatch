@@ -10,6 +10,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -77,6 +80,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_WATCHLIST_NAME, "ID ="+id, null);
         db.close();
+    }
+
+    public List<Integer> getWatchlist(){
+        List<Integer> watchList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from watchlist";
+        Cursor cursor = db.rawQuery(Query, null);
+        int fieldToAdd;
+        while (cursor.moveToNext()){
+            fieldToAdd = cursor.getInt(0);
+            watchList.add(fieldToAdd);
+        }
+        cursor.close();
+        return watchList;
     }
 
 
