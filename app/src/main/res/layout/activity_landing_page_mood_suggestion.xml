@@ -114,6 +114,7 @@
 
             <Button
                 android:id="@+id/buttonNext"
+                style="@style/TextStyleInverted"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
@@ -125,12 +126,6 @@
                 android:elegantTextHeight="true"
                 android:fontFamily="@font/comfortaa_variablefont_wght"
                 android:text="Anderer Film"
-                android:textAlignment="gravity"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/WhatchBlue"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 app:backgroundTint="@null" />
         </LinearLayout>
     </LinearLayout>

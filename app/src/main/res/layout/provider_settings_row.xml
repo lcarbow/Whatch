@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -27,8 +28,8 @@
                 android:paddingVertical="10dp"
                 android:paddingLeft="10dp"
                 android:text="TextView"
+                android:textSize="18dp"
                 android:textColor="@color/white"
-                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/provider_switch"
                 app:layout_constraintHorizontal_bias="0.0"
