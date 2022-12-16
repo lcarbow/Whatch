@@ -23,6 +23,7 @@
     <string name="headline_mood">Wie geht\'s Dir heute?</string>
     <string name="headline_genre">Schau Dich in Ruhe um</string>
     <string name="headline_provider">Deine Provider</string>
+    <string name="headline_watchlist">Deine Watchlist</string>
 
 
     <string name="headline_moodSugg">Welcher Film gefällt Dir?</string>
