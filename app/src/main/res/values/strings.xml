@@ -21,6 +21,8 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings_page">SettingsPage</string>
     <string name="headline_mood">Wie geht\'s Dir heute?</string>
+    <string name="headline_genre">Schau Dich in Ruhe um...</string>
+
     <string name="headline_moodSugg">Welcher Film gefällt Dir?</string>
 
 

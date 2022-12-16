@@ -9,6 +9,16 @@
     android:background="@color/black"
     tools:context=".View.LandingPage_Surprise">
 
+    <ImageView
+        android:id="@+id/bottomLimit"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <include
         layout="@layout/navigation_layout"/>
 
@@ -37,7 +47,7 @@
         android:textColorHighlight="#FF0000"
         android:textSize="180sp"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLimit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headlineSurprise" />
