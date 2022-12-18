@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.MovieSuggestionPresenter;
 import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
@@ -23,9 +24,10 @@ import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView {
+public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView, Contract.IBottomNavContext {
 
     private Contract.IMovieSuggestionPresenter presenter;
+    private Contract.IBottomNavPresenter bottomNavPresenter;
 
     //Views initialisieren
 
@@ -120,26 +122,14 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.surprise);
 
+        bottomNavPresenter = new BottomNavPresenter(this);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    default:
-                        return false;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
+                return false;
             }
         });
 
@@ -199,4 +189,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
     public void setPosterImage(Bitmap img) {
         movieImage.setImageBitmap(img);
     }
+
+    @Override
+    public Context getContextForNav() { return MovieSuggestion.this; }
 }

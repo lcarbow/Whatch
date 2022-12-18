@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.Presenter.SurprisePresenter;
 import com.example.whatch_moovium.R;
@@ -20,9 +21,10 @@ import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class LandingPage_Surprise extends AppCompatActivity implements Contract.ILandingViewSurprise {
+public class LandingPage_Surprise extends AppCompatActivity implements Contract.ILandingViewSurprise, Contract.IBottomNavContext {
 
     private Contract.ISurprisePresenter presenter;
+    private Contract.IBottomNavPresenter bottomNavPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,24 +52,14 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.surprise);
 
+        bottomNavPresenter = new BottomNavPresenter(this);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    default:
-                        return false;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
+                return false;
             }
         });
 
@@ -91,6 +83,11 @@ public class LandingPage_Surprise extends AppCompatActivity implements Contract.
 
     @Override
     public Context getContext() {
+        return LandingPage_Surprise.this;
+    }
+
+    @Override
+    public Context getContextForNav() {
         return LandingPage_Surprise.this;
     }
 

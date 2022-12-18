@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.MoodPresenter;
 import com.example.whatch_moovium.Presenter.MoodSuggPresenter;
 import com.example.whatch_moovium.ProviderSettings;
@@ -28,9 +29,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LandingPage_MoodSuggestion extends AppCompatActivity implements Contract.ILandingViewMoodSugg {
+public class LandingPage_MoodSuggestion extends AppCompatActivity implements Contract.ILandingViewMoodSugg, Contract.IBottomNavContext {
 
     private Contract.IMoodSuggPresenter presenter;
+    private Contract.IBottomNavPresenter bottomNavPresenter;
 
     ImageButton button1;
     ImageButton button2;
@@ -95,24 +97,14 @@ public class LandingPage_MoodSuggestion extends AppCompatActivity implements Con
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.mood);
 
+        bottomNavPresenter = new BottomNavPresenter(this);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mood:
-                        return true;
-                    case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    default:
-                        return false;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
+                return false;
             }
         });
 
@@ -153,4 +145,7 @@ public class LandingPage_MoodSuggestion extends AppCompatActivity implements Con
         button4.setImageBitmap(img);
 
     }
+
+    @Override
+    public Context getContextForNav() { return LandingPage_MoodSuggestion.this; }
 }

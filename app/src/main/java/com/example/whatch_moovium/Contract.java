@@ -2,6 +2,7 @@ package com.example.whatch_moovium;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -131,5 +132,13 @@ public interface Contract {
 
     interface IProviderRecyclerView {
         void onSwitchFlipped(int position, boolean switchState);
+    }
+
+    interface IBottomNavPresenter {
+        void onItemClick(MenuItem item);
+    }
+
+    interface IBottomNavContext {
+        Context getContextForNav();
     }
 }

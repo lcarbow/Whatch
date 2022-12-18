@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 
 import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.View.LandingPage_Genres;
 import com.example.whatch_moovium.View.LandingPage_Mood;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
@@ -25,8 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView {
+public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
 
+    private Contract.IBottomNavPresenter bottomNavPresenter;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
 
     @Override
@@ -48,26 +51,14 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
 
+        bottomNavPresenter = new BottomNavPresenter(this);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    default:
-                        return false;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
+                return false;
             }
         });
 
@@ -137,4 +128,7 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
             switchEditor.apply();
         }
     }
+
+    @Override
+    public Context getContextForNav() { return ProviderSettings.this; }
 }

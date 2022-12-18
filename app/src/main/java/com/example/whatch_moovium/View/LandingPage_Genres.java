@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.GenrePresenter;
 import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
@@ -26,12 +27,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class LandingPage_Genres extends AppCompatActivity implements Contract.ILandingViewGenre {
+public class LandingPage_Genres extends AppCompatActivity implements Contract.ILandingViewGenre, Contract.IBottomNavContext {
 
     private RecyclerView ParentRecyclerViewItem;
     private LandingPage_Genre_ParentItemAdapter parentItemAdapter;
     private LinearLayoutManager layoutManager;
     private Contract.IGenrePresenter presenter;
+    private Contract.IBottomNavPresenter bottomNavPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +44,15 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.genres);
+
+        bottomNavPresenter = new BottomNavPresenter(this);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.genres:
-                        return true;
-                    default:
-                        return false;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
+                return false;
             }
         });
 
@@ -111,6 +104,11 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         Log.i("test", "else 6");
 
 
+    }
+
+    @Override
+    public Context getContextForNav() {
+        return LandingPage_Genres.this;
     }
 
 }
