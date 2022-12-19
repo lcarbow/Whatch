@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,50 +19,24 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class WatchlistPage extends AppCompatActivity {
+public class WatchlistPage extends AppCompatActivity implements Contract.LandingViewWatchlist {
 
     BottomNavigationView bottomNavigationView;
+    private RecyclerView recyclerView;
+    private WatchlistAdapter watchlistAdapter;
+    private GridLayoutManager gridLayoutManager;
+    private Contract.WatchlistPresenter presenter;
 
-    private final Integer image_tests[] = {
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla,
-            R.drawable.hangover,
-            R.drawable.godzilla
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchlist_page);
 
+        recyclerView = findViewById(R.id.watchlist_Recycler);
 
-        RecyclerView recyclerView = findViewById(R.id.watchlist_Recycler);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 4);
-        recyclerView.setLayoutManager(layoutManager);
-
-        ArrayList<WatchlistModel> watchlistModels = setupPosters();
-        WatchlistAdapter adapter = new WatchlistAdapter(getApplicationContext(), watchlistModels);
-        recyclerView.setAdapter(adapter);
-
-
+        presenter = new WatchlistPresenter(this);
+        presenter.getMovieListFromApi();
 
         //Bottom Nav
         bottomNavigationView = findViewById(R.id.bottom_navigator);
@@ -97,13 +72,17 @@ public class WatchlistPage extends AppCompatActivity {
 
     }
 
-    private ArrayList<WatchlistModel> setupPosters() {
-        ArrayList<WatchlistModel> posters = new ArrayList<>();
-        for (int i = 0;  i < image_tests.length; i++){
-            WatchlistModel watchlistModel = new WatchlistModel();
-            watchlistModel.setPoster(image_tests[i]);
-            posters.add(watchlistModel);
-        }
-        return posters;
+    @Override
+    public Context getContext() {
+        return WatchlistPage.this;
+    }
+
+    @Override
+    public void setAdapter() {
+        gridLayoutManager = new GridLayoutManager(WatchlistPage.this, 4);
+        watchlistAdapter = new WatchlistAdapter(getApplicationContext(), presenter);
+        recyclerView.setAdapter(watchlistAdapter);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
     }
 }

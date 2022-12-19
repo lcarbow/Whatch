@@ -46,9 +46,6 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         //RecyclerView
         ParentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
 
-
-
-
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.genres);
 

@@ -11,15 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Model.Movie;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.WatchlistViewHolder>{
     private ArrayList<WatchlistModel> watchlistGallery;
     private Context context;
+    private final Contract.WatchlistPresenter watchlistPresenter;
 
-    public WatchlistAdapter(Context context, ArrayList<WatchlistModel> watchlistGallery){
+    public WatchlistAdapter(Context context, Contract.WatchlistPresenter watchlistPresenter, List<Movie> movieList){
         this.context = context;
-        this.watchlistGallery = watchlistGallery;
+        this.watchlistPresenter = watchlistPresenter;
     }
 
     @NonNull
@@ -27,13 +32,18 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
     public WatchlistViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.watchlist_page_row, viewGroup, false);
-        return new WatchlistAdapter.WatchlistViewHolder(view);
+        return new WatchlistViewHolder(view, watchlistPresenter);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull WatchlistViewHolder holder, int position) {
-        holder.posterImgView.setImageResource(watchlistGallery.get(position).getPoster());
+
+        Model item = watchlistPresenter.getmovieList().get(position);
+
+
+
+        holder.posterImgView.setImageResource(watchlistPresenter.getMovieList().get(position).getPoster());
     }
 
     @Override

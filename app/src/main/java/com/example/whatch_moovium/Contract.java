@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.View.LandingPage_Genres;
 
 import java.util.List;
 
@@ -122,12 +123,15 @@ public interface Contract {
     interface WatchlistPresenter{
         void getMovieListFromApi();
         void onButtonClick();
+        void setImageViewForLoader(ImageView imageView);
+        void LoadImagesFromImageLoader(String imgPath);
     }
 
     interface LandingViewWatchlist {
         Context getContext();
-        void setAdapter(List<Model> itemList);
+        void setAdapter();
     }
+
 
 
 }

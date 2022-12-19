@@ -25,6 +25,13 @@ public class StorageClass {
     private Movie actualMovie;
     private boolean ready;
 
+    //////Watchlist//////
+    private List<Movie> watchlistModelList;
+    List<Model> watchItemList;
+    private Movie watchActualMovie;
+    private boolean watchReady;
+
+
     public StorageClass() {
 
         this.providerList = new ArrayList<>();
@@ -32,6 +39,10 @@ public class StorageClass {
         this.itemList = new ArrayList<>();
         this.genreList = new ArrayList<>();
         this.ready = true;
+
+        this.watchlistModelList = new ArrayList<>();
+        this.watchItemList = new ArrayList<>();
+        this.watchReady = true;
     }
 
     public static StorageClass getInstance() {
@@ -102,9 +113,7 @@ public class StorageClass {
         return itemList;
     }
 
-    public void setItemList(List<Model> itemList) {
-        this.itemList = itemList;
-    }
+    public void setItemList(List<Model> itemList) {this.itemList = itemList;}
 
     public List<String> getGenreList() {
         return genreList;
@@ -126,6 +135,32 @@ public class StorageClass {
         this.myModelList.clear();
         this.genreList.clear();
         this.itemList.clear();
+    }
+
+    public List<Movie> getWatchlistModelList() {
+        return watchlistModelList;
+    }
+
+    public List<Model> getWatchItemList() {
+        return watchItemList;
+    }
+
+    public Movie getWatchActualMovie() {
+        return watchActualMovie;
+    }
+
+    public boolean isWatchReady() {
+        return watchReady;
+    }
+
+    public void setWatchReady(boolean watchReady){this.watchReady= watchReady;}
+
+    public void addWatchModelList(Movie movie) {
+        this.watchlistModelList.add(movie);
+    }
+
+    public void setWatchItemList(List<Model> itemList) {
+        this.watchItemList = itemList;
     }
 
 }
