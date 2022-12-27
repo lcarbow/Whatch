@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class SimilarRequest extends ApiRequest {
+public class SimilarRequest {
 
     private RequestQueue mQueue;
     private static String apiKey;
@@ -53,7 +53,7 @@ public class SimilarRequest extends ApiRequest {
                             for (int i = 0; i < results.length(); i++) {
                                 JSONObject jsonMovie = results.getJSONObject(i);
                                 Movie movie = new Movie();
-                                ApiInterface.movieParser(movie, jsonMovie);
+                                ApiTools.movieParser(movie, jsonMovie);
                                 similarList.add(movie);
                             }
 
