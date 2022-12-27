@@ -104,8 +104,6 @@ public class ApiInterface {
     //makes the api request for discover
     private void discoverRequest(String sort, boolean flatrate, List<Integer> providers, List<Movie> movieList, String genres, CountDownLatch countDownLatch) {
 
-        Log.i("Alex", "Discover request for: " + genres.toString());
-
         //make discover request
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1&with_genres=" + genres;
 
@@ -182,7 +180,6 @@ public class ApiInterface {
                 //make provider requests
                 for (Movie movie : movieList) {
                     watchProviderRequest(movie, countDownLatch1);
-                    Log.i("Alex", "Made provider request for: " + movie.getTitle());
                 }
 
                 //wait for provider requests
@@ -194,7 +191,6 @@ public class ApiInterface {
 
                 //release given latch
                 countDownLatch.countDown();
-                Log.i("Alex", "first latch counted down");
 
             }
         });
@@ -503,8 +499,6 @@ public class ApiInterface {
     //takes movie and makes api request for watchprovider
     private void watchProviderRequest(Movie movie, CountDownLatch countDownLatch) {
 
-        Log.i("Alex", "Get Provider for: " + movie.getTitle());
-
         //make api request
         String url = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/watch/providers?api_key=" + apiKey;
 
@@ -516,7 +510,6 @@ public class ApiInterface {
                         String providers = "";
 
                         try {
-                            Log.i("Alex", "Movie: " + movie.getTitle() + " id: " + movie.getId());
                             JSONObject results = JSONwatchProviders.getJSONObject("results");
                             JSONObject DE = results.getJSONObject("DE");
                             JSONArray flatrate = DE.getJSONArray("flatrate");
@@ -525,8 +518,6 @@ public class ApiInterface {
                                 JSONObject provider = flatrate.getJSONObject(i);
                                 providers += provider.getString("provider_name") + " ";
                                 movie.addStreaming(provider.getString("provider_name"));
-                                Log.i("Alex", "Provider added: " + provider.getString("provider_name"));
-                                Log.i("Alex", "Getting provider from movie object: " + movie.getStreaming());
                             }
 
                         } catch (JSONException e) {
@@ -614,7 +605,6 @@ public class ApiInterface {
                             for (String service : providers) {
                                 if (movie.isAvailableAt(service)) {
                                     similarList.add(movie);
-                                    Log.i("Alex", "Movie added to SimilarList: " + movie.getTitle());
                                     break;
                                 }
                             }
