@@ -202,6 +202,14 @@ public class Movie {
 
     }
 
+    //checks if this Movie is available a specific Streaming service
+    public boolean isAvailableAt(String service) {
+        for (String currentService : streaming) {
+            if (currentService.equalsIgnoreCase(service)) {return true;}
+        }
+        return false;
+    }
+
     public void addStreaming(String watchProvider) {
         this.streaming.add(watchProvider);
     }

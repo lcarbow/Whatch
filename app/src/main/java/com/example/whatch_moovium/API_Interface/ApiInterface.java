@@ -54,6 +54,11 @@ public class ApiInterface {
         movie.setId(438631);
         getWatchprovider(movie, this);*/
 
+        //get similar test
+        /*List<String> providerList = new ArrayList<String>();
+        providerList.add("Disney Plus");
+        getSimilar(11, true, providerList, 20);*/
+
     }
 
     //calling class has to implement api
@@ -149,7 +154,7 @@ public class ApiInterface {
                                 JSONObject jsonMovie = results.getJSONObject(i);
                                 //parse movie form json
                                 Movie movie = new Movie();
-                                movieParserDiscover(movie, jsonMovie);
+                                movieParser(movie, jsonMovie);
                                 //add movie to list
                                 movieList.add(movie);
                             }
@@ -471,7 +476,7 @@ public class ApiInterface {
                         String providers = "";
 
                         try {
-
+                            //Log.i("Alex", "Movie: " + movie.getTitle() + " id: " + movie.getId());
                             JSONObject results = JSONwatchProviders.getJSONObject("results");
                             JSONObject DE = results.getJSONObject("DE");
                             JSONArray flatrate = DE.getJSONArray("flatrate");
@@ -484,6 +489,8 @@ public class ApiInterface {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            //Log.i("Alex", "exception ");
+                            countDownLatch.countDown();
                         }
 
                         //countdown latch
@@ -499,8 +506,106 @@ public class ApiInterface {
         mQueue.add(request);
     }
 
-    //parses Movie object from movie json from a discover request
-    private void movieParserDiscover(Movie movie, JSONObject jsonMovie) throws JSONException {
+    //takes a movie and returns similar movies, the returned list is at least "minListLength" long
+    public void getSimilar(int movieID, boolean flatrate, List<String> providers, int minListLength, Interfaces.apiSimilarCallback receiver) {
+
+        // CHANGE: take provider int List instead of string list
+
+        //make thread
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                //sililarlist
+                List<Movie> similarList = new ArrayList<Movie>();
+
+                int page = 0;
+
+                // TODO: 15.12.22 add a maximum of loop runs in case there are not enough similar movies
+                //loop until list is long enough
+                while (similarList.size() < minListLength) {
+
+                    //increase page by one for the next page
+                    page++;
+
+                    //Log.i("Alex", "loop");
+
+                    //make temp Movie List
+                    List<Movie> tempList = new ArrayList<Movie>();
+
+                    //make countdownlatch for similarrequest
+                    CountDownLatch countDownLatch = new CountDownLatch(1);
+
+                    //make request
+                    SimilarRequest similarRequest = new SimilarRequest(mQueue, apiKey, countDownLatch, movieID, tempList, page);
+
+                    //wait for latch
+                    try {
+                        countDownLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    //Log.i("Alex", "similar request done");
+
+                    //add providers
+                    //make countdownlatch for 20 movies
+                    countDownLatch = new CountDownLatch(tempList.size());
+
+                    //make 20 provider requests
+                    for (Movie movie : tempList) {
+                        watchProviderRequest(movie, countDownLatch);
+                    }
+
+                    //wait for latch
+                    try {
+                        countDownLatch.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    //Log.i("Alex", "watchprovider Request done");
+
+                    //filter by providers - add to similarList
+                    for (Movie movie : tempList) {
+                        if (flatrate) {
+                            for (String service : providers) {
+                                if (movie.isAvailableAt(service)) {
+                                    similarList.add(movie);
+                                    Log.i("Alex", "Movie added to SimilarList: " + movie.getTitle());
+                                    break;
+                                }
+                            }
+                        } else {
+                            similarList.add(movie);
+                        }
+                    }
+
+
+                }
+
+                //printing result list
+                /*Log.i("Alex", "Printing all movies");
+                for (Movie movie : similarList) {
+                    Log.i("AlexDebugingResult", movie.toString());
+                }*/
+
+                //return movielist
+                activity.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        receiver.receiveSimilar(similarList);
+                    }
+                });
+
+            }
+        });
+        thread.start();
+
+    }
+
+    //parses Movie object from movie json from a discover request and similarRequest
+    public static void movieParser(Movie movie, JSONObject jsonMovie) throws JSONException {
         //make new movie object
         movie.setTitle(jsonMovie.getString("title"));
         movie.setId(jsonMovie.getInt("id"));
@@ -518,7 +623,7 @@ public class ApiInterface {
 
     }
 
-    //parses Movie object from movie json from an movie request
+    //parses Movie object from movie json from a movie request
     private void movieParserMovie(Movie movie, JSONObject jsonMovie) throws JSONException {
         //make new movie object
         movie.setTitle(jsonMovie.getString("title"));
@@ -546,7 +651,14 @@ public class ApiInterface {
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        getPosterCallback(response, receiver);
+
+                        activity.runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                receiver.receivePoster(response);
+                            }
+                        });
+
                     }
                 }, 10000, 10000, null, null, new Response.ErrorListener() {
             @Override
@@ -556,10 +668,6 @@ public class ApiInterface {
         });
 
         mQueue.add(imageRequest);
-    }
-
-    private void getPosterCallback(Bitmap img, Interfaces.apiPosterCallback receiver) {
-        receiver.receivePoster(img);
     }
 
     //backdrop functions
