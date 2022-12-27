@@ -210,6 +210,7 @@ public class Movie {
         return false;
     }
 
+    //add one streaming provider as string
     public void addStreaming(String watchProvider) {
         this.streaming.add(watchProvider);
     }

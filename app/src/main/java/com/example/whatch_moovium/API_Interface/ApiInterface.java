@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.Presenter.MoodSuggPresenter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,7 +62,7 @@ public class ApiInterface {
 
     }
 
-    //calling class has to implement api
+    //calling class has to implement api interface
     public void getDiscover(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiDiscoverCallback receiver) {
 
         //movielist to fill later
@@ -74,27 +75,11 @@ public class ApiInterface {
 
                 //countdownlatch for discover request
                 CountDownLatch countDownLatch = new CountDownLatch(1);
-//hallöchen
 
                 //make request
                 discoverRequest(sort, flatrate, providers, movieList, "", countDownLatch);
 
                 //wait for latch to release
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                //set countdownlatch for 20 watchprovider requests
-                countDownLatch = new CountDownLatch(20);
-
-                //make 20 watchprovider requests
-                for (Movie movie : movieList) {
-                    watchProviderRequest(movie, countDownLatch);
-                }
-
-                //wait for latch to release - all providers set
                 try {
                     countDownLatch.await();
                 } catch (InterruptedException e) {
@@ -116,12 +101,10 @@ public class ApiInterface {
 
     }
 
-    public void getDiscover(String sort, boolean flatrate, List<Integer> provider, String genre) {
-
-    }
-
     //makes the api request for discover
     private void discoverRequest(String sort, boolean flatrate, List<Integer> providers, List<Movie> movieList, String genres, CountDownLatch countDownLatch) {
+
+        Log.i("Alex", "Discover request for: " + genres.toString());
 
         //make discover request
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1&with_genres=" + genres;
@@ -137,45 +120,87 @@ public class ApiInterface {
             url += "&with_watch_providers=" + providersString + "&watch_region=DE&with_watch_monetization_types=flatrate";
         }
 
-        //make discover request
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonMovielist) {
-
-                        //process json
-                        try {
-                            //get array of movies from response
-                            JSONArray results = jsonMovielist.getJSONArray("results");
-
-                            //make movie array
-                            for (int i = 0; i < results.length(); i++) {
-                                //get json for single movie
-                                JSONObject jsonMovie = results.getJSONObject(i);
-                                //parse movie form json
-                                Movie movie = new Movie();
-                                movieParser(movie, jsonMovie);
-                                //add movie to list
-                                movieList.add(movie);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        //notify thread list is done
-                        countDownLatch.countDown();
-
-
-                    }
-                }, new Response.ErrorListener() {
+        //make thread
+        String finalUrl = url;
+        Thread thread = new Thread(new Runnable() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+            public void run() {
+
+                //create countdownlatch for this thread - set to 1 for discover request
+                CountDownLatch countDownLatch1 = new CountDownLatch(1);
+
+                //make discover request
+                CountDownLatch finalCountDownLatch = countDownLatch1;
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, finalUrl, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject jsonMovielist) {
+
+                                //process json
+                                try {
+                                    //get array of movies from response
+                                    JSONArray results = jsonMovielist.getJSONArray("results");
+
+                                    //make movie array
+                                    for (int i = 0; i < results.length(); i++) {
+                                        //get json for single movie
+                                        JSONObject jsonMovie = results.getJSONObject(i);
+                                        //parse movie form json
+                                        Movie movie = new Movie();
+                                        movieParser(movie, jsonMovie);
+                                        //add movie to list
+                                        movieList.add(movie);
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                //notify thread list is done
+                                finalCountDownLatch.countDown();
+
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+                mQueue.add(request);
+
+                //wait till request is done
+                try {
+                    countDownLatch1.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //set latch for provider requests
+                countDownLatch1 = new CountDownLatch(movieList.size());
+
+                //make provider requests
+                for (Movie movie : movieList) {
+                    watchProviderRequest(movie, countDownLatch1);
+                    Log.i("Alex", "Made provider request for: " + movie.getTitle());
+                }
+
+                //wait for provider requests
+                try {
+                    countDownLatch1.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //release given latch
+                countDownLatch.countDown();
+                Log.i("Alex", "first latch counted down");
+
             }
         });
+        thread.start();
 
-        mQueue.add(request);
+
     }
 
     public void getAll(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiAllCallback receiver) {
@@ -221,6 +246,19 @@ public class ApiInterface {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+/*
+                *//*----add providers to all movies----*//*
+
+                //new latch
+                countDownLatch = new CountDownLatch(380);
+                //make requests
+                for (List<Movie> list : allList) {
+                    for (Movie movie : list) {
+                        watchProviderRequest(movie, countDownLatch);
+                    }
+                }*/
+
+
 
                 //return lists
 
@@ -448,7 +486,7 @@ public class ApiInterface {
                     e.printStackTrace();
                 }
 
-                //return movielist
+                //return movie now with provider
                 activity.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
@@ -465,6 +503,8 @@ public class ApiInterface {
     //takes movie and makes api request for watchprovider
     private void watchProviderRequest(Movie movie, CountDownLatch countDownLatch) {
 
+        Log.i("Alex", "Get Provider for: " + movie.getTitle());
+
         //make api request
         String url = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/watch/providers?api_key=" + apiKey;
 
@@ -476,7 +516,7 @@ public class ApiInterface {
                         String providers = "";
 
                         try {
-                            //Log.i("Alex", "Movie: " + movie.getTitle() + " id: " + movie.getId());
+                            Log.i("Alex", "Movie: " + movie.getTitle() + " id: " + movie.getId());
                             JSONObject results = JSONwatchProviders.getJSONObject("results");
                             JSONObject DE = results.getJSONObject("DE");
                             JSONArray flatrate = DE.getJSONArray("flatrate");
@@ -485,6 +525,8 @@ public class ApiInterface {
                                 JSONObject provider = flatrate.getJSONObject(i);
                                 providers += provider.getString("provider_name") + " ";
                                 movie.addStreaming(provider.getString("provider_name"));
+                                Log.i("Alex", "Provider added: " + provider.getString("provider_name"));
+                                Log.i("Alex", "Getting provider from movie object: " + movie.getStreaming());
                             }
 
                         } catch (JSONException e) {
