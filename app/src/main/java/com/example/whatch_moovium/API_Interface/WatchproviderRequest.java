@@ -1,5 +1,7 @@
 package com.example.whatch_moovium.API_Interface;
 
+import android.util.Log;
+
 import androidx.constraintlayout.utils.widget.MockView;
 
 import com.android.volley.Request;
@@ -43,6 +45,8 @@ public class WatchproviderRequest {
                     @Override
                     public void onResponse(JSONObject JSONwatchProviders) {
 
+                        //Log.i("Alex", "json watchprovider receiced");
+
                         String providers = "";
 
                         try {
@@ -62,6 +66,7 @@ public class WatchproviderRequest {
                             countDownLatch.countDown();
                         }
 
+
                         //countdown latch
                         countDownLatch.countDown();
 
@@ -70,9 +75,11 @@ public class WatchproviderRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                //Log.i("Alex", "json watchprovider error");
             }
         });
         mQueue.add(request);
+        //Log.i("Alex", " watchprovider request added to queue");
     }
 
 }

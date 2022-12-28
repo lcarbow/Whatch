@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
-public class ApiInterface {
+public class ApiInterface implements Interfaces.apiSimilarCallback {
 
     private RequestQueue mQueue;
     private Activity activity;
@@ -48,7 +48,7 @@ public class ApiInterface {
         idList.add(438631);
         idList.add(361743);
         idList.add(634649);
-        getWatchlist(idList);*/
+        getWatchlist(idList, this);*/
 
         /*//getwatchprovidertest
         Movie movie = new Movie();
@@ -58,8 +58,15 @@ public class ApiInterface {
         //get similar test
         /*List<String> providerList = new ArrayList<String>();
         providerList.add("Disney Plus");
-        getSimilar(11, true, providerList, 20);*/
+        getSimilar(11, true, providerList, 20, this);*/
 
+    }
+
+    @Override
+    public void receiveSimilar(List<Movie> similarList) {
+        for (Movie movie : similarList) {
+            Log.i("Alex", movie.toString());
+        }
     }
 
     //calling class has to implement api interface
@@ -100,104 +107,6 @@ public class ApiInterface {
 
     }
 
-    //makes the api request for discover - also add flatrate providers with the providerRequest
-    private void discoverRequest(String sort, boolean flatrate, List<Integer> providers, List<Movie> movieList, String genres, CountDownLatch countDownLatch) {
-
-        //make discover request
-        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + apiKey + "&language=de-DE&region=DE&sort_by=" + sort + "&include_adult=false&include_video=false&page=1&with_genres=" + genres;
-
-        //if only show from own streaming services
-        if (flatrate) {
-            //make provider string
-            String providersString = "";
-            for (Integer providerINT : providers) {
-                providersString += Integer.toString(providerINT);
-                providersString += "%7C";//
-            }
-            url += "&with_watch_providers=" + providersString + "&watch_region=DE&with_watch_monetization_types=flatrate";
-        }
-
-        //make thread
-        String finalUrl = url;
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                //create countdownlatch for this thread - set to 1 for discover request
-                CountDownLatch countDownLatch1 = new CountDownLatch(1);
-
-                //make discover request
-                CountDownLatch finalCountDownLatch = countDownLatch1;
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, finalUrl, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject jsonMovielist) {
-
-                                //process json
-                                try {
-                                    //get array of movies from response
-                                    JSONArray results = jsonMovielist.getJSONArray("results");
-
-                                    //make movie array
-                                    for (int i = 0; i < results.length(); i++) {
-                                        //get json for single movie
-                                        JSONObject jsonMovie = results.getJSONObject(i);
-                                        //parse movie form json
-                                        Movie movie = new Movie();
-                                        ApiTools.movieParser(movie, jsonMovie);
-                                        //add movie to list
-                                        movieList.add(movie);
-                                    }
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                                //notify thread list is done
-                                finalCountDownLatch.countDown();
-
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                });
-                mQueue.add(request);
-
-                //wait till request is done
-                try {
-                    countDownLatch1.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                //set latch for provider requests
-                countDownLatch1 = new CountDownLatch(movieList.size());
-
-                //make provider requests
-                for (Movie movie : movieList) {
-                    watchProviderRequest(movie, countDownLatch1);
-                }
-
-                //wait for provider requests
-                try {
-                    countDownLatch1.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                //release given latch
-                countDownLatch.countDown();
-
-            }
-        });
-        thread.start();
-
-
-    }
-
     public void getAll(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiAllCallback receiver) {
 
         //make thread
@@ -205,21 +114,19 @@ public class ApiInterface {
             @Override
             public void run() {
 
-
                 /*----get list with all genres----*/
                 //make list
                 List<Genre> allGenres = new ArrayList<Genre>();
                 //make countdownlatch
                 CountDownLatch countDownLatch = new CountDownLatch(1);
                 //make genres request
-                genreRequest(allGenres, countDownLatch);
+                new GenreRequest(mQueue, apiKey, countDownLatch, allGenres);
                 //wait for latch
                 try {
                     countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
 
                 /*----Make lists with lists----*/
                 List<List> allList = new ArrayList<List>();
@@ -231,47 +138,24 @@ public class ApiInterface {
                 //make list and request for each genre
                 for (Genre genre : allGenres) {
                     List<Movie> genreMovieList = new ArrayList<Movie>();
-                    discoverRequest(sort, flatrate, providers, genreMovieList, genre.getId().toString(), countDownLatch);
+                    //discoverRequest(sort, flatrate, providers, genreMovieList, genre.getId().toString(), countDownLatch);
+                    new DiscoverRequest(mQueue, apiKey, sort, flatrate, providers, genreMovieList, genre.getId().toString(), countDownLatch);
                     allList.add(genreMovieList);
                 }
-
-
                 //wait for latch
                 try {
                     countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-/*
-                *//*----add providers to all movies----*//*
 
-                //new latch
-                countDownLatch = new CountDownLatch(380);
-                //make requests
-                for (List<Movie> list : allList) {
-                    for (Movie movie : list) {
-                        watchProviderRequest(movie, countDownLatch);
-                    }
-                }*/
-
-
-
-                //return lists
-
-
+                //return list
                 activity.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
                         receiver.receiveAll(allList);
                     }
                 });
-                //Print Lists
-                /*for (List list : allList) {
-                    for (Object object : list) {
-                        Movie movie = (Movie) object;
-                        Log.i("AlexDebugging", movie.toString());
-                    }
-                }*/
 
             }
         });
@@ -293,7 +177,8 @@ public class ApiInterface {
                 CountDownLatch countDownLatch = new CountDownLatch(1);
 
                 //make request
-                genreRequest(genres, countDownLatch);
+                //genreRequest(genres, countDownLatch);
+                new GenreRequest(mQueue, apiKey, countDownLatch, genres);
 
                 //wait for latch to release
                 try {
@@ -316,44 +201,6 @@ public class ApiInterface {
 
     }
 
-    //makes genres request and fills genres list
-    private void genreRequest(List<Genre> genres, CountDownLatch countDownLatch) {
-
-        //make api request
-        String url = "https://api.themoviedb.org/3/genre/movie/list?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonGenres) {
-
-                        try {
-
-                            JSONArray jsonGenreList = jsonGenres.getJSONArray("genres");
-
-                            for (int i = 0; i < jsonGenreList.length(); i++) {
-                                JSONObject jsonGenre = jsonGenreList.getJSONObject(i);
-                                genres.add(new Genre(jsonGenre.getString("name"), jsonGenre.getInt("id")));
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        //countdown latch
-                        countDownLatch.countDown();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        mQueue.add(request);
-
-    }
-
     //takes list with ints and return list with movie objects
     public void getWatchlist(List<Integer> idList, Interfaces.apiWatchlistCallback receiver) {
 
@@ -370,7 +217,8 @@ public class ApiInterface {
 
                 for (Integer id : idList) {
                     Movie movie = new Movie();
-                    movieRequest(movie, id, countDownLatch);
+                    //movieRequest(movie, id, countDownLatch);
+                    new MovieRequest(mQueue, apiKey, countDownLatch, movie, id);
                     movieList.add(movie);
                 }
 
@@ -380,26 +228,6 @@ public class ApiInterface {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                /*----Get watchprovider----*/
-                //make countdowmlatch for provider requests
-                countDownLatch = new CountDownLatch(movieList.size());
-
-                for (Movie movie : movieList) {
-                    watchProviderRequest(movie, countDownLatch);
-                }
-
-                //wait for latch
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                //print list
-                /*for (Movie movie : movieList) {
-                    Log.i("AlexDebugging", movie.toString());
-                }*/
 
                 //return movielist
                 activity.runOnUiThread(new Runnable(){
@@ -413,130 +241,6 @@ public class ApiInterface {
         });
         thread.start();
 
-    }
-
-    private void movieRequest(Movie movie, int id, CountDownLatch countDownLatch) {
-
-        //make api request
-        String url = " https://api.themoviedb.org/3/movie/" + id + "?api_key=f862a1abef6de0d1ca20c51abb9f51ab&language=de-DE";
-//https://api.themoviedb.org/3/movie/
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonMovie) {
-
-                        /*try {
-
-                            movie.setTitle(jsonMovie.getString("title"));
-                            movie.setId(jsonMovie.getInt("id"));
-                            movie.setImdbID(jsonMovie.getInt("imdb_id"));
-                            movie.setDescription(jsonMovie.getString("title"));
-                            movie.setRating(jsonMovie.getString("title"));
-                            //set genre
-                            movie.setPoster(jsonMovie.getString("title"));
-                            movie.setBackdrop(jsonMovie.getString("title"));
-                            movie.setReleaseDate(jsonMovie.getString("title"));
-                            //set streaming
-                            movie.setOriginal_language(jsonMovie.getString("title"));
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
-
-                        try {
-                            ApiTools.movieParserMovie(movie, jsonMovie);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        //countdown latch
-                        countDownLatch.countDown();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        mQueue.add(request);
-    }
-
-    public void getWatchprovider(Movie movie, Interfaces.apiWatchproviderCallback receiver) {
-
-        //make thread
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                //make countdownlatch
-                CountDownLatch countDownLatch = new CountDownLatch(1);
-
-                //providerrequest
-                watchProviderRequest(movie, countDownLatch);
-
-                //wait for latch
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                //return movie now with provider
-                activity.runOnUiThread(new Runnable(){
-                    @Override
-                    public void run() {
-                        receiver.receiveWatchprovider(movie);
-                    }
-                });
-
-            }
-        });
-        thread.start();
-
-    }
-
-    //takes movie and makes api request for watchprovider
-    private void watchProviderRequest(Movie movie, CountDownLatch countDownLatch) {
-
-        //make api request
-        String url = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/watch/providers?api_key=" + apiKey;
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject JSONwatchProviders) {
-
-                        String providers = "";
-
-                        try {
-                            JSONObject results = JSONwatchProviders.getJSONObject("results");
-                            JSONObject DE = results.getJSONObject("DE");
-                            JSONArray flatrate = DE.getJSONArray("flatrate");
-
-                            for (int i = 0; i < flatrate.length(); i++) {
-                                JSONObject provider = flatrate.getJSONObject(i);
-                                providers += provider.getString("provider_name") + " ";
-                                movie.addStreaming(provider.getString("provider_name"));
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            //Log.i("Alex", "exception ");
-                            countDownLatch.countDown();
-                        }
-
-                        //countdown latch
-                        countDownLatch.countDown();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        mQueue.add(request);
     }
 
     //takes a movie and returns similar movies, the returned list is at least "minListLength" long
@@ -587,7 +291,8 @@ public class ApiInterface {
 
                     //make 20 provider requests
                     for (Movie movie : tempList) {
-                        watchProviderRequest(movie, countDownLatch);
+                        //watchProviderRequest(movie, countDownLatch);
+                        new WatchproviderRequest(movie, countDownLatch, mQueue);
                     }
 
                     //wait for latch
@@ -633,7 +338,6 @@ public class ApiInterface {
             }
         });
         thread.start();
-
     }
 
     //poster functions
@@ -660,7 +364,6 @@ public class ApiInterface {
                 error.printStackTrace();
             }
         });
-
         mQueue.add(imageRequest);
     }
 
@@ -673,7 +376,7 @@ public class ApiInterface {
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
-                        getBackdropCallback(response, receiver);
+                        receiver.receiveBackdrop(response);
                     }
                 }, 10000, 10000, null, null, new Response.ErrorListener() {
             @Override
@@ -681,12 +384,7 @@ public class ApiInterface {
                 error.printStackTrace();
             }
         });
-
         mQueue.add(imageRequest);
-    }
-
-    private void getBackdropCallback(Bitmap img, Interfaces.apiBackdropCallback receiver) {
-        receiver.receiveBackdrop(img);
     }
 
 }

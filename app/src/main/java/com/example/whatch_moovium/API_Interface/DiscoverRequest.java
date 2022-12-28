@@ -20,7 +20,7 @@ import java.util.concurrent.CountDownLatch;
 public class DiscoverRequest {
 
     private RequestQueue mQueue;
-    private String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
+    private String apiKey;
     String sort;
     boolean flatrate;
     List<Integer> providers;
@@ -98,13 +98,10 @@ public class DiscoverRequest {
                 //set latch for provider requests
                 CountDownLatch countDownLatchApiRequest = new CountDownLatch(movieList.size());
 
-                Log.i("Alex", "before provider request");
-
                 //make provider requests
                 for (Movie movie : movieList) {
                     new WatchproviderRequest(movie, countDownLatchApiRequest, mQueue);
                 }
-                Log.i("Alex", "after provider request");
 
                 //wait for provider requests
                 try {
@@ -112,8 +109,6 @@ public class DiscoverRequest {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                Log.i("Alex", "provider request done latch");
 
                 //release given latch
                 countDownLatch.countDown();
