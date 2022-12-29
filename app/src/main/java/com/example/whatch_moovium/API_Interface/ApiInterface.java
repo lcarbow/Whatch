@@ -43,6 +43,9 @@ public class ApiInterface {
         providerList.add(337);
         getAll("popularity.desc", true, providerList);*/
 
+        //discover test
+
+
         //watchlist test
         /*List<Integer> idList = new ArrayList<Integer>();
         idList.add(438631);
@@ -59,13 +62,31 @@ public class ApiInterface {
         /*List<String> providerList = new ArrayList<String>();
         providerList.add("Disney Plus");
         providerList.add("Netflix");
-
         List<Integer> movieIDs = new ArrayList<Integer>();
         movieIDs.add(438631);
         movieIDs.add(361743);
         movieIDs.add(634649);
-
         getSimilar(movieIDs, true, providerList, 20, this);*/
+
+        //try watchproviderconverter
+        WatchProviderConverter watchProviderConverter = new WatchProviderConverter(context, apiKey);
+        //new thread
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.i("Alex", watchProviderConverter.getWatchProviderId("Netflix").toString());
+                    Log.i("Alex", watchProviderConverter.getWatchProviderName(8));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+
+
+
+
 
     }
 
