@@ -18,13 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.WatchlistViewHolder>{
-    private ArrayList<WatchlistModel> watchlistGallery;
+    private List<Movie> watchlistGallery;
     private Context context;
     private final Contract.WatchlistPresenter watchlistPresenter;
 
     public WatchlistAdapter(Context context, Contract.WatchlistPresenter watchlistPresenter, List<Movie> movieList){
         this.context = context;
         this.watchlistPresenter = watchlistPresenter;
+        this.watchlistGallery = movieList;
     }
 
     @NonNull
@@ -39,35 +40,35 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
     @Override
     public void onBindViewHolder(@NonNull WatchlistViewHolder holder, int position) {
 
-        Model item = watchlistPresenter.getmovieList().get(position);
+        Movie item = watchlistPresenter.getMovieList().get(position);
+        String imgPath = item.getPoster();
+        watchlistPresenter.setImageViewForLoader(holder.posterImgView);
+        watchlistPresenter.LoadImagesFromImageLoader(imgPath);
 
-
-
-        holder.posterImgView.setImageResource(watchlistPresenter.getMovieList().get(position).getPoster());
     }
 
     @Override
     public int getItemCount() {
-        return watchlistGallery.size();
+        return watchlistPresenter.getMovieList().size();
     }
 
 
     public class WatchlistViewHolder extends RecyclerView.ViewHolder {
         private ImageView posterImgView;
 
-        public WatchlistViewHolder(View view){
+        public WatchlistViewHolder(View view, Contract.WatchlistPresenter watchlistPresenter){
             super(view);
 
             posterImgView = itemView.findViewById(R.id.watchlist_item);
 
-
-            /*posterImgView.setOnClickListener(new View.OnClickListener() {
+            posterImgView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    watchlistPresenter.onButtonClick();
+                    watchlistPresenter.onClickImage(view, getAdapterPosition());
 
                 }
-            });*/
+            });
+
         }
     }
 }

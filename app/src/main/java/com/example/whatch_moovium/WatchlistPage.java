@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.View.LandingPage_Genres;
 import com.example.whatch_moovium.View.LandingPage_Mood;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
@@ -18,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WatchlistPage extends AppCompatActivity implements Contract.LandingViewWatchlist {
 
@@ -41,7 +43,11 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
         //Bottom Nav
         bottomNavigationView = findViewById(R.id.bottom_navigator);
 
+
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId())
@@ -79,8 +85,10 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
 
     @Override
     public void setAdapter() {
+        List<Movie> movieList = presenter.getMovieList();
         gridLayoutManager = new GridLayoutManager(WatchlistPage.this, 4);
-        watchlistAdapter = new WatchlistAdapter(getApplicationContext(), presenter);
+        watchlistAdapter = new WatchlistAdapter(getApplicationContext(), presenter, movieList);
+
         recyclerView.setAdapter(watchlistAdapter);
         recyclerView.setLayoutManager(gridLayoutManager);
 

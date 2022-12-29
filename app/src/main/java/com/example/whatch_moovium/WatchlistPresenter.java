@@ -3,7 +3,10 @@ package com.example.whatch_moovium;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatch_moovium.API_Interface.*;
 import com.example.whatch_moovium.Model.Model;
@@ -22,17 +25,28 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
 
     ApiInterface myApiInterface;
     DatabaseHandler dbHandler;
-    List<Movie> movieList;
-    List<Model> itemList;
-
+    private List<Movie> movieList;
+    private RecyclerView.Adapter adapter;
     int index;
 
     public WatchlistPresenter(Contract.LandingViewWatchlist landingPageWatchlist){
         this.landingPageWatchlist = landingPageWatchlist;
         myApiInterface = new ApiInterface(landingPageWatchlist.getContext());
         imageLoader = new ImageLoader(landingPageWatchlist.getContext());
+        dbHandler = new DatabaseHandler(landingPageWatchlist.getContext());
 
     }
+
+    @Override
+    public List <Movie> getMovieList(){return movieList;}
+
+    @Override
+    public void onClickImage(View view, int adapterPosition) {
+        Intent i = new Intent(view.getContext(), MovieSuggestion.class);
+        view.getContext().startActivity(i);
+
+    }
+
 
     @Override
     public void getMovieListFromApi() {
@@ -53,24 +67,22 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
 
     @Override
     public void receiveWatchlist(List<Movie> watchList){
-        for(Movie movieList: watchList){
-            StorageClass.getInstance().addWatchModelList(new Movie(watchList));
-        };
+        movieList = watchList;
+        for (Movie movie : movieList) {
+            myApiInterface.getPoster(movie.getPoster(), this);
+        }
         landingPageWatchlist.setAdapter();
     }
 
     @Override
     public void receivePoster(Bitmap img){
 
-        /* NOPE!
-        movieList.get(model.showIndex()).setPosterBitmap(img);
-        model.nextIndex();
-
-        if (model.showIndex() == movieList.size()){
-            landingPageWatchlist.setAdapter(itemList);
+        Movie movie = movieList.get(0);
+        movie.setPosterBitmap(img);
+        movieList.remove(0);
+        if (movieList.isEmpty()) {
+            landingPageWatchlist.setAdapter();
         }
-
-         */
     }
 
     @Override
@@ -89,6 +101,5 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     @Override
     public void LoadImagesFromImageLoader(String imgPath) {imageLoader.loadImages(imgPath);}
 
-    List <Movie> getMovieList(){return movieList};
 
 }
