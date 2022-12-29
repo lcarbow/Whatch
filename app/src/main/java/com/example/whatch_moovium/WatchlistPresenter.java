@@ -31,9 +31,9 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
 
     public WatchlistPresenter(Contract.LandingViewWatchlist landingPageWatchlist){
         this.landingPageWatchlist = landingPageWatchlist;
-        myApiInterface = new ApiInterface(landingPageWatchlist.getContext());
-        imageLoader = new ImageLoader(landingPageWatchlist.getContext());
-        dbHandler = new DatabaseHandler(landingPageWatchlist.getContext());
+        this.myApiInterface = new ApiInterface(landingPageWatchlist.getContext());
+        this.imageLoader = new ImageLoader(landingPageWatchlist.getContext());
+        this.dbHandler = new DatabaseHandler(landingPageWatchlist.getContext());
 
     }
 
