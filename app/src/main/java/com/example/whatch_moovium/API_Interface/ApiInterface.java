@@ -56,9 +56,16 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
         getWatchprovider(movie, this);*/
 
         //get similar test
-        /*List<String> providerList = new ArrayList<String>();
+        List<String> providerList = new ArrayList<String>();
         providerList.add("Disney Plus");
-        getSimilar(11, true, providerList, 20, this);*/
+        providerList.add("Netflix");
+
+        List<Integer> movieIDs = new ArrayList<Integer>();
+        movieIDs.add(438631);
+        movieIDs.add(361743);
+        movieIDs.add(634649);
+
+        getSimilar(movieIDs, true, providerList, 20, this);
 
     }
 
@@ -240,11 +247,10 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
             }
         });
         thread.start();
-
     }
 
-    //takes a movie and returns similar movies, the returned list is at least "minListLength" long
-    public void getSimilar(int movieID, boolean flatrate, List<String> providers, int minListLength, Interfaces.apiSimilarCallback receiver) {
+    //takes a list of movieIDs and returns similar movies, the returned list is at least "minListLength" long
+    public void getSimilar(List<Integer> movieIDs, boolean flatrate, List<String> providers, int minListLength, Interfaces.apiSimilarCallback receiver) {
 
         // CHANGE: take provider int List instead of string list
 
@@ -265,16 +271,17 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
                     //increase page by one for the next page
                     page++;
 
-                    //Log.i("Alex", "loop");
-
                     //make temp Movie List
                     List<Movie> tempList = new ArrayList<Movie>();
 
                     //make countdownlatch for similarrequest
-                    CountDownLatch countDownLatch = new CountDownLatch(1);
+                    CountDownLatch countDownLatch = new CountDownLatch(movieIDs.size());
 
-                    //make request
-                    SimilarRequest similarRequest = new SimilarRequest(mQueue, apiKey, countDownLatch, movieID, tempList, page);
+                    //make requests for all movieIDs
+                    for (int movieID : movieIDs) {
+                        //make request
+                        SimilarRequest similarRequest = new SimilarRequest(mQueue, apiKey, countDownLatch, movieID, tempList, page);
+                    }
 
                     //wait for latch
                     try {
@@ -282,8 +289,6 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    //Log.i("Alex", "similar request done");
 
                     //add providers
                     //make countdownlatch for 20 movies
@@ -321,12 +326,6 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
 
                 }
 
-                //printing result list
-                /*Log.i("Alex", "Printing all movies");
-                for (Movie movie : similarList) {
-                    Log.i("AlexDebugingResult", movie.toString());
-                }*/
-
                 //return movielist
                 activity.runOnUiThread(new Runnable(){
                     @Override
@@ -340,7 +339,7 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
         thread.start();
     }
 
-    //poster functions
+                    //poster functions
     public void getPoster(String imgPath, Interfaces.apiPosterCallback receiver) {
 
         String url = "https://image.tmdb.org/t/p/w780" + imgPath;
