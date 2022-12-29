@@ -98,7 +98,10 @@
                             android:scaleX="0.5"
                             android:scaleY="0.5"
                             android:text=""
+                            android:visibility="invisible"
                             app:backgroundTint="@null" />
+
+
 
                         <Button
                             android:id="@+id/button_delete"

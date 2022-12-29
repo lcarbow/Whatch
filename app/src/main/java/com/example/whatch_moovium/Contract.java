@@ -25,7 +25,8 @@ public interface Contract {
         void setRating(String string);
         void setStreaming(String string);
         void setPosterImage(Bitmap img);
-
+        void setButtonAddVisibility(int i);
+        void setButtonDeleteVisibility(int i);
 
     }
 

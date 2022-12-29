@@ -192,4 +192,13 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
 
     @Override
     public Context getContextForNav() { return MovieSuggestion.this; }
+
+    @Override
+    public void setButtonAddVisibility(int visibility){
+        buttonAdd.setVisibility(visibility);
+    };
+    @Override
+    public void setButtonDeleteVisibility(int visibility){
+        buttonDelete.setVisibility(visibility);
+    };
 }

@@ -3,6 +3,8 @@ package com.example.whatch_moovium.Presenter;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
@@ -21,6 +23,8 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     private ApiInterface myAPI_Interface;
     DatabaseHandler databaseHandler;
 
+    Button b_add;
+
     // instantiating the objects of View Interface
     public MovieSuggestionPresenter(Contract.IMovieView movieSuggestion) {
         this.movieSuggestion = movieSuggestion;
@@ -34,6 +38,15 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
 
         for (Integer i : StorageClass.getInstance().getProviderList()) {
         }
+        if(databaseHandler.CheckIfExist("watchlist", StorageClass.getInstance().getActualMovie().getId())){
+            movieSuggestion.setButtonAddVisibility(4);
+            movieSuggestion.setButtonDeleteVisibility(0);
+        }
+        else{
+            movieSuggestion.setButtonAddVisibility(0);
+            movieSuggestion.setButtonDeleteVisibility(4);
+        }
+
 
     }
 
@@ -48,6 +61,8 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         movieSuggestion.setDescription(movie.getDescription());
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());
+
+
     }
 
     @Override
@@ -59,15 +74,13 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
 
     @Override
     public void onButtonAddClick() {
-        if(databaseHandler.CheckIfExist("watchlist", StorageClass.getInstance().getActualMovie().getId())){
-            Toast.makeText(movieSuggestion.getContext(),
-                    "Film ist bereits auf der Watchlist!", Toast.LENGTH_SHORT).show();
-        }
-        else {
+
             databaseHandler.addWatchlistMovie(StorageClass.getInstance().getActualMovie().getId());
             Toast.makeText(movieSuggestion.getContext(),
                     "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
-        }
+            movieSuggestion.setButtonAddVisibility(4);
+            movieSuggestion.setButtonDeleteVisibility(0);
+
     }
 
     @Override
@@ -75,6 +88,8 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         databaseHandler.delWatchlistMovie(StorageClass.getInstance().getActualMovie().getId());
         Toast.makeText(movieSuggestion.getContext(),
                 "Aus Watchlist entfernt!", Toast.LENGTH_SHORT).show();
+        movieSuggestion.setButtonAddVisibility(0);
+        movieSuggestion.setButtonDeleteVisibility(4);
     }
 
     @Override
