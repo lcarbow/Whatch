@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
-public class ApiInterface implements Interfaces.apiSimilarCallback {
+public class ApiInterface {
 
     private RequestQueue mQueue;
     private Activity activity;
@@ -56,7 +56,7 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
         getWatchprovider(movie, this);*/
 
         //get similar test
-        List<String> providerList = new ArrayList<String>();
+        /*List<String> providerList = new ArrayList<String>();
         providerList.add("Disney Plus");
         providerList.add("Netflix");
 
@@ -65,15 +65,8 @@ public class ApiInterface implements Interfaces.apiSimilarCallback {
         movieIDs.add(361743);
         movieIDs.add(634649);
 
-        getSimilar(movieIDs, true, providerList, 20, this);
+        getSimilar(movieIDs, true, providerList, 20, this);*/
 
-    }
-
-    @Override
-    public void receiveSimilar(List<Movie> similarList) {
-        for (Movie movie : similarList) {
-            Log.i("Alex", movie.toString());
-        }
     }
 
     //calling class has to implement api interface
