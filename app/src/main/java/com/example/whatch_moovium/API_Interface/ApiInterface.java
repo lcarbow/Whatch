@@ -71,7 +71,7 @@ public class ApiInterface {
         getSimilar(movieIDs, true, providerList, 20, this);*/
 
         //try watchproviderconverter
-        WatchProviderConverter watchProviderConverter = WatchProviderConverter.getInstance(context, apiKey);
+        /*WatchProviderConverter watchProviderConverter = WatchProviderConverter.getInstance(context, apiKey);
         //new thread
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -84,7 +84,7 @@ public class ApiInterface {
                 }
             }
         });
-        thread.start();
+        thread.start();*/
 
 
 

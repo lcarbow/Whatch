@@ -45,8 +45,6 @@ public class WatchProviderConverter {
 
     private void refreshWatchProviders() {
 
-        List<String> tempStrings = new ArrayList<>();
-
         String url = "https://api.themoviedb.org/3/watch/providers/movie?api_key=" + apiKey + "&language=de-DE&watch_region=DE";
         RequestQueue queue = Volley.newRequestQueue(context);
         //Log.i("Alex", "refresh");
@@ -60,7 +58,7 @@ public class WatchProviderConverter {
                         JSONObject provider = watchProvidersData.getJSONObject(i);
                         int id = provider.getInt("provider_id");
                         String name = provider.getString("provider_name");
-                        tempStrings.add(name);
+
                         watchProviders.put(id, name);
                         //Log.i("Alex", "Name, id: " + id + " " + name);
                     }
@@ -69,9 +67,6 @@ public class WatchProviderConverter {
                     Log.i("Alex", "Error");
                 }
                 countDownLatch.countDown();
-                for (String string : tempStrings) {
-                    Log.i("Provider", string);
-                }
 
             }
         }, new Response.ErrorListener() {
