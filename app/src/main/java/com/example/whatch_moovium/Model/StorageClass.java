@@ -19,7 +19,7 @@ public class StorageClass {
 
     //////// Genre ////////
     private List<Model> myModelList;
-    private List<Integer> providerList;
+    private List<String> providerList;
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
@@ -47,10 +47,10 @@ public class StorageClass {
         this.myModel = myModel;
     }
 
-    public List<Integer> getProviderList() {
-        List<Integer> providerListInt = new ArrayList<>();
+    public List<String> getProviderList() {
+        List<String> providerListInt = new ArrayList<>();
 
-        for (int i : providerList) {
+        for (String i : providerList) {
             providerListInt.add(i);
         }
         return providerListInt;
