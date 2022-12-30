@@ -32,8 +32,8 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     public void onPageLoaded() {
         StorageClass.getInstance().getMyModel().getThisMovie(this);
 
-        for (Integer i : StorageClass.getInstance().getProviderList()) {
-        }
+        /*for (Integer i : StorageClass.getInstance().getProviderList()) {
+        }*/
 
     }
 

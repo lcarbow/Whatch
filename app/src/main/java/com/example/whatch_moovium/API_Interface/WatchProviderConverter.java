@@ -14,7 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
@@ -24,7 +26,16 @@ public class WatchProviderConverter {
     private Map<Integer, String> watchProviders;
     private CountDownLatch countDownLatch;
 
-    public WatchProviderConverter(Context context, String apiKey) {
+    private static WatchProviderConverter watchProviderConverter;
+
+    public static WatchProviderConverter getInstance(Context context, String apiKey) {
+        if (watchProviderConverter == null) {
+            watchProviderConverter = new WatchProviderConverter(context, apiKey);
+        }
+        return watchProviderConverter;
+    }
+
+    private WatchProviderConverter(Context context, String apiKey) {
         this.context = context;
         this.apiKey = apiKey;
         watchProviders = new HashMap<>();
@@ -78,5 +89,17 @@ public class WatchProviderConverter {
             }
         }
         return null;
+    }
+
+    public List<Integer> stringListToIDs(List<String> stringList) throws InterruptedException {
+
+        List<Integer> intList = new ArrayList<>();
+
+        for (String string : stringList) {
+            intList.add(getWatchProviderId(string));
+        }
+
+        return intList;
+
     }
 }
