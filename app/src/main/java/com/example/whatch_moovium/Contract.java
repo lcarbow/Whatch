@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.whatch_moovium.Model.Model;
@@ -27,6 +26,8 @@ public interface Contract {
         void setPosterImage(Bitmap img);
         void setButtonAddVisibility(int i);
         void setButtonDeleteVisibility(int i);
+        void setSeenButtonColor();
+        void unsetSeenButtonColor();
 
     }
 
@@ -110,6 +111,7 @@ public interface Contract {
         void onButtonSeenClick();
         void onButtonNextClick();
         void onButtonBeforeClick();
+        void exist();
         // method to destroy
         // lifecycle of MainActivity
         //void onDestroy();

@@ -38,14 +38,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
 
         for (Integer i : StorageClass.getInstance().getProviderList()) {
         }
-        if(databaseHandler.CheckIfExist("watchlist", StorageClass.getInstance().getActualMovie().getId())){
-            movieSuggestion.setButtonAddVisibility(4);
-            movieSuggestion.setButtonDeleteVisibility(0);
-        }
-        else{
-            movieSuggestion.setButtonAddVisibility(0);
-            movieSuggestion.setButtonDeleteVisibility(4);
-        }
+        exist();
 
 
     }
@@ -90,6 +83,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
                 "Aus Watchlist entfernt!", Toast.LENGTH_SHORT).show();
         movieSuggestion.setButtonAddVisibility(0);
         movieSuggestion.setButtonDeleteVisibility(4);
+
     }
 
     @Override
@@ -105,24 +99,28 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     @Override
     public void onButtonSeenClick() {
         if(databaseHandler.CheckIfExist("seenlist", StorageClass.getInstance().getActualMovie().getId())){
+            databaseHandler.delSeenlistMovie(StorageClass.getInstance().getActualMovie().getId());
             Toast.makeText(movieSuggestion.getContext(),
-                    "Film ist bereits auf der Seenlist!", Toast.LENGTH_SHORT).show();
+                    "Film aus Seenlist entfernt!", Toast.LENGTH_SHORT).show();
+            movieSuggestion.unsetSeenButtonColor();
         }
         else {
             databaseHandler.addSeenlistMovie(StorageClass.getInstance().getActualMovie().getId());
             Toast.makeText(movieSuggestion.getContext(),
                     "Zur Gesehenlist hinzugefügt!", Toast.LENGTH_SHORT).show();
+            movieSuggestion.setSeenButtonColor();
         }
     }
 
     public void onButtonNextClick() {
         StorageClass.getInstance().getMyModel().getNextMovie(this);
-
+        exist();
     }
 
     @Override
     public void onButtonBeforeClick() {
         StorageClass.getInstance().getMyModel().getBeforeMovie(this);
+        exist();
 
     }
 
@@ -130,5 +128,23 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     @Override
     public void receiveWatchprovider(Movie movie) {
         movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
+    }
+    @Override
+    public void exist(){
+        if(databaseHandler.CheckIfExist("watchlist", StorageClass.getInstance().getActualMovie().getId())){
+            movieSuggestion.setButtonAddVisibility(4);
+            movieSuggestion.setButtonDeleteVisibility(0);
+        }
+        else{
+            movieSuggestion.setButtonAddVisibility(0);
+            movieSuggestion.setButtonDeleteVisibility(4);
+        }
+
+        if(databaseHandler.CheckIfExist("seenlist", StorageClass.getInstance().getActualMovie().getId())){
+            movieSuggestion.setSeenButtonColor();
+        }
+        else {
+            movieSuggestion.unsetSeenButtonColor();
+        }
     }
 }
