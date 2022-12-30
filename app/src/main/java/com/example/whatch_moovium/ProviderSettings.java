@@ -73,7 +73,6 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
-        String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
         List<String> providerList = new ArrayList<>();
 
         StorageClass.getInstance().resetSettingForGenreList();
@@ -84,7 +83,6 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
             SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
-            int currentId = Integer.parseInt(providerIDs[i]);
             newSwitch.setChecked(newBool);
             possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
             if (newBool){
