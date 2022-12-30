@@ -19,7 +19,7 @@ public class StorageClass {
 
     //////// Genre ////////
     private List<Model> myModelList;
-    private List<Integer> providerList;
+    private List<String> providerList;
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
@@ -47,16 +47,16 @@ public class StorageClass {
         this.myModel = myModel;
     }
 
-    public List<Integer> getProviderList() {
-        List<Integer> providerListInt = new ArrayList<>();
+    public List<String> getProviderList() {
+        List<String> providerListInt = new ArrayList<>();
 
-        for (int i : providerList) {
+        for (String i : providerList) {
             providerListInt.add(i);
         }
         return providerListInt;
     }
 
-    public void setProviderList(List<Integer> providerList) {
+    public void setProviderList(List<String> providerList) {
         this.providerList = providerList;
     }
 
@@ -72,23 +72,16 @@ public class StorageClass {
         this.myModelList.add(model);
     }
 
-    public void addProviderIdList(int i) {
+    public void addProviderList(String providerName) {
         Log.i("funktioniert", "Liste vor Hinzufügen: " + providerList.size());
-        this.providerList.add(i);
+        this.providerList.add(providerName);
         Log.i("funktioniert", "Liste nach Hinzufügen: " + providerList.size());
     }
 
-    public void removeProviderIdList(int i) {
-        int indexNo = 99999;
-        for (int element = 0; element < providerList.size(); element++){
-            if (providerList.get(element) == i){
-                indexNo = element;
-            }
-        }
-
-        if (providerList.contains(i)){
+    public void removeProviderList(String providerName) {
+        if (providerList.contains(providerName)){
             Log.i("funktioniert", "Liste vor Entfernung: " + providerList.size());
-            this.providerList.remove(indexNo);
+            this.providerList.remove(providerName);
             Log.i("funktioniert", "Liste nach Entfernung: " + providerList.size());
         }
 

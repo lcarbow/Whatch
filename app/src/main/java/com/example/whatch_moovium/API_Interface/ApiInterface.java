@@ -29,6 +29,7 @@ public class ApiInterface {
 
     private RequestQueue mQueue;
     private Activity activity;
+    private Context context;
     //api key
     private static String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
 
@@ -36,12 +37,16 @@ public class ApiInterface {
     public ApiInterface(Context context) {
         mQueue = Volley.newRequestQueue(context);
         this.activity = (Activity) context;
+        this.context = context;
 
         //getall test
         /*List<Integer> providerList = new ArrayList<>();
         providerList.add(8);
         providerList.add(337);
         getAll("popularity.desc", true, providerList);*/
+
+        //discover test
+
 
         //watchlist test
         /*List<Integer> idList = new ArrayList<Integer>();
@@ -59,23 +64,49 @@ public class ApiInterface {
         /*List<String> providerList = new ArrayList<String>();
         providerList.add("Disney Plus");
         providerList.add("Netflix");
-
         List<Integer> movieIDs = new ArrayList<Integer>();
         movieIDs.add(438631);
         movieIDs.add(361743);
         movieIDs.add(634649);
-
         getSimilar(movieIDs, true, providerList, 20, this);*/
+
+        //try watchproviderconverter
+        WatchProviderConverter watchProviderConverter = WatchProviderConverter.getInstance(context, apiKey);
+        //new thread
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.i("Alex", watchProviderConverter.getWatchProviderId("Netflix").toString());
+                    Log.i("Alex", watchProviderConverter.getWatchProviderName(8));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+
+
+
+
 
     }
 
     //calling class has to implement api interface
-    public void getDiscover(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiDiscoverCallback receiver) {
+    public void getDiscover(String sort, boolean flatrate, List<String> providerStrings, Interfaces.apiDiscoverCallback receiver) {
 
         //make thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+
+                //convert provider strings to ids
+                List<Integer> providerIDs = null;
+                try {
+                    providerIDs = WatchProviderConverter.getInstance(context, apiKey).stringListToIDs(providerStrings);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 //movielist to fill later
                 List<Movie> movieList = new ArrayList<>();
@@ -84,7 +115,7 @@ public class ApiInterface {
                 CountDownLatch countDownLatchDiscover = new CountDownLatch(1);
 
                 //make discover request object
-                new DiscoverRequest(mQueue, apiKey, sort, flatrate, providers, movieList, "", countDownLatchDiscover);
+                new DiscoverRequest(mQueue, apiKey, sort, flatrate, providerIDs, movieList, "", countDownLatchDiscover);
 
                 //wait for latch to release
                 try {
@@ -94,7 +125,7 @@ public class ApiInterface {
                 }
 
                 //return list
-                activity.runOnUiThread(new Runnable(){
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         receiver.receiveDiscover(movieList);
@@ -107,12 +138,20 @@ public class ApiInterface {
 
     }
 
-    public void getAll(String sort, boolean flatrate, List<Integer> providers, Interfaces.apiAllCallback receiver) {
+    public void getAll(String sort, boolean flatrate, List<String> providerStrings, Interfaces.apiAllCallback receiver) {
 
         //make thread
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+
+                //convert provider strings to ids
+                List<Integer> providerIDs = null;
+                try {
+                    providerIDs = WatchProviderConverter.getInstance(context, apiKey).stringListToIDs(providerStrings);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 /*----get list with all genres----*/
                 //make list
@@ -139,7 +178,7 @@ public class ApiInterface {
                 for (Genre genre : allGenres) {
                     List<Movie> genreMovieList = new ArrayList<Movie>();
                     //discoverRequest(sort, flatrate, providers, genreMovieList, genre.getId().toString(), countDownLatch);
-                    new DiscoverRequest(mQueue, apiKey, sort, flatrate, providers, genreMovieList, genre.getId().toString(), countDownLatch);
+                    new DiscoverRequest(mQueue, apiKey, sort, flatrate, providerIDs, genreMovieList, genre.getId().toString(), countDownLatch);
                     allList.add(genreMovieList);
                 }
                 //wait for latch
