@@ -74,7 +74,7 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
         String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
-        List<Integer> providerList = new ArrayList<>();
+        List<String> providerList = new ArrayList<>();
 
         StorageClass.getInstance().resetSettingForGenreList();
         
@@ -86,9 +86,9 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
 
             int currentId = Integer.parseInt(providerIDs[i]);
             newSwitch.setChecked(newBool);
-            possibleProviders.add(new ProviderModel(providerNames[i], currentId, newSwitch, newBool));
+            possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
             if (newBool){
-                providerList.add(currentId);
+                providerList.add(providerNames[i]);
             }
         }
 
@@ -111,18 +111,18 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
         SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor switchEditor = switchPref.edit();
         if (switchState){
-            Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
+            Log.i("providerLog", possibleProviders.get(position).providerName + " zur Liste hinzugefügt");
 
-            int currentPositionID = providerStatus.getProviderID();
-            StorageClass.getInstance().addProviderIdList(currentPositionID);
+            String currentPosition = providerStatus.getProviderName();
+            StorageClass.getInstance().addProviderList(currentPosition);
 
             providerStatus.setProviderStatus(true);
             switchEditor.putBoolean("value"+position, true);
             switchEditor.apply();
         } else {
-            Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
-            int currentPositionID = providerStatus.getProviderID();
-            StorageClass.getInstance().removeProviderIdList(currentPositionID);
+            Log.i("providerLog", possibleProviders.get(position).providerName + " von Liste entfernt");
+            String currentPosition = providerStatus.getProviderName();
+            StorageClass.getInstance().removeProviderList(currentPosition);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);
             switchEditor.apply();
