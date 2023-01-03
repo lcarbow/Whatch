@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class ApiTools {
 
     //parses Movie object from movie json from a discover request and similarRequest
-    static void movieParser(Movie movie, JSONObject jsonMovie) throws JSONException {
+    public static void movieParser(Movie movie, JSONObject jsonMovie) throws JSONException {
         //make new movie object
         movie.setTitle(jsonMovie.getString("title"));
         movie.setId(jsonMovie.getInt("id"));
@@ -28,7 +28,7 @@ public class ApiTools {
     }
 
     //parses Movie object from movie json from a movie request
-    static void movieParserMovie(Movie movie, JSONObject jsonMovie) throws JSONException {
+    public static void movieParserMovie(Movie movie, JSONObject jsonMovie) throws JSONException {
         //make new movie object
         movie.setTitle(jsonMovie.getString("title"));
         movie.setId(jsonMovie.getInt("id"));
