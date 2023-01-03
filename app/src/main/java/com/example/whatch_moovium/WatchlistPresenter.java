@@ -6,17 +6,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.whatch_moovium.API_Interface.*;
-import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.ImageLoader;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract.IModelView.OnFinishedListener,Interfaces.apiWatchlistCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewWatchlist landingPageWatchlist;
@@ -26,14 +23,15 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     ApiInterface myApiInterface;
     DatabaseHandler dbHandler;
     private List<Movie> movieList;
-    private RecyclerView.Adapter adapter;
     int index;
+
 
     public WatchlistPresenter(Contract.LandingViewWatchlist landingPageWatchlist){
         this.landingPageWatchlist = landingPageWatchlist;
         this.myApiInterface = new ApiInterface(landingPageWatchlist.getContext());
         this.imageLoader = new ImageLoader(landingPageWatchlist.getContext());
         this.dbHandler = new DatabaseHandler(landingPageWatchlist.getContext());
+        this.movieList = new ArrayList<>();
 
     }
 
@@ -65,25 +63,28 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
         }
     }
 
+    ////BIGTEST////
     @Override
-    public void receiveWatchlist(List<Movie> watchList){
-        movieList = watchList;
+    public void receiveWatchlist(List<Movie> watchList) {
+        this.movieList = watchList;
+        this.index = 0;  // Initialize the index variable
         for (Movie movie : movieList) {
             myApiInterface.getPoster(movie.getPoster(), this);
+            Log.i("receiveMovies", movie.getTitle());
         }
-        landingPageWatchlist.setAdapter();
     }
 
     @Override
-    public void receivePoster(Bitmap img){
-
-        Movie movie = movieList.get(0);
-        movie.setPosterBitmap(img);
-        movieList.remove(0);
-        /*if (movieList.isEmpty()) {
-            landingPageWatchlist.setAdapter();
-        }*/
+    public void receivePoster(Bitmap poster) {
+        Movie movie = movieList.get(index);  // Get the movie for the current index
+        movie.setPosterBitmap(poster);  // Set the poster for the movie
+        index++;  // Increment the index
+        Log.i("receivePoster", movie.getTitle());
+        if (index == movieList.size()) {  // If all posters have been received
+            landingPageWatchlist.setAdapter();  // Set the adapter for the RecyclerView
+        }
     }
+
 
     @Override
     public void receiveBackdrop(Bitmap img){

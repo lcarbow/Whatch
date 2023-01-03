@@ -40,7 +40,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
     @Override
     public void onBindViewHolder(@NonNull WatchlistViewHolder holder, int position) {
 
-        Movie item = watchlistPresenter.getMovieList().get(position);
+        Movie item = watchlistGallery.get(position);
         String imgPath = item.getPoster();
         watchlistPresenter.setImageViewForLoader(holder.posterImgView);
         watchlistPresenter.LoadImagesFromImageLoader(imgPath);
@@ -49,7 +49,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
 
     @Override
     public int getItemCount() {
-        return watchlistPresenter.getMovieList().size();
+        return watchlistGallery.size();
     }
 
 

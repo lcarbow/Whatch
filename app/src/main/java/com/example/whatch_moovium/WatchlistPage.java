@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
@@ -88,7 +89,6 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
         List<Movie> movieList = presenter.getMovieList();
         gridLayoutManager = new GridLayoutManager(WatchlistPage.this, 4);
         watchlistAdapter = new WatchlistAdapter(getApplicationContext(), presenter, movieList);
-
         recyclerView.setAdapter(watchlistAdapter);
         recyclerView.setLayoutManager(gridLayoutManager);
 
