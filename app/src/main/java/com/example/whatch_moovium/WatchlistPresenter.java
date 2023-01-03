@@ -80,9 +80,9 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
         Movie movie = movieList.get(0);
         movie.setPosterBitmap(img);
         movieList.remove(0);
-        if (movieList.isEmpty()) {
+        /*if (movieList.isEmpty()) {
             landingPageWatchlist.setAdapter();
-        }
+        }*/
     }
 
     @Override
