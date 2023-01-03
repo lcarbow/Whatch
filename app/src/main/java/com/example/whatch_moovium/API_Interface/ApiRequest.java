@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+//general api request, used by all request classes to get the json from an endpoint
 public class ApiRequest {
 
     String url;
@@ -30,7 +31,7 @@ public class ApiRequest {
         makeRequest();
     }
 
-    JSONObject getJSON() throws InterruptedException {
+    public JSONObject getJSON() throws InterruptedException {
         myCountDownLatch.await();
         if (succes) {
             return jsonObject;
