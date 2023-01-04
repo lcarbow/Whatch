@@ -24,7 +24,7 @@ public class StorageClass {
 
     //////Watchlist//////
     private List<Model> watchlistModelList;
-    List<Model> watchMovieList;
+    List<Movie> watchMovieList;
     private Movie watchActualMovie;
     private boolean watchReady;
 
@@ -131,11 +131,9 @@ public class StorageClass {
 
     public void setMyMovie(Movie movie) {this.movie = movie;}
 
-    public List<Model> getWatchlistModelList() {
-        return watchlistModelList;
-    }
+    public List<Model> getWatchlistModelList() {return watchlistModelList;}
 
-    public List<Model> getWatchMovieList() {
+    public List<Movie> getWatchMovieList() {
         return watchMovieList;
     }
 
@@ -153,8 +151,13 @@ public class StorageClass {
         this.watchlistModelList.add(model);
     }
 
-    public void setWatchMovieList(List<Model> itemList) {
+    public void setWatchMovie(List<Movie> itemList) {
         this.watchMovieList = itemList;
+    }
+
+    public void resetSettingForWatchList() {
+        this.watchlistModelList.clear();
+        this.watchMovieList.clear();
     }
 
 }

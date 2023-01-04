@@ -51,6 +51,7 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfac
 
     @Override
     public void getMovieListFromApi() {
+        StorageClass.getInstance().resetSettingForWatchList();
         List<Integer> watchList = new ArrayList<>();
         watchList = dbHandler.getWatchlist();
         myApiInterface.getWatchlist(watchList, this);
@@ -69,12 +70,8 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfac
     @Override
     public void receiveWatchlist(List<Movie> watchList) {
         this.movieList = watchList;
-        for (Movie movie: movieList){
-            List<Movie> innerlist = new ArrayList<>();
-            innerlist.add(movie);
-            StorageClass.getInstance().addWatchModelList(new Model(innerlist));
-        }
         this.index = 0;  // Initialize the index variable
+        StorageClass.getInstance().addWatchModelList(new Model (watchList));
         for (Movie movie : movieList) {
             myApiInterface.getPoster(movie.getPoster(), this);
             Log.i("receiveMovies", movie.getTitle());
@@ -86,6 +83,7 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfac
         Movie movie = movieList.get(index);  // Get the movie for the current index
         movie.setPosterBitmap(poster);  // Set the poster for the movie
         index++;  // Increment the index
+        StorageClass.getInstance().getWatchMovieList().add(movie);
         Log.i("receivePoster", movie.getTitle());
         if (index == movieList.size()) {  // If all posters have been received
             landingPageWatchlist.setAdapter();  // Set the adapter for the RecyclerView
@@ -101,7 +99,8 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfac
 
     @Override
     public void setMovie(int position){
-        StorageClass.getInstance().setMyModel(StorageClass.getInstance().getWatchlistModelList().get(position));
+        StorageClass.getInstance().setMyModel(StorageClass.getInstance().getWatchlistModelList().get(0));
+        StorageClass.getInstance().getMyModel().setIndex(position);
     }
 
 }
