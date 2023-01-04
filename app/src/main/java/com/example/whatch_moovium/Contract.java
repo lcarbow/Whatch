@@ -2,8 +2,8 @@ package com.example.whatch_moovium;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +27,10 @@ public interface Contract {
         void setRating(String string);
         void setStreaming(String string);
         void setPosterImage(Bitmap img);
-
+        void setButtonAddVisibility(int i);
+        void setButtonDeleteVisibility(int i);
+        void setSeenButtonColor();
+        void unsetSeenButtonColor();
 
     }
 
@@ -111,6 +114,7 @@ public interface Contract {
         void onButtonSeenClick();
         void onButtonNextClick();
         void onButtonBeforeClick();
+        void exist();
         // method to destroy
         // lifecycle of MainActivity
         //void onDestroy();
@@ -138,5 +142,15 @@ public interface Contract {
     }
 
 
+    interface IProviderRecyclerView {
+        void onSwitchFlipped(int position, boolean switchState);
+    }
 
+    interface IBottomNavPresenter {
+        void onItemClick(MenuItem item);
+    }
+
+    interface IBottomNavContext {
+        Context getContextForNav();
+    }
 }

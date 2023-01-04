@@ -4,48 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/black"
     tools:context=".View.LandingPage_MoodSuggestion">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigator"
+    <ImageView
+        android:id="@+id/bottomLimit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/navColor"
-        app:itemIconSize="45dp"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
+        android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu" />
-
-    <ImageButton
-        android:id="@+id/watchlist_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/ic_roundbutton"
-        android:padding="10dp"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        app:layout_constraintEnd_toStartOf="@+id/providers_button"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_watchlist" />
+        app:layout_constraintVertical_bias="1.0" />
 
-    <ImageButton
-        android:id="@+id/providers_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/ic_roundbutton"
-        android:padding="10dp"
-        android:scaleX="0.8"
-        android:scaleY="0.8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings" />
+    <include
+        layout="@layout/navigation_layout"/>
 
     <TextView
         android:id="@+id/headlineSurprise"
@@ -62,7 +36,7 @@
         android:layout_width="310dp"
         android:layout_height="500dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigator"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLimit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headlineSurprise">
@@ -140,6 +114,7 @@
 
             <Button
                 android:id="@+id/buttonNext"
+                style="@style/TextStyleInverted"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
@@ -151,12 +126,6 @@
                 android:elegantTextHeight="true"
                 android:fontFamily="@font/comfortaa_variablefont_wght"
                 android:text="Anderer Film"
-                android:textAlignment="gravity"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/WhatchBlue"
-                android:textSize="14sp"
-                android:textStyle="bold"
                 app:backgroundTint="@null" />
         </LinearLayout>
     </LinearLayout>

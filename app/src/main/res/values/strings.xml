@@ -21,6 +21,11 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings_page">SettingsPage</string>
     <string name="headline_mood">Wie geht\'s Dir heute?</string>
+    <string name="headline_genre">Schau Dich in Ruhe um</string>
+    <string name="headline_provider">Deine Provider</string>
+    <string name="headline_watchlist">Deine Watchlist</string>
+
+
     <string name="headline_moodSugg">Welcher Film gefällt Dir?</string>
 
 
@@ -31,16 +36,12 @@
         <item>WOW</item>
         <item>Sky Go</item>
         <item>RTL+</item>
+        <item>Apple TV Plus</item>
         <item>Amazon Prime Video</item>
-    </string-array>
-
-    <string-array name="possible_providerIDs">
-        <item>8</item>
-        <item>337</item>
-        <item>30</item>
-        <item>29</item>
-        <item>298</item>
-        <item>9</item>
+        <item>Netflix Kids</item>
+        <item>Netflix basic with Ads</item>
+        <item>Paramount Plus</item>
+        <item>Lionsgate Plus</item>
     </string-array>
 
     <!--Genres-->

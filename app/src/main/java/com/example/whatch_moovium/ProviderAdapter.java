@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewholder> {
-    private final ProviderRecyclerViewInterface providerRecyclerViewInterface;
+    private final Contract.IProviderRecyclerView providerRecyclerViewInterface;
 
     Context context;
     ArrayList<ProviderModel> providerModels;
 
 
-    public ProviderAdapter(Context context, ArrayList<ProviderModel> providerModels, ProviderRecyclerViewInterface providerRecyclerViewInterface){
+    public ProviderAdapter(Context context, ArrayList<ProviderModel> providerModels, Contract.IProviderRecyclerView providerRecyclerViewInterface){
 
         this.context = context;
         this.providerModels = providerModels;
@@ -64,7 +64,7 @@ class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewh
         Switch providerSwitches;
         TextView providerNames;
 
-        public ProviderViewholder(@NonNull View itemView, ProviderRecyclerViewInterface providerRecyclerViewInterface) {
+        public ProviderViewholder(@NonNull View itemView, Contract.IProviderRecyclerView providerRecyclerViewInterface) {
             super(itemView);
 
             providerSwitches = itemView.findViewById(R.id.provider_switch);

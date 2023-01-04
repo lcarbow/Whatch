@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.Model.StorageClass;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.MovieSuggestionPresenter;
 import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
@@ -23,11 +28,10 @@ import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView {
-
-    BottomNavigationView bottomNavigationView;
+public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView, Contract.IBottomNavContext {
 
     private Contract.IMovieSuggestionPresenter presenter;
+    private Contract.IBottomNavPresenter bottomNavPresenter;
 
     //Views initialisieren
 
@@ -118,27 +122,17 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         });
 
         //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
         bottomNavigationView.setSelectedItemId(R.id.surprise);
+
+        bottomNavPresenter = new BottomNavPresenter(this);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
                 return false;
             }
         });
@@ -199,4 +193,26 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
     public void setPosterImage(Bitmap img) {
         movieImage.setImageBitmap(img);
     }
+
+    @Override
+    public Context getContextForNav() { return MovieSuggestion.this; }
+
+    @Override
+    public void setButtonAddVisibility(int visibility){
+        buttonAdd.setVisibility(visibility);
+    };
+    @Override
+    public void setButtonDeleteVisibility(int visibility){
+        buttonDelete.setVisibility(visibility);
+    };
+    @Override
+    public void setSeenButtonColor(){
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(153, 204, 0)));
+    }
+
+    @Override
+    public void unsetSeenButtonColor(){
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.argb(10,204, 204, 204)));
+    }
+
 }

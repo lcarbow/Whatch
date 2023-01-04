@@ -16,14 +16,17 @@ import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.View.LandingPage_Genres;
 import com.example.whatch_moovium.View.LandingPage_Mood;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
+import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatchlistPage extends AppCompatActivity implements Contract.LandingViewWatchlist {
+public class WatchlistPage extends AppCompatActivity implements Contract.LandingViewWatchlist, Contract.IBottomNavContext{
 
+
+    private Contract.IBottomNavPresenter bottomNavPresenter;
     BottomNavigationView bottomNavigationView;
     private RecyclerView recyclerView;
     private WatchlistAdapter watchlistAdapter;
@@ -42,30 +45,18 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
         presenter.getMovieListFromApi();
 
         //Bottom Nav
+        BottomNavigationView bottomNavigationView;
         bottomNavigationView = findViewById(R.id.bottom_navigator);
 
-
+        bottomNavPresenter = new BottomNavPresenter(this);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.surprise:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Surprise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.mood:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Mood.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.genres:
-                        startActivity(new Intent(getApplicationContext(), LandingPage_Genres.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
+                bottomNavPresenter.onItemClick(item);
+                overridePendingTransition(0,0);
                 return false;
             }
         });
@@ -93,4 +84,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
         recyclerView.setLayoutManager(gridLayoutManager);
 
     }
+
+    @Override
+    public Context getContextForNav() { return WatchlistPage.this; }
 }
