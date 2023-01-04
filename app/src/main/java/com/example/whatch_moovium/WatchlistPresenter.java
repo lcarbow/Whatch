@@ -7,15 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.whatch_moovium.API_Interface.*;
+import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.ImageLoader;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract.IModelView.OnFinishedListener,Interfaces.apiWatchlistCallback, Interfaces.apiBackdropCallback, Interfaces.apiPosterCallback{
+public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfaces.apiWatchlistCallback, Interfaces.apiPosterCallback{
     private Contract.LandingViewWatchlist landingPageWatchlist;
     private Contract.IModelView model;
     private Contract.IImageLoader imageLoader;
@@ -41,9 +42,11 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
     @Override
     public void onClickImage(View view, int adapterPosition) {
         Intent i = new Intent(view.getContext(), MovieSuggestion.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         view.getContext().startActivity(i);
-
+        StorageClass.getInstance().getMyModel().setIndex(adapterPosition);
     }
+
 
 
     @Override
@@ -63,10 +66,14 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
         }
     }
 
-    ////BIGTEST////
     @Override
     public void receiveWatchlist(List<Movie> watchList) {
         this.movieList = watchList;
+        for (Movie movie: movieList){
+            List<Movie> innerlist = new ArrayList<>();
+            innerlist.add(movie);
+            StorageClass.getInstance().addWatchModelList(new Model(innerlist));
+        }
         this.index = 0;  // Initialize the index variable
         for (Movie movie : movieList) {
             myApiInterface.getPoster(movie.getPoster(), this);
@@ -87,20 +94,14 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Contract
 
 
     @Override
-    public void receiveBackdrop(Bitmap img){
-
-    }
-
-    @Override
-    public void onFinished(Movie movie){
-
-    }
-
-    @Override
     public void setImageViewForLoader(ImageView imageView){imageLoader.setImageView(imageView);}
 
     @Override
     public void LoadImagesFromImageLoader(String imgPath) {imageLoader.loadImages(imgPath);}
 
+    @Override
+    public void setMovie(int position){
+        StorageClass.getInstance().setMyModel(StorageClass.getInstance().getWatchlistModelList().get(position));
+    }
 
 }

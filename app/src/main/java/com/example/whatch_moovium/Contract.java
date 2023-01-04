@@ -132,7 +132,7 @@ public interface Contract {
         void setImageViewForLoader(ImageView imageView);
         void LoadImagesFromImageLoader(String imgPath);
         List <Movie> getMovieList();
-
+        void setMovie(int position);
         void onClickImage(View view, int adapterPosition);
     }
 

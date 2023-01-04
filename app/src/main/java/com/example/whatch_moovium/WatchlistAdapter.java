@@ -65,6 +65,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
                 @Override
                 public void onClick(View view) {
                     watchlistPresenter.onClickImage(view, getAdapterPosition());
+                    watchlistPresenter.setMovie(getAdapterPosition());
 
                 }
             });

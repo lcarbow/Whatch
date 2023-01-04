@@ -2,10 +2,7 @@ package com.example.whatch_moovium.Model;
 
 import android.util.Log;
 
-import com.example.whatch_moovium.Provider;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StorageClass {
@@ -15,7 +12,7 @@ public class StorageClass {
 
     ///////// Generell ////////
     private Model myModel;
-
+    private Movie movie;
 
     //////// Genre ////////
     private List<Model> myModelList;
@@ -26,8 +23,8 @@ public class StorageClass {
     private boolean ready;
 
     //////Watchlist//////
-    private List<Movie> watchlistModelList;
-    List<Model> watchItemList;
+    private List<Model> watchlistModelList;
+    List<Model> watchMovieList;
     private Movie watchActualMovie;
     private boolean watchReady;
 
@@ -41,7 +38,7 @@ public class StorageClass {
         this.ready = true;
 
         this.watchlistModelList = new ArrayList<>();
-        this.watchItemList = new ArrayList<>();
+        this.watchMovieList = new ArrayList<>();
         this.watchReady = true;
     }
 
@@ -130,12 +127,16 @@ public class StorageClass {
         this.itemList.clear();
     }
 
-    public List<Movie> getWatchlistModelList() {
+    public Movie getMyMovie(){return movie;}
+
+    public void setMyMovie(Movie movie) {this.movie = movie;}
+
+    public List<Model> getWatchlistModelList() {
         return watchlistModelList;
     }
 
-    public List<Model> getWatchItemList() {
-        return watchItemList;
+    public List<Model> getWatchMovieList() {
+        return watchMovieList;
     }
 
     public Movie getWatchActualMovie() {
@@ -148,12 +149,12 @@ public class StorageClass {
 
     public void setWatchReady(boolean watchReady){this.watchReady= watchReady;}
 
-    public void addWatchModelList(Movie movie) {
-        this.watchlistModelList.add(movie);
+    public void addWatchModelList(Model model) {
+        this.watchlistModelList.add(model);
     }
 
-    public void setWatchItemList(List<Model> itemList) {
-        this.watchItemList = itemList;
+    public void setWatchMovieList(List<Model> itemList) {
+        this.watchMovieList = itemList;
     }
 
 }
