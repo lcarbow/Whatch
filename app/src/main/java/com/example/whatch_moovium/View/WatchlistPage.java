@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,19 +8,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.View.LandingPage_Genres;
-import com.example.whatch_moovium.View.LandingPage_Mood;
-import com.example.whatch_moovium.View.LandingPage_Surprise;
+import com.example.whatch_moovium.ProviderSettings;
+import com.example.whatch_moovium.R;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
+import com.example.whatch_moovium.Presenter.WatchlistPresenter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WatchlistPage extends AppCompatActivity implements Contract.LandingViewWatchlist, Contract.IBottomNavContext{
@@ -65,7 +64,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
         ImageButton providersButton = findViewById(R.id.providers_button);
         //ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
         //watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
 
     }

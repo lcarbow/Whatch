@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.whatch_moovium.API_Interface.*;
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.DatabaseHandler;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;

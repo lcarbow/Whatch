@@ -17,7 +17,6 @@ import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.Presenter.SurprisePresenter;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

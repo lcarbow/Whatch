@@ -17,14 +17,11 @@ import android.widget.Switch;
 
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
-import com.example.whatch_moovium.View.LandingPage_Genres;
-import com.example.whatch_moovium.View.LandingPage_Mood;
-import com.example.whatch_moovium.View.LandingPage_Surprise;
+import com.example.whatch_moovium.View.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
@@ -67,7 +64,7 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
         //providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
-        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
     }
 
 

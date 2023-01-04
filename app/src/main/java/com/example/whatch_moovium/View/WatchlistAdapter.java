@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import android.content.Context;
 
@@ -11,10 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.whatch_moovium.Model.Model;
+import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.WatchlistViewHolder>{
