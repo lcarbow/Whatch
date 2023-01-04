@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+//used to get a list of all genres
 public class GenreRequest {
 
     private RequestQueue mQueue;
