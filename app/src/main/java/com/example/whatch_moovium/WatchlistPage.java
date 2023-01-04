@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
+import com.example.whatch_moovium.View.LandingPage_ProviderSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -81,7 +82,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.IBottom
         ImageButton providersButton = findViewById(R.id.providers_button);
         //ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
         //watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
 
     }
