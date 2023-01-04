@@ -1,17 +1,15 @@
 package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.DatabaseHandler;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
-import com.example.whatch_moovium.View.LandingPage_MoodSuggestion;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.Collections;
@@ -24,6 +22,7 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
     private ApiInterface myAPI_Interface;
     private int index;
     private List<ImageButton> buttons;
+    private DatabaseHandler db;
 
     public MoodSuggPresenter(Contract.ILandingViewMoodSugg landingPageView, List<ImageButton> buttons) {
         this.landingPageView = landingPageView;
@@ -31,6 +30,7 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
         imageLoader = new ImageLoader(landingPageView.getContext());
         this.buttons = buttons;
         index = 0;
+        this.db = new DatabaseHandler(landingPageView.getContext());
     }
 
     @Override
@@ -47,8 +47,11 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
 
 
     @Override
-    public void onMovieClick() {
+    public void onMovieClick(String tablename, int i) {
         //TODO: Gewählten Film in DB speichern zur gewählten Mood
+        if(db.checkIfThree(tablename)==false){
+            db.addTableIMG(tablename, StorageClass.getInstance().getMyModel().getArrayList().get(index-i).getId());
+        }
         getSimilarMovieListFromApi();
         toMovieSuggestion();
     }
@@ -56,7 +59,7 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
     @Override
     public void getSimilarMovieListFromApi() {
         //TODO: API_Request:getSimilar für Movies in gewählter Mood aus DB
-        //myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
+        myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
 
     }
 

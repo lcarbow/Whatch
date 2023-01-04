@@ -46,37 +46,37 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton1");
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton2");
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton3");
             }
         });
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton4");
             }
         });
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton5");
             }
         });
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton6");
             }
         });
 
