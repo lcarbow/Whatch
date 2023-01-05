@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,9 +20,7 @@ import android.widget.TextView;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.MovieSuggestionPresenter;
-import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -138,7 +138,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
@@ -192,4 +192,23 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
 
     @Override
     public Context getContextForNav() { return MovieSuggestion.this; }
+
+    @Override
+    public void setButtonAddVisibility(int visibility){
+        buttonAdd.setVisibility(visibility);
+    };
+    @Override
+    public void setButtonDeleteVisibility(int visibility){
+        buttonDelete.setVisibility(visibility);
+    };
+    @Override
+    public void setSeenButtonColor(){
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(153, 204, 0)));
+    }
+
+    @Override
+    public void unsetSeenButtonColor(){
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.argb(10,204, 204, 204)));
+    }
+
 }

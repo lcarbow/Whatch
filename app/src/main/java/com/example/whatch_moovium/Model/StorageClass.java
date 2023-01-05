@@ -2,10 +2,7 @@ package com.example.whatch_moovium.Model;
 
 import android.util.Log;
 
-import com.example.whatch_moovium.Provider;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StorageClass {
@@ -15,15 +12,22 @@ public class StorageClass {
 
     ///////// Generell ////////
     private Model myModel;
-
+    private Movie movie;
 
     //////// Genre ////////
     private List<Model> myModelList;
-    private List<Integer> providerList;
+    private List<String> providerList;
     List<Model> itemList;
     List<String> genreList;
     private Movie actualMovie;
     private boolean ready;
+
+    //////Watchlist//////
+    private List<Model> watchlistModelList;
+    List<Movie> watchMovieList;
+    private Movie watchActualMovie;
+    private boolean watchReady;
+
 
     public StorageClass() {
 
@@ -32,6 +36,10 @@ public class StorageClass {
         this.itemList = new ArrayList<>();
         this.genreList = new ArrayList<>();
         this.ready = true;
+
+        this.watchlistModelList = new ArrayList<>();
+        this.watchMovieList = new ArrayList<>();
+        this.watchReady = true;
     }
 
     public static StorageClass getInstance() {
@@ -47,16 +55,16 @@ public class StorageClass {
         this.myModel = myModel;
     }
 
-    public List<Integer> getProviderList() {
-        List<Integer> providerListInt = new ArrayList<>();
+    public List<String> getProviderList() {
+        List<String> providerListInt = new ArrayList<>();
 
-        for (int i : providerList) {
+        for (String i : providerList) {
             providerListInt.add(i);
         }
         return providerListInt;
     }
 
-    public void setProviderList(List<Integer> providerList) {
+    public void setProviderList(List<String> providerList) {
         this.providerList = providerList;
     }
 
@@ -72,23 +80,16 @@ public class StorageClass {
         this.myModelList.add(model);
     }
 
-    public void addProviderIdList(int i) {
+    public void addProviderList(String providerName) {
         Log.i("funktioniert", "Liste vor Hinzufügen: " + providerList.size());
-        this.providerList.add(i);
+        this.providerList.add(providerName);
         Log.i("funktioniert", "Liste nach Hinzufügen: " + providerList.size());
     }
 
-    public void removeProviderIdList(int i) {
-        int indexNo = 99999;
-        for (int element = 0; element < providerList.size(); element++){
-            if (providerList.get(element) == i){
-                indexNo = element;
-            }
-        }
-
-        if (providerList.contains(i)){
+    public void removeProviderList(String providerName) {
+        if (providerList.contains(providerName)){
             Log.i("funktioniert", "Liste vor Entfernung: " + providerList.size());
-            this.providerList.remove(indexNo);
+            this.providerList.remove(providerName);
             Log.i("funktioniert", "Liste nach Entfernung: " + providerList.size());
         }
 
@@ -102,9 +103,7 @@ public class StorageClass {
         return itemList;
     }
 
-    public void setItemList(List<Model> itemList) {
-        this.itemList = itemList;
-    }
+    public void setItemList(List<Model> itemList) {this.itemList = itemList;}
 
     public List<String> getGenreList() {
         return genreList;
@@ -126,6 +125,39 @@ public class StorageClass {
         this.myModelList.clear();
         this.genreList.clear();
         this.itemList.clear();
+    }
+
+    public Movie getMyMovie(){return movie;}
+
+    public void setMyMovie(Movie movie) {this.movie = movie;}
+
+    public List<Model> getWatchlistModelList() {return watchlistModelList;}
+
+    public List<Movie> getWatchMovieList() {
+        return watchMovieList;
+    }
+
+    public Movie getWatchActualMovie() {
+        return watchActualMovie;
+    }
+
+    public boolean isWatchReady() {
+        return watchReady;
+    }
+
+    public void setWatchReady(boolean watchReady){this.watchReady= watchReady;}
+
+    public void addWatchModelList(Model model) {
+        this.watchlistModelList.add(model);
+    }
+
+    public void setWatchMovie(List<Movie> itemList) {
+        this.watchMovieList = itemList;
+    }
+
+    public void resetSettingForWatchList() {
+        this.watchlistModelList.clear();
+        this.watchMovieList.clear();
     }
 
 }

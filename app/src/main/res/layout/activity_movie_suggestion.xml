@@ -98,7 +98,10 @@
                             android:scaleX="0.5"
                             android:scaleY="0.5"
                             android:text=""
+                            android:visibility="invisible"
                             app:backgroundTint="@null" />
+
+
 
                         <Button
                             android:id="@+id/button_delete"
@@ -123,7 +126,7 @@
                         android:scaleX="0.5"
                         android:scaleY="0.5"
                         android:text=""
-                        app:backgroundTint="@null" />
+                        app:backgroundTint="@android:color/holo_green_light" />
 
                 </LinearLayout>
 

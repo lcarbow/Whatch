@@ -28,6 +28,8 @@ public class Model implements Contract.IModelView {
         this.index = 0;
     }
 
+
+
     public List<Movie> getArrayList() {
         return arrayList;
     }

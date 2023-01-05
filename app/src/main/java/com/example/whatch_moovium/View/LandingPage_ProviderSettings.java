@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,19 +15,20 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Model.ProviderModel;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
-import com.example.whatch_moovium.View.LandingPage_Genres;
-import com.example.whatch_moovium.View.LandingPage_Mood;
-import com.example.whatch_moovium.View.LandingPage_Surprise;
+import com.example.whatch_moovium.Presenter.ProviderAdapter;
+import com.example.whatch_moovium.R;
+import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
+public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
@@ -67,14 +68,13 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
         //providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
-        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
     }
 
 
     private void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
-        String[] providerIDs = getResources().getStringArray(R.array.possible_providerIDs);
-        List<Integer> providerList = new ArrayList<>();
+        List<String> providerList = new ArrayList<>();
 
         StorageClass.getInstance().resetSettingForGenreList();
         
@@ -84,11 +84,10 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
             SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
-            int currentId = Integer.parseInt(providerIDs[i]);
             newSwitch.setChecked(newBool);
-            possibleProviders.add(new ProviderModel(providerNames[i], currentId, newSwitch, newBool));
+            possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
             if (newBool){
-                providerList.add(currentId);
+                providerList.add(providerNames[i]);
             }
         }
 
@@ -105,24 +104,20 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
     @Override
     public void onSwitchFlipped(int position, boolean switchState) {
 
-        String providerName = possibleProviders.get(position).getProviderName();
         ProviderModel providerStatus = possibleProviders.get(position);
 
         SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor switchEditor = switchPref.edit();
         if (switchState){
-            Log.i("providerLog", possibleProviders.get(position).providerID + " zur Liste hinzugefügt");
-
-            int currentPositionID = providerStatus.getProviderID();
-            StorageClass.getInstance().addProviderIdList(currentPositionID);
+            String currentPosition = providerStatus.getProviderName();
+            StorageClass.getInstance().addProviderList(currentPosition);
 
             providerStatus.setProviderStatus(true);
             switchEditor.putBoolean("value"+position, true);
             switchEditor.apply();
         } else {
-            Log.i("providerLog", possibleProviders.get(position).providerID + " von Liste entfernt");
-            int currentPositionID = providerStatus.getProviderID();
-            StorageClass.getInstance().removeProviderIdList(currentPositionID);
+            String currentPosition = providerStatus.getProviderName();
+            StorageClass.getInstance().removeProviderList(currentPosition);
             providerStatus.setProviderStatus(false);
             switchEditor.putBoolean("value"+position, false);
             switchEditor.apply();
@@ -130,5 +125,5 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
     }
 
     @Override
-    public Context getContextForNav() { return ProviderSettings.this; }
+    public Context getContextForNav() { return LandingPage_ProviderSettings.this; }
 }

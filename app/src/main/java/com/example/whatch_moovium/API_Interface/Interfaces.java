@@ -37,4 +37,8 @@ public class Interfaces {
         void receiveWatchprovider(Movie movie);
     }
 
+    public interface apiSimilarCallback {
+        void receiveSimilar(List<Movie> similarList);
+    }
+
 }

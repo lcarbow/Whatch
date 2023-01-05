@@ -82,6 +82,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void delSeenlistMovie(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_SEENLIST_NAME, "ID ="+id, null);
+        db.close();
+    }
+
+
     public List<Integer> getWatchlist(){
         List<Integer> watchList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

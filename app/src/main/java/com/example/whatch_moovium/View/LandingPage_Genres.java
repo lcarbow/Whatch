@@ -14,18 +14,11 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Contract;
-import com.example.whatch_moovium.Model.Model;
-import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.GenrePresenter;
-import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class LandingPage_Genres extends AppCompatActivity implements Contract.ILandingViewGenre, Contract.IBottomNavContext {
 
@@ -60,7 +53,7 @@ public class LandingPage_Genres extends AppCompatActivity implements Contract.IL
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
 
