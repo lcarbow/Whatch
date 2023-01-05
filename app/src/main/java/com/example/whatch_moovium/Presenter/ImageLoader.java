@@ -23,7 +23,6 @@ public class ImageLoader implements Contract.IImageLoader{
     }
 
 
-
     @Override
     public void loadImages(String imgPath) {
         builder.build().load("https://image.tmdb.org/t/p/w780" + imgPath)

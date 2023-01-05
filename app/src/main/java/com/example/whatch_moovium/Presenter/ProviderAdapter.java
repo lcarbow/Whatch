@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.Presenter;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,9 +12,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Model.ProviderModel;
+import com.example.whatch_moovium.R;
+
 import java.util.ArrayList;
 
-class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewholder> {
+public class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewholder> {
     private final Contract.IProviderRecyclerView providerRecyclerViewInterface;
 
     Context context;

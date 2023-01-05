@@ -2,10 +2,7 @@ package com.example.whatch_moovium.Model;
 
 import android.util.Log;
 
-import com.example.whatch_moovium.Provider;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StorageClass {
@@ -15,7 +12,7 @@ public class StorageClass {
 
     ///////// Generell ////////
     private Model myModel;
-
+    private Movie movie;
 
     //////// Genre ////////
     private List<Model> myModelList;
@@ -25,6 +22,13 @@ public class StorageClass {
     private Movie actualMovie;
     private boolean ready;
 
+    //////Watchlist//////
+    private List<Model> watchlistModelList;
+    List<Movie> watchMovieList;
+    private Movie watchActualMovie;
+    private boolean watchReady;
+
+
     public StorageClass() {
 
         this.providerList = new ArrayList<>();
@@ -32,6 +36,10 @@ public class StorageClass {
         this.itemList = new ArrayList<>();
         this.genreList = new ArrayList<>();
         this.ready = true;
+
+        this.watchlistModelList = new ArrayList<>();
+        this.watchMovieList = new ArrayList<>();
+        this.watchReady = true;
     }
 
     public static StorageClass getInstance() {
@@ -95,9 +103,7 @@ public class StorageClass {
         return itemList;
     }
 
-    public void setItemList(List<Model> itemList) {
-        this.itemList = itemList;
-    }
+    public void setItemList(List<Model> itemList) {this.itemList = itemList;}
 
     public List<String> getGenreList() {
         return genreList;
@@ -119,6 +125,39 @@ public class StorageClass {
         this.myModelList.clear();
         this.genreList.clear();
         this.itemList.clear();
+    }
+
+    public Movie getMyMovie(){return movie;}
+
+    public void setMyMovie(Movie movie) {this.movie = movie;}
+
+    public List<Model> getWatchlistModelList() {return watchlistModelList;}
+
+    public List<Movie> getWatchMovieList() {
+        return watchMovieList;
+    }
+
+    public Movie getWatchActualMovie() {
+        return watchActualMovie;
+    }
+
+    public boolean isWatchReady() {
+        return watchReady;
+    }
+
+    public void setWatchReady(boolean watchReady){this.watchReady= watchReady;}
+
+    public void addWatchModelList(Model model) {
+        this.watchlistModelList.add(model);
+    }
+
+    public void setWatchMovie(List<Movie> itemList) {
+        this.watchMovieList = itemList;
+    }
+
+    public void resetSettingForWatchList() {
+        this.watchlistModelList.clear();
+        this.watchMovieList.clear();
     }
 
 }

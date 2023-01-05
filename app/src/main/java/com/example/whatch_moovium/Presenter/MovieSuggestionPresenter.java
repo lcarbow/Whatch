@@ -23,8 +23,6 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     private ApiInterface myAPI_Interface;
     DatabaseHandler databaseHandler;
 
-    Button b_add;
-
     // instantiating the objects of View Interface
     public MovieSuggestionPresenter(Contract.IMovieView movieSuggestion) {
         this.movieSuggestion = movieSuggestion;
@@ -36,6 +34,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
     public void onPageLoaded() {
         StorageClass.getInstance().getMyModel().getThisMovie(this);
 
+        exist();
         /*for (Integer i : StorageClass.getInstance().getProviderList()) {
         }*/
 
@@ -69,8 +68,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
             databaseHandler.addWatchlistMovie(StorageClass.getInstance().getActualMovie().getId());
             Toast.makeText(movieSuggestion.getContext(),
                     "Zur Watchlist hinzugefügt!", Toast.LENGTH_SHORT).show();
-            movieSuggestion.setButtonAddVisibility(4);
-            movieSuggestion.setButtonDeleteVisibility(0);
+            exist();
 
     }
 
@@ -79,8 +77,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         databaseHandler.delWatchlistMovie(StorageClass.getInstance().getActualMovie().getId());
         Toast.makeText(movieSuggestion.getContext(),
                 "Aus Watchlist entfernt!", Toast.LENGTH_SHORT).show();
-        movieSuggestion.setButtonAddVisibility(0);
-        movieSuggestion.setButtonDeleteVisibility(4);
+        exist();
 
     }
 

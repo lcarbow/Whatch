@@ -1,6 +1,8 @@
 package com.example.whatch_moovium.Model;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class Movie {
     //ENUM?
     String original_language;
     boolean imageLoaded = false;
+
 
     public Movie(String title, int id, String description, Double rating, List<String> genre, String poster, String backdrop, String releaseDate, List<String> streaming, String original_language) {
         this.title = title;
