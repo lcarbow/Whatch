@@ -21,7 +21,7 @@ import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.ProviderAdapter;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.WatchlistPage;
+import com.example.whatch_moovium.View.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
