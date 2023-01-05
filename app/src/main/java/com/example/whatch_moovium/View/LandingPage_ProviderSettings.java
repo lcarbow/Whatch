@@ -21,7 +21,6 @@ import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.ProviderAdapter;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -72,7 +71,7 @@ public class LandingPage_ProviderSettings extends AppCompatActivity implements C
     }
 
 
-    private void setupProvider(){
+    public void setupProvider(){
         String[] providerNames = getResources().getStringArray(R.array.possible_providers);
         List<String> providerList = new ArrayList<>();
 

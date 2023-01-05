@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.example.whatch_moovium.Presenter.ProviderAdapter;
 import com.example.whatch_moovium.View.LandingPage_Surprise;
 
 public class Dispatcher extends Activity {
