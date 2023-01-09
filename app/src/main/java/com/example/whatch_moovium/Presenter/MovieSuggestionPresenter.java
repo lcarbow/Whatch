@@ -15,7 +15,7 @@ import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 
 
-public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback {
+public class MovieSuggestionPresenter implements Interfaces.apiWatchproviderCallback, Contract.IMovieSuggestionPresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback {
 
     // creating object of View Interface
     private Contract.IMovieView movieSuggestion;
@@ -51,8 +51,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());
 
-
-        movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
+        myAPI_Interface.getWatchprovider(movie, this);
     }
 
     @Override
@@ -138,5 +137,10 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         else {
             movieSuggestion.unsetSeenButtonColor();
         }
+    }
+
+    @Override
+    public void receiveWatchprovider(Movie movie) {
+        movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
     }
 }

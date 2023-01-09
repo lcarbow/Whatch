@@ -371,6 +371,39 @@ public class ApiInterface {
         thread.start();
     }
 
+    public void getWatchprovider(Movie movie, Interfaces.apiWatchproviderCallback receiver) {
+
+        //make thread
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                //make countdownlatch for similarrequest
+                CountDownLatch countDownLatch = new CountDownLatch(1);
+
+                new WatchproviderRequest(movie, countDownLatch, mQueue);
+
+                //wait for latch
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //return movielist
+                activity.runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        receiver.receiveWatchprovider(movie);
+                    }
+                });
+
+            }
+        });
+        thread.start();
+
+    }
+
                     //poster functions
     public void getPoster(String imgPath, Interfaces.apiPosterCallback receiver) {
 

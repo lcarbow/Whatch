@@ -90,7 +90,7 @@ public class DiscoverRequest {
 
                 //Add provider
 
-                //set latch for provider requests
+                /*//set latch for provider requests
                 CountDownLatch countDownLatchApiRequest = new CountDownLatch(movieList.size());
 
                 //make provider requests
@@ -103,7 +103,7 @@ public class DiscoverRequest {
                     countDownLatchApiRequest.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 //release given latch
                 countDownLatch.countDown();
