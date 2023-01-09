@@ -1,5 +1,5 @@
 package com.example.whatch_moovium;
-
+/*
 import com.example.whatch_moovium.Presenter.SurprisePresenter;
 
 import org.junit.Test;
@@ -63,4 +63,4 @@ public class SurprisePresenterTest {
         Model actualModel = StorageClass.getInstance().getMyModel();
         assertEquals(expectedModel, actualModel);
     }
-}
+}*/

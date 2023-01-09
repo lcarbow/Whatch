@@ -100,7 +100,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TestingActivity"
+            android:name=".ApiTestingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
