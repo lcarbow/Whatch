@@ -86,7 +86,7 @@ public interface Contract {
     interface IMoodPresenter {
         void getRandomMovieListFromApi();
         void onPageLoaded();
-        void getSimilarMovieListFromApi();
+        void getSimilarMovieListFromApi(String tablename);
         void onEmojiClick(String button);
         void toMovieSuggestion();
         void toMoodSuggestion(String tablename);
@@ -95,7 +95,7 @@ public interface Contract {
 
     interface IMoodSuggPresenter {
         void onPageLoaded();
-        void getSimilarMovieListFromApi();
+        void getSimilarMovieListFromApi(String tablename);
         void onMovieClick(String tablename, int i);
         void toMovieSuggestion();
         void onNextButtonClick();

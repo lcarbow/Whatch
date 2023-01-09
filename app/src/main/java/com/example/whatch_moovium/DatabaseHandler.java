@@ -126,6 +126,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<Integer> getMoodlist(String tablename){
+        List<Integer> moodList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "SELECT * FROM " + tablename;
+        Cursor cursor = db.rawQuery(Query, null);
+        int fieldToAdd;
+        while (cursor.moveToNext()){
+            fieldToAdd = cursor.getInt(0);
+            moodList.add(fieldToAdd);
+        }
+        cursor.close();
+        return moodList;
+    }
+
+    public int moodSize(String tableName){
+        String countQuery = "SELECT * FROM " + tableName;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        return cursor.getCount();
+    }
+
     public boolean checkIfThree(String tableName){
         String countQuery = "SELECT * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();

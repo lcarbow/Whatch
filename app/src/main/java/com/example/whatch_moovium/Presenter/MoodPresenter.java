@@ -22,21 +22,20 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDiscoverCallback{
+public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDiscoverCallback, Interfaces.apiSimilarCallback{
 
     private Contract.ILandingViewMood landingPageView;
     private ApiInterface myAPI_Interface;
     private SharedPreferences prefs;
     private boolean dailyClicked = false;
     private DatabaseHandler db;
-    private int counter;
 
 
     public MoodPresenter(Contract.ILandingViewMood landingPageView) {
         this.landingPageView = landingPageView;
-        this.counter = 0;
         myAPI_Interface = new ApiInterface(landingPageView.getContext());
         prefs = landingPageView.getContext().getSharedPreferences("X", Context.MODE_PRIVATE);
+        this.db = new DatabaseHandler(landingPageView.getContext());
     }
 
     @Override
@@ -63,14 +62,15 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
-
-
-
-
         if (prefs.getBoolean("dailyClicked", false)){
             Log.i("dailyClicked", "is skipped to movies, or NOT?");
-            getSimilarMovieListFromApi();
-            toMovieSuggestion();
+            if(db.moodSize(prefs.getString("tableName", "NULL"))==0){
+                toMoodSuggestion(prefs.getString("tableName", "NULL"));
+            }
+            else {
+                getSimilarMovieListFromApi(prefs.getString("tableName", "NULL"));
+                toMovieSuggestion();
+            }
         }
         //TODO else:
         else {
@@ -83,14 +83,14 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
     @Override
     public void onEmojiClick(String tablename) {
 
-        this.db = new DatabaseHandler(landingPageView.getContext());
         prefs.edit().putBoolean("dailyClicked", true).apply();
+        prefs.edit().putString("tableName", tablename).apply();
         Log.i("dailyClicked", "boolean set true");
         Log.i("dailyClicked", String.valueOf(prefs.getBoolean("dailyClicked", false)));
         //TODO: in DB nach gewählter mood suchen
         if (db.checkIfThree(tablename)){
             //TODO: else:
-            getSimilarMovieListFromApi();
+            getSimilarMovieListFromApi(tablename);
             toMovieSuggestion();
         }
         else{
@@ -107,11 +107,17 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
     }
 
-
+    @Override
+    public void getSimilarMovieListFromApi(String tablename) {
+        //TODO: API_Request:getSimilar mit bereits in DB enthaltenen Filmen
+        myAPI_Interface.getSimilar(db.getMoodlist(tablename), true, StorageClass.getInstance().getProviderList(), 20, this);
+    }
 
     @Override
-    public void getSimilarMovieListFromApi() {
-        //TODO: API_Request:getSimilar mit bereits in DB enthaltenen Filmen
+    public void receiveSimilar(List<Movie> filteredMovieList) {
+        Collections.shuffle(filteredMovieList);
+        StorageClass.getInstance().setMyModel(new Model(filteredMovieList));
+        Log.i("receiveSimilar", "Geladen");
     }
 
     @Override
@@ -134,6 +140,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         i.putExtra("tablename", tablename);
         landingPageView.getContext().startActivity(i);
     }
+
 
 
 

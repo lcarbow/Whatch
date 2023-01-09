@@ -104,7 +104,7 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
 
@@ -112,7 +112,7 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("lastActivity", getClass().getName());
         editor.commit();
-    }
+    }*/
 
     @Override
     public Context getContext() {

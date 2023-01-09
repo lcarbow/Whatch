@@ -15,7 +15,7 @@ import com.example.whatch_moovium.View.MovieSuggestion;
 import java.util.Collections;
 import java.util.List;
 
-public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interfaces.apiDiscoverCallback{
+public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interfaces.apiSimilarCallback{
 
     private Contract.ILandingViewMoodSugg landingPageView;
     private Contract.IImageLoader imageLoader;
@@ -49,22 +49,22 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
     @Override
     public void onMovieClick(String tablename, int i) {
         //TODO: Gewählten Film in DB speichern zur gewählten Mood
-        if(db.checkIfThree(tablename)==false){
+        if(!db.checkIfThree(tablename)){
             db.addTableIMG(tablename, StorageClass.getInstance().getMyModel().getArrayList().get(index-i).getId());
         }
-        getSimilarMovieListFromApi();
+        getSimilarMovieListFromApi(tablename);
         toMovieSuggestion();
     }
 
     @Override
-    public void getSimilarMovieListFromApi() {
+    public void getSimilarMovieListFromApi(String tablename) {
         //TODO: API_Request:getSimilar für Movies in gewählter Mood aus DB
-        myAPI_Interface.getDiscover("popularity.desc", true, StorageClass.getInstance().getProviderList(), this);
+        myAPI_Interface.getSimilar(db.getMoodlist(tablename), true, StorageClass.getInstance().getProviderList(), 20, this);
 
     }
 
     @Override
-    public void receiveDiscover(List<Movie> filteredMovieList) {
+    public void receiveSimilar(List<Movie> filteredMovieList) {
         Collections.shuffle(filteredMovieList);
         StorageClass.getInstance().setMyModel(new Model(filteredMovieList));
     }
