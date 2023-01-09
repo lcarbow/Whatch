@@ -18,13 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.whatch_moovium.Contract;
-import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.MovieSuggestionPresenter;
-import com.example.whatch_moovium.ProviderSettings;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -142,7 +138,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }

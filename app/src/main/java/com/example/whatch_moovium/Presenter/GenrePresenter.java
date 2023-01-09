@@ -90,8 +90,6 @@ public class GenrePresenter implements Contract.IGenrePresenter, Interfaces.apiA
     }
 
     @Override
-    public void LoadImagesFromImageLoader(String imgPath) {
-        imageLoader.loadImages(imgPath);
-    }
+    public void LoadImagesFromImageLoader(String imgPath) {imageLoader.loadImages(imgPath);}
 
 }

@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ProviderSettings"
+            android:name=".View.LandingPage_ProviderSettings"
             android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
@@ -40,7 +40,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".WatchlistPage"
+            android:name=".View.WatchlistPage"
             android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
@@ -88,7 +88,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Dispatcher"
+            android:name=".View.Dispatcher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

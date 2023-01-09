@@ -6,8 +6,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
+import com.example.whatch_moovium.View.LandingPage_Genres;
 
 import java.util.List;
 
@@ -126,12 +129,18 @@ public interface Contract {
     interface WatchlistPresenter{
         void getMovieListFromApi();
         void onButtonClick();
+        void setImageViewForLoader(ImageView imageView);
+        void LoadImagesFromImageLoader(String imgPath);
+        List <Movie> getMovieList();
+        void setMovie(int position);
+        void onClickImage(View view, int adapterPosition);
     }
 
     interface LandingViewWatchlist {
         Context getContext();
-        void setAdapter(List<Model> itemList);
+        void setAdapter();
     }
+
 
     interface IProviderRecyclerView {
         void onSwitchFlipped(int position, boolean switchState);

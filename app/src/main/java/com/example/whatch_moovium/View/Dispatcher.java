@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import android.app.Activity;
 import android.content.Intent;

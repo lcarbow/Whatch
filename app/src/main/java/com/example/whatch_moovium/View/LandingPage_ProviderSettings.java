@@ -1,4 +1,4 @@
-package com.example.whatch_moovium;
+package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,19 +15,20 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
+import com.example.whatch_moovium.Contract;
+import com.example.whatch_moovium.Model.ProviderModel;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
-import com.example.whatch_moovium.View.LandingPage_Genres;
-import com.example.whatch_moovium.View.LandingPage_Mood;
-import com.example.whatch_moovium.View.LandingPage_Surprise;
+import com.example.whatch_moovium.Presenter.ProviderAdapter;
+import com.example.whatch_moovium.R;
+import com.example.whatch_moovium.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
+public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
@@ -67,7 +68,7 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
         //providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),ProviderSettings.class)));
-        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
+        watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
     }
 
 
@@ -103,14 +104,11 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
     @Override
     public void onSwitchFlipped(int position, boolean switchState) {
 
-        String providerName = possibleProviders.get(position).getProviderName();
         ProviderModel providerStatus = possibleProviders.get(position);
 
         SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor switchEditor = switchPref.edit();
         if (switchState){
-            Log.i("providerLog", possibleProviders.get(position).providerName + " zur Liste hinzugefügt");
-
             String currentPosition = providerStatus.getProviderName();
             StorageClass.getInstance().addProviderList(currentPosition);
 
@@ -118,7 +116,6 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
             switchEditor.putBoolean("value"+position, true);
             switchEditor.apply();
         } else {
-            Log.i("providerLog", possibleProviders.get(position).providerName + " von Liste entfernt");
             String currentPosition = providerStatus.getProviderName();
             StorageClass.getInstance().removeProviderList(currentPosition);
             providerStatus.setProviderStatus(false);
@@ -128,5 +125,5 @@ public class ProviderSettings extends AppCompatActivity implements Contract.IPro
     }
 
     @Override
-    public Context getContextForNav() { return ProviderSettings.this; }
+    public Context getContextForNav() { return LandingPage_ProviderSettings.this; }
 }
