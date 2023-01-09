@@ -153,4 +153,9 @@ public interface Contract {
     interface IBottomNavContext {
         Context getContextForNav();
     }
+
+    interface LandingViewProvider{
+        Context getContext();
+        Context getBaseContext();
+    }
 }
