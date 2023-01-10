@@ -21,14 +21,13 @@ import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.ProviderAdapter;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.View.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
+public class ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
     ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
@@ -125,5 +124,5 @@ public class LandingPage_ProviderSettings extends AppCompatActivity implements C
     }
 
     @Override
-    public Context getContextForNav() { return LandingPage_ProviderSettings.this; }
+    public Context getContextForNav() { return ProviderSettings.this; }
 }

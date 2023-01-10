@@ -6,21 +6,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.View.LandingPage_Genres;
 
 import java.util.List;
 
 public interface Contract {
 
     //MUELL!
-    interface IMovieView {
+    interface IMovieSuggestionView {
         //MovieView zu MovieSuggestion setzen
         Context getContext();
-        String getTextTitle();
         void setTitle(String string);
         void setDescription(String string);
         void setGenre(String string);

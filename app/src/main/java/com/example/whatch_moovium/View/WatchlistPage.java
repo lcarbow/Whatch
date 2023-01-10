@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.View.LandingPage_ProviderSettings;
 import com.example.whatch_moovium.R;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.WatchlistPresenter;
@@ -64,7 +63,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
         ImageButton providersButton = findViewById(R.id.providers_button);
         //ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
         //watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),WatchlistPage.class)));
 
     }

@@ -104,7 +104,7 @@ public class LandingPage_MoodSuggestion extends AppCompatActivity implements Con
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
