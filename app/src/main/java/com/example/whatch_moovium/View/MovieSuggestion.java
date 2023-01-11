@@ -24,7 +24,7 @@ import com.example.whatch_moovium.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView, Contract.IBottomNavContext {
+public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieSuggestionView, Contract.IBottomNavContext {
 
     private Contract.IMovieSuggestionPresenter presenter;
     private Contract.IBottomNavPresenter bottomNavPresenter;
@@ -138,7 +138,7 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
         ImageButton providersButton = findViewById(R.id.providers_button);
         ImageButton watchlistButton = findViewById(R.id.watchlist_button);
 
-        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LandingPage_ProviderSettings.class)));
+        providersButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), ProviderSettings.class)));
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
@@ -152,12 +152,6 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
     @Override
     public void setTitle(String string) {
         titleView.setText(string);
-
-    }
-
-    public String getTextTitle() {
-
-        return titleView.getText().toString();
 
     }
 
@@ -203,12 +197,12 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
     };
     @Override
     public void setSeenButtonColor(){
-        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(153, 204, 0)));
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(204, 204, 204)));
     }
 
     @Override
     public void unsetSeenButtonColor(){
-        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.argb(10,204, 204, 204)));
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.argb(60,204, 204, 204)));
     }
 
 }

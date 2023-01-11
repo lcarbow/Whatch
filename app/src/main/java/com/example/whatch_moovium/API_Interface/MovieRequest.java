@@ -2,18 +2,12 @@ package com.example.whatch_moovium.API_Interface;
 
 import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Model.Movie;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class MovieRequest {
@@ -46,9 +40,9 @@ public class MovieRequest {
 
                 //api request
                 //apirequest
-                ApiRequest movieApiRequest = new ApiRequest(url, mQueue);
+                VolleyRequest movieVolleyRequest = new VolleyRequest(url, mQueue);
                 JSONObject jsonMovie = null;
-                try {jsonMovie = movieApiRequest.getJSON();} catch (InterruptedException e) {
+                try {jsonMovie = movieVolleyRequest.getJSON();} catch (InterruptedException e) {
                     e.printStackTrace();
                     Log.i("Alex", "ApiRequest Error!!!");
                 }

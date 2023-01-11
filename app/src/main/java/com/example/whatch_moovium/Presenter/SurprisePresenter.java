@@ -9,7 +9,6 @@ import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
-import com.example.whatch_moovium.Provider;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.Arrays;

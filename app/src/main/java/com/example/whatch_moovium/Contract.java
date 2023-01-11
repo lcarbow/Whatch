@@ -6,21 +6,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.View.LandingPage_Genres;
 
 import java.util.List;
 
 public interface Contract {
 
     //MUELL!
-    interface IMovieView {
+    interface IMovieSuggestionView {
         //MovieView zu MovieSuggestion setzen
         Context getContext();
-        String getTextTitle();
         void setTitle(String string);
         void setDescription(String string);
         void setGenre(String string);
@@ -89,17 +84,17 @@ public interface Contract {
     interface IMoodPresenter {
         void getRandomMovieListFromApi();
         void onPageLoaded();
-        void getSimilarMovieListFromApi();
-        void onEmojiClick();
+        void getSimilarMovieListFromApi(String tablename);
+        void onEmojiClick(String button);
         void toMovieSuggestion();
-        void toMoodSuggestion();
+        void toMoodSuggestion(String tablename);
 
     }
 
     interface IMoodSuggPresenter {
         void onPageLoaded();
-        void getSimilarMovieListFromApi();
-        void onMovieClick();
+        void getSimilarMovieListFromApi(String tablename);
+        void onMovieClick(String tablename, int i);
         void toMovieSuggestion();
         void onNextButtonClick();
     }

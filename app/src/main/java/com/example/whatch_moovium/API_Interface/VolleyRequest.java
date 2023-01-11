@@ -5,24 +5,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.whatch_moovium.Model.Movie;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class ApiRequest {
+public class VolleyRequest {
 
     String url;
     CountDownLatch myCountDownLatch;
     RequestQueue mQueue;
     JSONObject jsonObject;
-    Boolean succes;
+    Boolean success;
 
-    public ApiRequest(String url, RequestQueue mQueue) {
+    public VolleyRequest(String url, RequestQueue mQueue) {
         this.url = url;
         this.mQueue = mQueue;
 
@@ -32,7 +28,7 @@ public class ApiRequest {
 
     JSONObject getJSON() throws InterruptedException {
         myCountDownLatch.await();
-        if (succes) {
+        if (success) {
             return jsonObject;
         } else {
             throw new InterruptedException();
@@ -51,7 +47,7 @@ public class ApiRequest {
                         jsonObject = jsonMovielist;
 
                         //set succes
-                        succes = true;
+                        success = true;
 
                         //release latch
                         myCountDownLatch.countDown();
@@ -60,7 +56,7 @@ public class ApiRequest {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                succes = false;
+                success = false;
             }
         });
         mQueue.add(request);
