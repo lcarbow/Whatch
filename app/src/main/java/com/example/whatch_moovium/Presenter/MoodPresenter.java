@@ -83,8 +83,8 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
     @Override
     public void onEmojiClick(String tablename) {
 
-        prefs.edit().putBoolean("dailyClicked", true).apply();
-        prefs.edit().putString("tableName", tablename).apply();
+        prefs.edit().putBoolean("dailyClicked", true).commit();
+        prefs.edit().putString("tableName", tablename).commit();
         Log.i("dailyClicked", "boolean set true");
         Log.i("dailyClicked", String.valueOf(prefs.getBoolean("dailyClicked", false)));
         //TODO: in DB nach gewählter mood suchen
