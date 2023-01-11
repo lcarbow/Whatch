@@ -151,6 +151,5 @@ public interface Contract {
 
     interface LandingViewProvider{
         Context getContext();
-        Context getBaseContext();
     }
 }

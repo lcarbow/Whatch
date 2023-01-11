@@ -2,22 +2,17 @@ package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.Switch;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.ProviderModel;
-import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.ProviderAdapter;
 import com.example.whatch_moovium.Presenter.ProviderPresenter;
@@ -26,7 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext, Contract.LandingViewProvider {
 
@@ -85,6 +79,4 @@ public class LandingPage_ProviderSettings extends AppCompatActivity implements C
     @Override
     public Context getContext(){return LandingPage_ProviderSettings.this;}
 
-    @Override
-    public Context getBaseContext(){return getBaseContext();}
 }

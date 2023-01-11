@@ -1,5 +1,6 @@
 package com.example.whatch_moovium.Presenter;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Switch;
@@ -35,7 +36,7 @@ public class ProviderPresenter {
         for (int i = 0; i < providerNames.length; i++){
             Switch newSwitch = new Switch(landingPageProvider.getContext());
 
-            SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(landingPageProvider.getBaseContext());
+            SharedPreferences getSwitchPrefs = landingPageProvider.getContext().getSharedPreferences("X", Context.MODE_PRIVATE);
             boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
 
             newSwitch.setChecked(newBool);
@@ -56,8 +57,7 @@ public class ProviderPresenter {
 
     public void switchFlip(int position, boolean switchState){
         ProviderModel providerStatus = possibleProviders.get(position);
-
-        SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(landingPageProvider.getBaseContext());
+        SharedPreferences switchPref = landingPageProvider.getContext().getSharedPreferences("X", Context.MODE_PRIVATE);
         SharedPreferences.Editor switchEditor = switchPref.edit();
         if (switchState){
             String currentPosition = providerStatus.getProviderName();

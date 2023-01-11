@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".View.ProviderSettings"
+            android:name=".View.LandingPage_ProviderSettings"
             android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
