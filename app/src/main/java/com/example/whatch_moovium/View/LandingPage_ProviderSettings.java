@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext, Contract.LandingViewProvider {
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
-    ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
     ProviderPresenter pp;
 
     @Override
@@ -38,7 +37,7 @@ public class LandingPage_ProviderSettings extends AppCompatActivity implements C
 
         pp.onPageLoaded();
 
-        ProviderAdapter adapter = new ProviderAdapter(this, possibleProviders, this);
+        ProviderAdapter adapter = new ProviderAdapter(this, pp.getPossibleProviders(), this);
 
         //Adapter an RecyclerView ranhängen
         recyclerView.setAdapter(adapter);

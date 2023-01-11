@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ProviderPresenter {
 
-    ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
+    private ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
     private Contract.LandingViewProvider landingPageProvider;
 
     public ProviderPresenter(Contract.LandingViewProvider landingPageProvider){
@@ -74,4 +74,8 @@ public class ProviderPresenter {
             switchEditor.apply();
         }
     }
+    public ArrayList<ProviderModel> getPossibleProviders() {
+        return possibleProviders;
+    }
+
 }
