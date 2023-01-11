@@ -197,12 +197,12 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
     };
     @Override
     public void setSeenButtonColor(){
-        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(153, 204, 0)));
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.rgb(204, 204, 204)));
     }
 
     @Override
     public void unsetSeenButtonColor(){
-        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.argb(10,204, 204, 204)));
+        buttonSeen.setBackgroundTintList(ColorStateList.valueOf(Color.argb(60,204, 204, 204)));
     }
 
 }

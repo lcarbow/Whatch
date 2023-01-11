@@ -43,37 +43,37 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton1");
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton2");
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton3");
             }
         });
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton4");
             }
         });
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton5");
             }
         });
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onEmojiClick();
+                presenter.onEmojiClick("imagebutton6");
             }
         });
 
@@ -101,7 +101,7 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         watchlistButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), WatchlistPage.class)));
 
     }
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
 
@@ -109,7 +109,7 @@ public class LandingPage_Mood extends AppCompatActivity implements Contract.ILan
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("lastActivity", getClass().getName());
         editor.commit();
-    }
+    }*/
 
     @Override
     public Context getContext() {

@@ -48,31 +48,33 @@ public class LandingPage_MoodSuggestion extends AppCompatActivity implements Con
         presenter = new MoodSuggPresenter(this, Arrays.asList(button1, button2, button3, button4));
         presenter.onPageLoaded();
 
+        String tablename = getIntent().getStringExtra("tablename");
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onMovieClick();
+                presenter.onMovieClick(tablename, 0);
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onMovieClick();
+                presenter.onMovieClick(tablename, 1);
             }
         });
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onMovieClick();
+                presenter.onMovieClick(tablename, 2);
             }
         });
 
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onMovieClick();
+                presenter.onMovieClick(tablename, 0);
             }
         });
 
