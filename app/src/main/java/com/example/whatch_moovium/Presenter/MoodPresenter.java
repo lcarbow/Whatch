@@ -102,7 +102,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
     @Override
     public void getSimilarMovieListFromApi(String tablename) {
         //TODO: API_Request:getSimilar mit bereits in DB enthaltenen Filmen
-        myAPI_Interface.getSimilar(db.getMoodlist(tablename), true, StorageClass.getInstance().getProviderList(), 20, this);
+        myAPI_Interface.getSimilar(db.getMoodlist(tablename), true, StorageClass.getInstance().getProviderList(), 10, this);
     }
 
     @Override
