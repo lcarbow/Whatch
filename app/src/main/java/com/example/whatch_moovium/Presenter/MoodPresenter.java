@@ -61,7 +61,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
 
         // Set up an Intent to be broadcast by the AlarmManager
         Intent intent = new Intent(landingPageView.getContext(), MyBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(landingPageView.getContext(), 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(landingPageView.getContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         // Set the alarm
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pendingIntent);
