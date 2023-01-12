@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.DatabaseHandler;
@@ -17,6 +20,9 @@ public class MoodDispatcher extends Activity implements Contract.ILandingViewMoo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.backgroundblack);
+        ImageView logo = findViewById(R.id.logo);
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+        logo.startAnimation(pulse);
         SharedPreferences prefs = getSharedPreferences("X", Context.MODE_PRIVATE);
         DatabaseHandler db = new DatabaseHandler(this);
 
