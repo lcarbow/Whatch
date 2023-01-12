@@ -49,9 +49,14 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         // Set the alarm to trigger at 1am every day
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 1) {
+            // Add one day to the calendar
+            calendar.add(Calendar.DATE, 1);
+        }
         calendar.set(Calendar.HOUR_OF_DAY, 1);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+
         long triggerTime = calendar.getTimeInMillis();
 
         // Set up an Intent to be broadcast by the AlarmManager
@@ -63,7 +68,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
 
 
         if (prefs.getBoolean("dailyClicked", false)){
-            Log.i("dailyClicked", "is skipped to movies, or NOT?");
+            Log.i("dailyClicked", "go to moviesugg");
             if(db.moodSize(prefs.getString("tableName", "NULL"))==0){
                 toMoodSuggestion(prefs.getString("tableName", "NULL"));
             }
@@ -74,7 +79,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         }
         //TODO else:
         else {
-            Log.i("dailyClicked", "is NOT skipped to movies");
+            Log.i("dailyClicked", "go to emojis and 4 movies");
             Log.i("dailyClicked", String.valueOf(dailyClicked));
             getRandomMovieListFromApi();
         }
@@ -82,16 +87,16 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
 
     @Override
     public void onEmojiClick(String tablename) {
-
-        prefs.edit().putBoolean("dailyClicked", true).commit();
-        prefs.edit().putString("tableName", tablename).commit();
+        SharedPreferences.Editor prefedit = prefs.edit();
+        prefedit.putBoolean("dailyClicked", true);
+        prefedit.putString("tableName", tablename);
+        prefedit.apply();
         Log.i("dailyClicked", "boolean set true");
         Log.i("dailyClicked", String.valueOf(prefs.getBoolean("dailyClicked", false)));
         //TODO: in DB nach gewählter mood suchen
         if (db.checkIfThree(tablename)){
             //TODO: else:
             getSimilarMovieListFromApi(tablename);
-            toMovieSuggestion();
         }
         else{
             //TODO: if DB.gewählte_mood.size < 3:
@@ -118,6 +123,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         Collections.shuffle(filteredMovieList);
         StorageClass.getInstance().setMyModel(new Model(filteredMovieList));
         Log.i("receiveSimilar", "Geladen");
+        toMovieSuggestion();
     }
 
     @Override
