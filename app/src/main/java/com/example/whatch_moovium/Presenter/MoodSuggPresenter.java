@@ -53,7 +53,7 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
             db.addTableIMG(tablename, StorageClass.getInstance().getMyModel().getArrayList().get(index-i).getId());
         }
         getSimilarMovieListFromApi(tablename);
-        toMovieSuggestion();
+
     }
 
     @Override
@@ -67,6 +67,7 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
     public void receiveSimilar(List<Movie> filteredMovieList) {
         Collections.shuffle(filteredMovieList);
         StorageClass.getInstance().setMyModel(new Model(filteredMovieList));
+        toMovieSuggestion();
     }
 
 

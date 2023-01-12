@@ -6,7 +6,9 @@ import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Movie {
 
@@ -22,6 +24,7 @@ public class Movie {
     String backdrop;
     String releaseDate;
     List<String> streaming = new ArrayList<>();
+    Set<String> streamingtest = new HashSet<>();
     //ENUM?
     String original_language;
     boolean imageLoaded = false;
@@ -90,6 +93,7 @@ public class Movie {
 
     public String getGenre() {
         String genresString = "";
+        int index =0;
         for (String genre : this.genre) {
             String genreToAppend;
 
@@ -157,8 +161,13 @@ public class Movie {
                     genreToAppend = "";
                     break;
             }
-
-            genresString += genreToAppend + ", ";
+            if (index == this.genre.size()-1){
+                genresString += genreToAppend;
+                index = 0;
+            }else {
+                genresString += genreToAppend + ", ";
+                index++;
+            }
         }
         return genresString;
     }
@@ -197,9 +206,15 @@ public class Movie {
 
     public String getStreaming() {
         String streamingServices = "";
-
-        for (String provider : this.streaming) {
-            streamingServices += provider + ", ";
+        int index = 0;
+        for (String provider : this.streamingtest) {
+            if (index == streamingtest.size()-1){
+                streamingServices += provider;
+                index = 0;
+            } else {
+                streamingServices += provider + ", ";
+                index++;
+            }
         }
         return streamingServices;
 
@@ -207,7 +222,7 @@ public class Movie {
 
     //checks if this Movie is available a specific Streaming service
     public boolean isAvailableAt(String service) {
-        for (String currentService : streaming) {
+        for (String currentService : streamingtest) {
             if (currentService.equalsIgnoreCase(service)) {return true;}
         }
         return false;
@@ -215,7 +230,7 @@ public class Movie {
 
     //add one streaming provider as string
     public void addStreaming(String watchProvider) {
-        this.streaming.add(watchProvider);
+        this.streaming.add(watchProvider); this.streamingtest.add(watchProvider);
     }
 
     public String getOriginal_language() {

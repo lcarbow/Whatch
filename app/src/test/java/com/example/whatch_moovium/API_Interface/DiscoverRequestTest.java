@@ -2,28 +2,21 @@ package com.example.whatch_moovium.API_Interface;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import android.content.Context;
 
 import com.android.volley.toolbox.Volley;
-import com.example.whatch_moovium.API_Interface.ApiRequest;
-import com.example.whatch_moovium.API_Interface.DiscoverRequest;
 import com.example.whatch_moovium.Model.Movie;
 import com.android.volley.RequestQueue;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 

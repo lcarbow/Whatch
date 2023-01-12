@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.View.LandingPage_ProviderSettings;
 import com.example.whatch_moovium.R;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.WatchlistPresenter;

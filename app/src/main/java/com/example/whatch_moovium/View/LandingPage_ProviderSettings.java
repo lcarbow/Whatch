@@ -2,36 +2,30 @@ package com.example.whatch_moovium.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.Switch;
 
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.ProviderModel;
-import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
 import com.example.whatch_moovium.Presenter.ProviderAdapter;
+import com.example.whatch_moovium.Presenter.ProviderPresenter;
 import com.example.whatch_moovium.R;
-import com.example.whatch_moovium.View.WatchlistPage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext {
+public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext, Contract.LandingViewProvider {
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
-    ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
+    ProviderPresenter pp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +33,11 @@ public class LandingPage_ProviderSettings extends AppCompatActivity implements C
         setContentView(R.layout.activity_provider_settings);
 
         RecyclerView recyclerView = findViewById(R.id.providerRecycler);
+        pp = new ProviderPresenter(this);
 
-        setupProvider();
+        pp.onPageLoaded();
 
-        ProviderAdapter adapter = new ProviderAdapter(this, possibleProviders, this);
+        ProviderAdapter adapter = new ProviderAdapter(this, pp.getPossibleProviders(), this);
 
         //Adapter an RecyclerView ranhängen
         recyclerView.setAdapter(adapter);
@@ -72,58 +67,15 @@ public class LandingPage_ProviderSettings extends AppCompatActivity implements C
     }
 
 
-    private void setupProvider(){
-        String[] providerNames = getResources().getStringArray(R.array.possible_providers);
-        List<String> providerList = new ArrayList<>();
-
-        StorageClass.getInstance().resetSettingForGenreList();
-        
-        for (int i = 0; i < providerNames.length; i++){
-            Switch newSwitch = new Switch(this);
-
-            SharedPreferences getSwitchPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            boolean newBool = getSwitchPrefs.getBoolean("value"+i, true);
-
-            newSwitch.setChecked(newBool);
-            possibleProviders.add(new ProviderModel(providerNames[i], newSwitch, newBool));
-            if (newBool){
-                providerList.add(providerNames[i]);
-            }
-        }
-
-        StorageClass.getInstance().setProviderList(providerList);
-
-        //Test
-        for (int e = 0; e < providerList.size(); e++){
-            Log.i("providerLog", "" + providerList.get(e).toString());
-        }
-
-    }
-
-
     @Override
     public void onSwitchFlipped(int position, boolean switchState) {
-
-        ProviderModel providerStatus = possibleProviders.get(position);
-
-        SharedPreferences switchPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        SharedPreferences.Editor switchEditor = switchPref.edit();
-        if (switchState){
-            String currentPosition = providerStatus.getProviderName();
-            StorageClass.getInstance().addProviderList(currentPosition);
-
-            providerStatus.setProviderStatus(true);
-            switchEditor.putBoolean("value"+position, true);
-            switchEditor.apply();
-        } else {
-            String currentPosition = providerStatus.getProviderName();
-            StorageClass.getInstance().removeProviderList(currentPosition);
-            providerStatus.setProviderStatus(false);
-            switchEditor.putBoolean("value"+position, false);
-            switchEditor.apply();
-        }
+        pp.switchFlip(position, switchState);
     }
 
     @Override
     public Context getContextForNav() { return LandingPage_ProviderSettings.this; }
+
+    @Override
+    public Context getContext(){return LandingPage_ProviderSettings.this;}
+
 }

@@ -24,7 +24,7 @@ import com.example.whatch_moovium.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieView, Contract.IBottomNavContext {
+public class MovieSuggestion extends AppCompatActivity implements Contract.IMovieSuggestionView, Contract.IBottomNavContext {
 
     private Contract.IMovieSuggestionPresenter presenter;
     private Contract.IBottomNavPresenter bottomNavPresenter;
@@ -152,12 +152,6 @@ public class MovieSuggestion extends AppCompatActivity implements Contract.IMovi
     @Override
     public void setTitle(String string) {
         titleView.setText(string);
-
-    }
-
-    public String getTextTitle() {
-
-        return titleView.getText().toString();
 
     }
 

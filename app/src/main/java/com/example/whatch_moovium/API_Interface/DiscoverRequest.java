@@ -2,18 +2,13 @@ package com.example.whatch_moovium.API_Interface;
 
 import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.whatch_moovium.Model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -65,9 +60,9 @@ public class DiscoverRequest {
 
 
                 //make apiRequest
-                ApiRequest discoverApiRequest = new ApiRequest(url, mQueue);
+                VolleyRequest discoverVolleyRequest = new VolleyRequest(url, mQueue);
                 JSONObject jsonMovielist = null;
-                try {jsonMovielist = discoverApiRequest.getJSON();} catch (InterruptedException e) {
+                try {jsonMovielist = discoverVolleyRequest.getJSON();} catch (InterruptedException e) {
                     e.printStackTrace();
                     Log.i("Alex", "ApiRequest Error!!!");
                 }
@@ -95,7 +90,7 @@ public class DiscoverRequest {
 
                 //Add provider
 
-                //set latch for provider requests
+                /*//set latch for provider requests
                 CountDownLatch countDownLatchApiRequest = new CountDownLatch(movieList.size());
 
                 //make provider requests
@@ -108,7 +103,7 @@ public class DiscoverRequest {
                     countDownLatchApiRequest.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 //release given latch
                 countDownLatch.countDown();

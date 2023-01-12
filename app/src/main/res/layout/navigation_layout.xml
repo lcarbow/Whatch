@@ -11,6 +11,7 @@
         android:padding="10dp"
         android:scaleX="0.8"
         android:scaleY="0.8"
+        android:translationZ="20dp"
         app:layout_constraintEnd_toStartOf="@+id/providers_button"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_watchlist" />
@@ -25,6 +26,7 @@
         android:padding="10dp"
         android:scaleX="0.8"
         android:scaleY="0.8"
+        android:translationZ="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_settings"/>

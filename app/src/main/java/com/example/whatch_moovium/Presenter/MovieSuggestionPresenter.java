@@ -2,9 +2,6 @@ package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.whatch_moovium.API_Interface.ApiInterface;
@@ -15,16 +12,16 @@ import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 
 
-public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback {
+public class MovieSuggestionPresenter implements Interfaces.apiWatchproviderCallback, Contract.IMovieSuggestionPresenter, Contract.IModelView.OnFinishedListener, Interfaces.apiPosterCallback {
 
     // creating object of View Interface
-    private Contract.IMovieView movieSuggestion;
+    private Contract.IMovieSuggestionView movieSuggestion;
 
     private ApiInterface myAPI_Interface;
     DatabaseHandler databaseHandler;
 
     // instantiating the objects of View Interface
-    public MovieSuggestionPresenter(Contract.IMovieView movieSuggestion) {
+    public MovieSuggestionPresenter(Contract.IMovieSuggestionView movieSuggestion) {
         this.movieSuggestion = movieSuggestion;
         this.databaseHandler = new DatabaseHandler(movieSuggestion.getContext());
         this.myAPI_Interface = new ApiInterface(movieSuggestion.getContext());
@@ -51,8 +48,7 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         movieSuggestion.setRating(String.format("%.1f", (movie.getRating()*10)) + "% Benutzerbewertung");
         movieSuggestion.setGenre(movie.getGenre());
 
-
-        movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
+        myAPI_Interface.getWatchprovider(movie, this);
     }
 
     @Override
@@ -138,5 +134,10 @@ public class MovieSuggestionPresenter implements Contract.IMovieSuggestionPresen
         else {
             movieSuggestion.unsetSeenButtonColor();
         }
+    }
+
+    @Override
+    public void receiveWatchprovider(Movie movie) {
+        movieSuggestion.setStreaming("Als Stream verfügbar auf " + movie.getStreaming());
     }
 }
