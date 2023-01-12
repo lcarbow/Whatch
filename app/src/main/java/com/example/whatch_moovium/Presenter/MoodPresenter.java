@@ -74,7 +74,6 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
             }
             else {
                 getSimilarMovieListFromApi(prefs.getString("tableName", "NULL"));
-                toMovieSuggestion();
             }
         }
         //TODO else:
