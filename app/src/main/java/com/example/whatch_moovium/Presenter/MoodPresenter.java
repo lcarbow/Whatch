@@ -66,22 +66,10 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
         // Set the alarm
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, triggerTime, AlarmManager.INTERVAL_DAY, pendingIntent);
 
+        Log.i("dailyClicked", "go to emojis and 4 movies");
+        Log.i("dailyClicked", String.valueOf(dailyClicked));
+        getRandomMovieListFromApi();
 
-        if (prefs.getBoolean("dailyClicked", false)){
-            Log.i("dailyClicked", "go to moviesugg");
-            if(db.moodSize(prefs.getString("tableName", "NULL"))==0){
-                toMoodSuggestion(prefs.getString("tableName", "NULL"));
-            }
-            else {
-                getSimilarMovieListFromApi(prefs.getString("tableName", "NULL"));
-            }
-        }
-        //TODO else:
-        else {
-            Log.i("dailyClicked", "go to emojis and 4 movies");
-            Log.i("dailyClicked", String.valueOf(dailyClicked));
-            getRandomMovieListFromApi();
-        }
     }
 
     @Override
@@ -114,7 +102,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
     @Override
     public void getSimilarMovieListFromApi(String tablename) {
         //TODO: API_Request:getSimilar mit bereits in DB enthaltenen Filmen
-        myAPI_Interface.getSimilar(db.getMoodlist(tablename), true, StorageClass.getInstance().getProviderList(), 5, this);
+        myAPI_Interface.getSimilar(db.getMoodlist(tablename), true, StorageClass.getInstance().getProviderList(), 20, this);
     }
 
     @Override
