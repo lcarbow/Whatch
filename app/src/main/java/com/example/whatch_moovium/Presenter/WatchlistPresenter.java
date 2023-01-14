@@ -18,8 +18,8 @@ import com.example.whatch_moovium.View.MovieSuggestion;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfaces.apiWatchlistCallback, Interfaces.apiPosterCallback{
-    private Contract.LandingViewWatchlist landingPageWatchlist;
+public class WatchlistPresenter implements Contract.IWatchlistPresenter, Interfaces.apiWatchlistCallback, Interfaces.apiPosterCallback{
+    private Contract.ILandingViewWatchlist landingPageWatchlist;
     private Contract.IModelView model;
     private Contract.IImageLoader imageLoader;
 
@@ -29,7 +29,7 @@ public class WatchlistPresenter implements Contract.WatchlistPresenter, Interfac
     int index;
 
 
-    public WatchlistPresenter(Contract.LandingViewWatchlist landingPageWatchlist){
+    public WatchlistPresenter(Contract.ILandingViewWatchlist landingPageWatchlist){
         this.landingPageWatchlist = landingPageWatchlist;
         this.myApiInterface = new ApiInterface(landingPageWatchlist.getContext());
         this.imageLoader = new ImageLoader(landingPageWatchlist.getContext());

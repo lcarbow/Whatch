@@ -19,13 +19,13 @@ import java.util.List;
 
 public class WatchlistPresenterTest {
     private WatchlistPresenter watchlistPresenter;
-    private Contract.LandingViewWatchlist landingPageWatchlist;
+    private Contract.ILandingViewWatchlist landingPageWatchlist;
     private ApiInterface myApiInterface;
     private DatabaseHandler dbHandler;
 
     @Before
     public void setUp() {
-        landingPageWatchlist = mock(Contract.LandingViewWatchlist.class);
+        landingPageWatchlist = mock(Contract.ILandingViewWatchlist.class);
         myApiInterface = mock(ApiInterface.class);
         dbHandler = mock(DatabaseHandler.class);
 

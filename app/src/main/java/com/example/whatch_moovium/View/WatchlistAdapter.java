@@ -20,9 +20,9 @@ import java.util.List;
 public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.WatchlistViewHolder>{
     private List<Movie> watchlistGallery;
     private Context context;
-    private final Contract.WatchlistPresenter watchlistPresenter;
+    private final Contract.IWatchlistPresenter watchlistPresenter;
 
-    public WatchlistAdapter(Context context, Contract.WatchlistPresenter watchlistPresenter, List<Movie> movieList){
+    public WatchlistAdapter(Context context, Contract.IWatchlistPresenter watchlistPresenter, List<Movie> movieList){
         this.context = context;
         this.watchlistPresenter = watchlistPresenter;
         this.watchlistGallery = movieList;
@@ -56,7 +56,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
     public class WatchlistViewHolder extends RecyclerView.ViewHolder {
         private ImageView posterImgView;
 
-        public WatchlistViewHolder(View view, Contract.WatchlistPresenter watchlistPresenter){
+        public WatchlistViewHolder(View view, Contract.IWatchlistPresenter watchlistPresenter){
             super(view);
 
             posterImgView = itemView.findViewById(R.id.watchlist_item);

@@ -121,7 +121,7 @@ public interface Contract {
     }
 
 
-    interface WatchlistPresenter{
+    interface IWatchlistPresenter{
         void getMovieListFromApi();
         void onButtonClick();
         void setImageViewForLoader(ImageView imageView);
@@ -131,7 +131,7 @@ public interface Contract {
         void onClickImage(View view, int adapterPosition);
     }
 
-    interface LandingViewWatchlist {
+    interface ILandingViewWatchlist {
         Context getContext();
         void setAdapter();
     }
@@ -149,7 +149,7 @@ public interface Contract {
         Context getContextForNav();
     }
 
-    interface LandingViewProvider{
+    interface ILandingViewProvider{
         Context getContext();
     }
 }
