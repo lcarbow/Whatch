@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.DatabaseHandler;
@@ -25,7 +25,7 @@ import java.util.List;
 public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDiscoverCallback, Interfaces.apiSimilarCallback{
 
     private Contract.ILandingViewMood landingPageView;
-    private ApiInterface myAPI_Interface;
+    private ApiHandler myAPI_Interface;
     private SharedPreferences prefs;
     private boolean dailyClicked = false;
     private DatabaseHandler db;
@@ -33,7 +33,7 @@ public class MoodPresenter implements Contract.IMoodPresenter, Interfaces.apiDis
 
     public MoodPresenter(Contract.ILandingViewMood landingPageView) {
         this.landingPageView = landingPageView;
-        myAPI_Interface = new ApiInterface(landingPageView.getContext());
+        myAPI_Interface = new ApiHandler(landingPageView.getContext());
         prefs = landingPageView.getContext().getSharedPreferences("X", Context.MODE_PRIVATE);
         this.db = new DatabaseHandler(landingPageView.getContext());
     }

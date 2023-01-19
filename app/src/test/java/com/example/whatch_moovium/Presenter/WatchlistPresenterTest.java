@@ -1,6 +1,6 @@
 package com.example.whatch_moovium.Presenter;
 
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.DatabaseHandler;
 import com.example.whatch_moovium.Model.Movie;
@@ -20,17 +20,17 @@ import java.util.List;
 public class WatchlistPresenterTest {
     private WatchlistPresenter watchlistPresenter;
     private Contract.ILandingViewWatchlist landingPageWatchlist;
-    private ApiInterface myApiInterface;
+    private ApiHandler myApiHandler;
     private DatabaseHandler dbHandler;
 
     @Before
     public void setUp() {
         landingPageWatchlist = mock(Contract.ILandingViewWatchlist.class);
-        myApiInterface = mock(ApiInterface.class);
+        myApiHandler = mock(ApiHandler.class);
         dbHandler = mock(DatabaseHandler.class);
 
         watchlistPresenter = new WatchlistPresenter(landingPageWatchlist);
-        watchlistPresenter.myApiInterface = myApiInterface;
+        watchlistPresenter.myApiHandler = myApiHandler;
         watchlistPresenter.dbHandler = dbHandler;
     }
 
@@ -63,7 +63,7 @@ public class WatchlistPresenterTest {
 
         watchlistPresenter.getMovieListFromApi();
 
-        verify(myApiInterface).getWatchlist(watchList, watchlistPresenter);
+        verify(myApiHandler).getWatchlist(watchList, watchlistPresenter);
     }
 
     /**
@@ -108,8 +108,8 @@ public class WatchlistPresenterTest {
 
         watchlistPresenter.receiveWatchlist(movieList);
 
-        verify(myApiInterface).getPoster(movieList.get(0).getPoster(), watchlistPresenter);
-        verify(myApiInterface).getPoster(movieList.get(1).getPoster(), watchlistPresenter);
-        verify(myApiInterface).getPoster(movieList.get(2).getPoster(), watchlistPresenter);
+        verify(myApiHandler).getPoster(movieList.get(0).getPoster(), watchlistPresenter);
+        verify(myApiHandler).getPoster(movieList.get(1).getPoster(), watchlistPresenter);
+        verify(myApiHandler).getPoster(movieList.get(2).getPoster(), watchlistPresenter);
     }
 }

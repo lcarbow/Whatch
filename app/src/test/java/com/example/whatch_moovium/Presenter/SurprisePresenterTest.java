@@ -1,18 +1,13 @@
 package com.example.whatch_moovium.Presenter;
 
-import static org.junit.Assert.*;
-
 import android.content.Context;
-import android.content.Intent;
 
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.manipulation.Ordering;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -45,7 +40,7 @@ public class SurprisePresenterTest {
 
         // Erstellen von Mock-Objekten für die benötigten Klassen und Interfaces
         Contract.ILandingViewSurprise mockLandingView = Mockito.mock(Contract.ILandingViewSurprise.class);
-        ApiInterface mockApiInterface = Mockito.mock(ApiInterface.class);
+        ApiHandler mockApiHandler = Mockito.mock(ApiHandler.class);
 
         // Einrichten von Mockito, um ein Mock-Context-Objekt zurückzugeben, wenn die getContext()-Methode aufgerufen wird
         Context mockContext = Mockito.mock(Context.class);
@@ -56,7 +51,7 @@ public class SurprisePresenterTest {
         presenter.getMovieListFromApi();
 
         // Überprüfen, ob die getDiscover()-Methode des Mock-ApiInterface-Objekts aufgerufen wurde
-        Mockito.verify(mockApiInterface).getDiscover(Mockito.anyString(), Mockito.anyBoolean(), Mockito.anyList(), Mockito.any(Interfaces.apiDiscoverCallback.class));
+        Mockito.verify(mockApiHandler).getDiscover(Mockito.anyString(), Mockito.anyBoolean(), Mockito.anyList(), Mockito.any(Interfaces.apiDiscoverCallback.class));
 
 
 

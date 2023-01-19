@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.widget.Toast;
 
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.DatabaseHandler;
@@ -17,14 +17,14 @@ public class MovieSuggestionPresenter implements Interfaces.apiWatchproviderCall
     // creating object of View Interface
     private Contract.IMovieSuggestionView movieSuggestion;
 
-    private ApiInterface myAPI_Interface;
+    private ApiHandler myAPI_Interface;
     DatabaseHandler databaseHandler;
 
     // instantiating the objects of View Interface
     public MovieSuggestionPresenter(Contract.IMovieSuggestionView movieSuggestion) {
         this.movieSuggestion = movieSuggestion;
         this.databaseHandler = new DatabaseHandler(movieSuggestion.getContext());
-        this.myAPI_Interface = new ApiInterface(movieSuggestion.getContext());
+        this.myAPI_Interface = new ApiHandler(movieSuggestion.getContext());
     }
 
     @Override

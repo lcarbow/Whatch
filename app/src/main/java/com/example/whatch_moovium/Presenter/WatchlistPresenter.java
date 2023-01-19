@@ -12,7 +12,6 @@ import com.example.whatch_moovium.DatabaseHandler;
 import com.example.whatch_moovium.Model.Model;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
-import com.example.whatch_moovium.Presenter.ImageLoader;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class WatchlistPresenter implements Contract.IWatchlistPresenter, Interfa
     private Contract.IModelView model;
     private Contract.IImageLoader imageLoader;
 
-    ApiInterface myApiInterface;
+    ApiHandler myApiHandler;
     DatabaseHandler dbHandler;
     private List<Movie> movieList;
     int index;
@@ -31,7 +30,7 @@ public class WatchlistPresenter implements Contract.IWatchlistPresenter, Interfa
 
     public WatchlistPresenter(Contract.ILandingViewWatchlist landingPageWatchlist){
         this.landingPageWatchlist = landingPageWatchlist;
-        this.myApiInterface = new ApiInterface(landingPageWatchlist.getContext());
+        this.myApiHandler = new ApiHandler(landingPageWatchlist.getContext());
         this.imageLoader = new ImageLoader(landingPageWatchlist.getContext());
         this.dbHandler = new DatabaseHandler(landingPageWatchlist.getContext());
         this.movieList = new ArrayList<>();
@@ -56,7 +55,7 @@ public class WatchlistPresenter implements Contract.IWatchlistPresenter, Interfa
         StorageClass.getInstance().resetSettingForWatchList();
         List<Integer> watchList = new ArrayList<>();
         watchList = dbHandler.getWatchlist();
-        myApiInterface.getWatchlist(watchList, this);
+        myApiHandler.getWatchlist(watchList, this);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class WatchlistPresenter implements Contract.IWatchlistPresenter, Interfa
         this.index = 0;  // Initialize the index variable
         StorageClass.getInstance().addWatchModelList(new Model (watchList));
         for (Movie movie : movieList) {
-            myApiInterface.getPoster(movie.getPoster(), this);
+            myApiHandler.getPoster(movie.getPoster(), this);
             Log.i("receiveMovies", movie.getTitle());
         }
     }

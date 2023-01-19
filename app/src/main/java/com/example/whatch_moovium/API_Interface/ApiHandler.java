@@ -3,29 +3,21 @@ package com.example.whatch_moovium.API_Interface;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.whatch_moovium.Genre;
 import com.example.whatch_moovium.Model.Movie;
-import com.example.whatch_moovium.Presenter.MoodSuggPresenter;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
-public class ApiInterface {
+public class ApiHandler {
 
     private RequestQueue mQueue;
     private Activity activity;
@@ -34,7 +26,7 @@ public class ApiInterface {
     private static String apiKey = "f862a1abef6de0d1ca20c51abb9f51ab";
 
     //constructor
-    public ApiInterface(Context context) {
+    public ApiHandler(Context context) {
         mQueue = Volley.newRequestQueue(context);
         this.activity = (Activity) context;
         this.context = context;
