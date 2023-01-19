@@ -19,9 +19,9 @@ import java.util.concurrent.CountDownLatch;
 
 public class WatchproviderRequest {
 
-    Movie movie;
-    CountDownLatch countDownLatch;
-    RequestQueue mQueue;
+    private Movie movie;
+    private CountDownLatch countDownLatch;
+    private RequestQueue mQueue;
 
     public WatchproviderRequest(Movie movie, CountDownLatch countDownLatch, RequestQueue mQueue) {
         this.movie = movie;

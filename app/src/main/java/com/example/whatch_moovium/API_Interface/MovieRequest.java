@@ -14,9 +14,9 @@ public class MovieRequest {
 
     private RequestQueue mQueue;
     private String apiKey;
-    CountDownLatch countDownLatch;
-    Movie movie;
-    int id;
+    private CountDownLatch countDownLatch;
+    private Movie movie;
+    private int id;
 
     public MovieRequest(RequestQueue mQueue, String apiKey, CountDownLatch countDownLatch, Movie movie, int id) {
         this.mQueue = mQueue;

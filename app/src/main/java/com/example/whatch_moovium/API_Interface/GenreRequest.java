@@ -28,7 +28,7 @@ public class GenreRequest {
         genreRequest();
     }
 
-    void genreRequest() {
+    private void genreRequest() {
 
         //make thread
         Thread thread = new Thread(new Runnable() {
