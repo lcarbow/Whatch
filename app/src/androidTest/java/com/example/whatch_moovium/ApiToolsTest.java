@@ -45,7 +45,7 @@ public class ApiToolsTest {
         Assert.assertEquals("Black Adam", movie.getTitle());
         Assert.assertEquals(436270, movie.getId());
         Assert.assertEquals("Fast 5.000 Jahre nachdem er mit den allmächtigen Kräften der ägyptischen Götter ausgestattet und ebenso schnell wieder eingesperrt wurde, wird Black Adam aus seinem irdischen Grab befreit und ist bereit, seine einzigartige Form der Gerechtigkeit auf die moderne Welt loszulassen.", movie.getDescription());
-        Assert.assertEquals("Action, Fantasy, Science Fiction, ", movie.getGenre());
+        Assert.assertEquals("Action, Fantasy, Science Fiction", movie.getGenre());
         Assert.assertEquals(7.3, movie.getRating(), 0.001);
         Assert.assertEquals("/af5jyYU0DcQeI7z1YpKPTIbgPKX.jpg", movie.getPoster());
         Assert.assertEquals("/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg", movie.getBackdrop());
@@ -132,7 +132,7 @@ public class ApiToolsTest {
         Assert.assertEquals("Dune", movie.getTitle());
         Assert.assertEquals(438631, movie.getId());
         Assert.assertEquals("\"Dune\" erzählt die packende Geschichte des brillanten jungen Helden Paul Atreides, dem das Schicksal eine Rolle vorherbestimmt hat, von der er niemals geträumt hätte. Um die Zukunft seiner Familie und seines gesamten Volkes zu sichern, muss Paul auf den gefährlichsten Planeten des Universums reisen. Nur auf dieser Welt existiert ein wertvoller Rohstoff, der es der Menschheit ermöglichen könnte, ihr vollständiges geistiges Potenzial auszuschöpfen.  Doch finstere Mächte wollen die Kontrolle über die kostbare Substanz an sich reißen. Es entbrennt ein erbitterter Kampf, den nur diejenigen überleben werden, die ihre eigenen Ängste besiegen.", movie.getDescription());
-        Assert.assertEquals("Science Fiction, Abenteuer, ", movie.getGenre());
+        Assert.assertEquals("Science Fiction, Abenteuer", movie.getGenre());
         Assert.assertEquals(7.841, movie.getRating(), 0.001);
         Assert.assertEquals("/34Hr4bEzF30jd6sEvI4HihEUEI8.jpg", movie.getPoster());
         Assert.assertEquals("/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg", movie.getBackdrop());

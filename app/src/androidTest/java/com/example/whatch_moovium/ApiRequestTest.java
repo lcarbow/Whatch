@@ -9,7 +9,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.example.whatch_moovium.API_Interface.ApiRequest;
+import com.example.whatch_moovium.API_Interface.VolleyRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,8 +29,8 @@ public class ApiRequestTest {
         RequestQueue queue = Volley.newRequestQueue(appContext);
         String url = "https://api.themoviedb.org/3/discover/movie?api_key=f862a1abef6de0d1ca20c51abb9f51ab";
 
-        ApiRequest apiRequest = new ApiRequest(url, queue);
-        JSONObject jsonObject = apiRequest.getJSON();
+        VolleyRequest volleyRequest = new VolleyRequest(url, queue);
+        JSONObject jsonObject = volleyRequest.getJSON();
 
         Assert.assertNotNull(jsonObject);
         Assert.assertTrue(jsonObject.has("results"));

@@ -17,7 +17,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Presenter.BottomNavPresenter;
