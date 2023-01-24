@@ -1,7 +1,8 @@
 # Whatch
 
 ## Description
-A free Android app to find new movies that are available on your Streaming platforms.
+A free Android app to find new movies that are available on your Streaming platforms.<br/>
+The app is written natively in Java. 
 
 All data is fetched from the open TMDB database API.
 
@@ -19,9 +20,19 @@ All data is fetched from the open TMDB database API.
 Download the current APK from the releases tab.
 
 ## Attribution
-All the movie data is from the TMDB Database. 
+All movie data is from the TMDB Database.<br> 
+<img src="./documentation/tmdb-logo.svg" alt="Genre View" width="200">
 
-<img src="./documentation/tmdb-logo.svg" alt="Genre View" width="200">3
+## Technologies Used
+* Volley
+* Picasso
+* TMDB Api
+* Java
 
 ## Contributors
+* [Michelle Lamowski](https://www.github.com/mlamowski)<br>
+* [Lasse](https://www.github.com/lcarbow)<br>
+* [Nadine Friede](https://www.github.com/)<br>
+* [Alexander Farwer](https://www.github.com/Colindustrys)<br>
+
 This a project was created as a part of the 2022/23 Software Engineering course at the HAW Hamburg guided by Thorben Ortmann.
