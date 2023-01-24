@@ -22,7 +22,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext, Contract.LandingViewProvider {
+public class LandingPage_ProviderSettings extends AppCompatActivity implements Contract.IProviderRecyclerView, Contract.IBottomNavContext, Contract.ILandingViewProvider {
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
     ProviderPresenter pp;

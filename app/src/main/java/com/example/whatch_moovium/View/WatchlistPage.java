@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.List;
 
-public class WatchlistPage extends AppCompatActivity implements Contract.LandingViewWatchlist, Contract.IBottomNavContext{
+public class WatchlistPage extends AppCompatActivity implements Contract.ILandingViewWatchlist, Contract.IBottomNavContext{
 
 
     private Contract.IBottomNavPresenter bottomNavPresenter;
@@ -29,7 +29,7 @@ public class WatchlistPage extends AppCompatActivity implements Contract.Landing
     private RecyclerView recyclerView;
     private WatchlistAdapter watchlistAdapter;
     private GridLayoutManager gridLayoutManager;
-    private Contract.WatchlistPresenter presenter;
+    private Contract.IWatchlistPresenter presenter;
 
 
     @Override

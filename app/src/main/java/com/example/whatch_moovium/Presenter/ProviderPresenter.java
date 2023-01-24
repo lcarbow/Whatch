@@ -18,9 +18,9 @@ import java.util.List;
 public class ProviderPresenter {
 
     private ArrayList<ProviderModel> possibleProviders = new ArrayList<>();
-    private Contract.LandingViewProvider landingPageProvider;
+    private Contract.ILandingViewProvider landingPageProvider;
 
-    public ProviderPresenter(Contract.LandingViewProvider landingPageProvider){
+    public ProviderPresenter(Contract.ILandingViewProvider landingPageProvider){
         this.landingPageProvider = landingPageProvider;
     }
 

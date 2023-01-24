@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+//used to get a list of all genres
 public class GenreRequest {
 
     private RequestQueue mQueue;
@@ -28,7 +29,7 @@ public class GenreRequest {
         genreRequest();
     }
 
-    void genreRequest() {
+    private void genreRequest() {
 
         //make thread
         Thread thread = new Thread(new Runnable() {

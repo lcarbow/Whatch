@@ -36,7 +36,7 @@ public class SimilarRequest {
         makeRequest();
     }
 
-    public void makeRequest() {
+    private void makeRequest() {
 
         //make url
         String url = "https://api.themoviedb.org/3/movie/" + movieID + "/similar?api_key=" + apiKey + "&language=de-DE&page=" + page;

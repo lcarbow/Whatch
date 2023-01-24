@@ -12,11 +12,11 @@ import java.util.concurrent.CountDownLatch;
 
 public class VolleyRequest {
 
-    String url;
-    CountDownLatch myCountDownLatch;
-    RequestQueue mQueue;
-    JSONObject jsonObject;
-    Boolean success;
+    private String url;
+    private CountDownLatch myCountDownLatch;
+    private RequestQueue mQueue;
+    private JSONObject jsonObject;
+    private Boolean success;
 
     public VolleyRequest(String url, RequestQueue mQueue) {
         this.url = url;
@@ -26,7 +26,7 @@ public class VolleyRequest {
         makeRequest();
     }
 
-    JSONObject getJSON() throws InterruptedException {
+    public JSONObject getJSON() throws InterruptedException {
         myCountDownLatch.await();
         if (success) {
             return jsonObject;

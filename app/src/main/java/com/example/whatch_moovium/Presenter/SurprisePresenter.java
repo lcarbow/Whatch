@@ -1,9 +1,8 @@
 package com.example.whatch_moovium.Presenter;
 
 import android.content.Intent;
-import android.util.Log;
 
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.Model.Model;
@@ -11,18 +10,17 @@ import com.example.whatch_moovium.Model.Movie;
 import com.example.whatch_moovium.Model.StorageClass;
 import com.example.whatch_moovium.View.MovieSuggestion;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class SurprisePresenter implements Contract.ISurprisePresenter, Interfaces.apiDiscoverCallback{
 
     private Contract.ILandingViewSurprise landingPageView;
-    private ApiInterface myAPI_Interface;
+    private ApiHandler myAPI_Interface;
 
     public SurprisePresenter(Contract.ILandingViewSurprise landingPageView) {
         this.landingPageView = landingPageView;
-        myAPI_Interface = new ApiInterface(landingPageView.getContext());
+        myAPI_Interface = new ApiHandler(landingPageView.getContext());
     }
 
     @Override

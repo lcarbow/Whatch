@@ -16,12 +16,12 @@ public class DiscoverRequest {
 
     private RequestQueue mQueue;
     private String apiKey;
-    String sort;
-    boolean flatrate;
-    List<Integer> providers;
-    List<Movie> movieList;
-    String genres;
-    CountDownLatch countDownLatch;
+    private String sort;
+    private boolean flatrate;
+    private List<Integer> providers;
+    private List<Movie> movieList;
+    private String genres;
+    private CountDownLatch countDownLatch;
 
     public DiscoverRequest(RequestQueue mQueue, String apiKey, String sort, boolean flatrate, List<Integer> providers, List<Movie> movieList, String genres, CountDownLatch countDownLatch) {
         this.mQueue = mQueue;

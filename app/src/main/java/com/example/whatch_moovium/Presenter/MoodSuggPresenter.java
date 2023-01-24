@@ -3,7 +3,7 @@ package com.example.whatch_moovium.Presenter;
 import android.content.Intent;
 import android.widget.ImageButton;
 
-import com.example.whatch_moovium.API_Interface.ApiInterface;
+import com.example.whatch_moovium.API_Interface.ApiHandler;
 import com.example.whatch_moovium.API_Interface.Interfaces;
 import com.example.whatch_moovium.Contract;
 import com.example.whatch_moovium.DatabaseHandler;
@@ -19,14 +19,14 @@ public class MoodSuggPresenter implements Contract.IMoodSuggPresenter, Interface
 
     private Contract.ILandingViewMoodSugg landingPageView;
     private Contract.IImageLoader imageLoader;
-    private ApiInterface myAPI_Interface;
+    private ApiHandler myAPI_Interface;
     private int index;
     private List<ImageButton> buttons;
     private DatabaseHandler db;
 
     public MoodSuggPresenter(Contract.ILandingViewMoodSugg landingPageView, List<ImageButton> buttons) {
         this.landingPageView = landingPageView;
-        myAPI_Interface = new ApiInterface(landingPageView.getContext());
+        myAPI_Interface = new ApiHandler(landingPageView.getContext());
         imageLoader = new ImageLoader(landingPageView.getContext());
         this.buttons = buttons;
         index = 0;
