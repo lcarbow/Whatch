@@ -13,12 +13,7 @@ All data is fetched from the open TMDB database API.
 * Add movies to a watchlist. 
 
 ## Screenshots
-<img src="./documentation/Screenshot_20230124-131321.png" alt="Genre View" width="150">
-<img src="./documentation/Screenshot_20230124-131330.png" alt="Genre View" width="150">
-<img src="./documentation/Screenshot_20230124-131338.png" alt="Genre View" width="150">
-<img src="./documentation/Screenshot_20230124-131353.png" alt="Genre View" width="150">
-<img src="./documentation/Screenshot_20230124-131400.png" alt="Genre View" width="150">
-<img src="./documentation/Screenshot_20230124-131436.png" alt="Genre View" width="150">
+<img src="./documentation/Screenshot_20230124-131321.png" alt="Genre View" width="150"><img src="./documentation/Screenshot_20230124-131330.png" alt="Genre View" width="150"><img src="./documentation/Screenshot_20230124-131338.png" alt="Genre View" width="150"><img src="./documentation/Screenshot_20230124-131353.png" alt="Genre View" width="150"><img src="./documentation/Screenshot_20230124-131400.png" alt="Genre View" width="150"><img src="./documentation/Screenshot_20230124-131436.png" alt="Genre View" width="150">
 
 ## Download
 Download the current APK from the releases tab.
