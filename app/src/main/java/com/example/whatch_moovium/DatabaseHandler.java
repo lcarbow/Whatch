@@ -19,7 +19,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String TABLE_WATCHLIST_NAME = "watchlist";
     private static final String TABLE_SEENLIST_NAME = "seenlist";
-    private static final String TABLE_PROVIDER_NAME = "provider";
     private static final String TABLE_IMAGEBUTTON_1 = "imagebutton1";
     private static final String TABLE_IMAGEBUTTON_2 = "imagebutton2";
     private static final String TABLE_IMAGEBUTTON_3 = "imagebutton3";
@@ -29,7 +28,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String COLUMN_WATCHLIST_ID = "ID";
     private static final String COLUMN_SEENLIST_ID = "ID";
-    private static final String COLUMN_PROVIDER = "activeproviders";
     private static final String COLUMN_GENERAL = "INTI";
 
     SQLiteDatabase database;
@@ -43,7 +41,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_WATCHLIST_NAME+" ( "+COLUMN_WATCHLIST_ID+" INTEGER PRIMARY KEY)");
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_SEENLIST_NAME+" ( "+COLUMN_SEENLIST_ID+" INTEGER PRIMARY KEY)");
-        sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_PROVIDER_NAME+" ( "+COLUMN_PROVIDER+" TEXT)");
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_IMAGEBUTTON_1+" ( "+COLUMN_GENERAL+" INTEGER PRIMARY KEY)");
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_IMAGEBUTTON_2+" ( "+COLUMN_GENERAL+" INTEGER PRIMARY KEY)");
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_IMAGEBUTTON_3+" ( "+COLUMN_GENERAL+" INTEGER PRIMARY KEY)");
@@ -144,7 +141,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String countQuery = "SELECT * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        return cursor.getCount();
+        int i = cursor.getCount();
+        cursor.close();
+        return i;
     }
 
     public boolean checkIfThree(String tableName){
